@@ -1,0 +1,26 @@
+# Complied source #
+###################
+
+*.exe
+*.hi
+*.o
+
+# LaTeX auxiliary files #
+#########################
+
+*.aux
+*.idx
+*.ilg
+*.ind
+*.log
+*.nlo
+*.out
+*.ptc
+*.ptx
+*.gz
+
+# Miscellaneous files #
+#######################
+
+*~
+*#

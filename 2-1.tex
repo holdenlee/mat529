@@ -1,0 +1,266 @@
+\chapter{Intro}
+
+\blu{2/1/16}
+
+
+\section{The Ribe Program}
+Our main motivation is the \ivocab{Ribe Program}. The program is inspired from a theorem from 1975 called Ribe's Rigidity Theorem~\ref{thm:ribe}. The theorem is about Banach spaces, specifically a relationship between their linear structure and metric structure.
+
+\begin{df}
+Let $(X,\ved_X), (Y,\ved_Y)$ by Banach spaces. We say that $X$ is (crudely) \ivocab{finitely representable} in $Y$ if there exists $K>0$ such that for every finite-dimensional linear subspace $F\subeq X$, there is a linear operator $S:F\to Y$ such that for every $x\in F$, 
+\[
+\ve{x}_X\le \ve{Sx}_Y\le K\ve{x}_X.
+\]
+%every finite dimensional subspace of $X$ is represented in $Y$.
+\end{df}
+Note $K$ is decided once and for all, before the subspace $F$ is chosen.
+
+(Some authors use ``finitely representable" to mean that this is true for any $K=1+\ep$. We will not follow this terminology.)
+
+Finite representability is important because %$X$ is finitely representable in $Y$  
+it allows us to conclude that $X$ has the same finite dimensional linear properties (\ivocab{local properties}) as $Y$. That is, it preserves any invariant involves finitely many vectors, their lengths, etc.
+
+Let's introduce some local properties like type. To motivate the definition, 
+%For example, for type $p\ge 1$, take any $y_1,\ldots, y_n\in Y$. 
+consider the triangle inequality, which says 
+\[
+\ve{y_1+\cdots +y_n}_Y\le \ve{y_1}_Y+\cdots +\ve{y_n}_Y.
+\]
+In what sense can we improve the triangle inequality? In $L^1$ this is the best you can say. In many spaces there are ways to improve it if you think about it correctly.
+
+For any choice $\ep_1,\ldots, \ep_n\in \{\pm 1\}$, 
+\[
+\ve{\sum_{i=1}^n \ep_i y_i}_Y \le \sum_{i=1}^n \ve{y_i}_Y.
+\]
+\begin{df}\llabel{df:type}
+Say that $X$ has \ivocab{type} $p$ if there exists $T>0$ such that for every $n, y_1,\ldots, y_n\in Y$, 
+\[
+\EE_{\ep\in \{\pm 1\}^n} \ve{\sum_{i=1}^n \ep_i y_i}_Y\le T\ba{\sum_{i=1}^n \ve{y_j}_Y^p}^{\rc p}.
+\]
+The $L^p$ norm is always at most the $L^1$ norm; if the lengths are spread out, this is asymptotically much better. Say $Y$ has \ivocab{nontrivial type} if $p>1$.
+\end{df}
+
+For example, $L_p(\mu)$ has type $\min(p,2)$.
+
+Later we'll see a version of ``type" for metric spaces. How far is the triangle inequality from being an equality is a common theme in many questions. In the case of normed spaces, this controls a lot of the geometry. Proving a result for $p>1$ is hugely important.
+
+%X innherits the local linear properties of $Y$.
+
+\begin{pr}\llabel{pr:finrep-type}
+If $X$ is finitely representable and $Y$ has type $p$ then also $X$ has type $p$.
+\end{pr}
+
+\begin{proof}
+Let $x_1,\ldots, x_n\in X$. Let $F=\spn\{x_1,\ldots, x_n\}$. Finite representability gives me $S:F\to Y$. Let $y_i=Sx_i$. What can we say about $\sum \ep_iy_i$?
+\bal
+ \EE_{\ep}\ve{\sum_{i=1}^n \ep_iy_i}_Y &=  \EE_{\ep}\ve{S(\sui \ep_i x_i)}_Y\\
+&\ge \EE_{\ep} \ve{\sui \ep_iX_i}_X\\
+ \EE_{\ep}\ve{\sum_{i=1}^n \ep_iy_i}_Y &\le T\pa{\sui \ve{Sx_i}^p}^{\rc p}\\
+& \le TK\pa{\sui \ve{x_i}^p}^{\rc p}.
+%preserves any invariant involves finitely many vectors, their lengths, etc.
+\end{align*}
+Putting these two inequalities together gives the result.
+\end{proof}
+
+\begin{thm}[Kahane's inequality]\index{Kahane's inequality}
+For any normed space $Y$ and $q\ge 1$, for all $n$, $y_1,\ldots, y_n\in Y$,
+\[
+\E\ve{\sum_{i=1}^n \ep_i y_i}\gtrsim_q \pa{
+\E\ba{\ve{\sum_{i=1}^n \ep_i y_i}_Y^q}
+}^{\rc q}.
+\]
+Here $\gtrsim_q$ means ``up to a constant"; subscripts say what the constant depends on. The constant here does not depend on the norm $Y$.
+\end{thm}
+Kahane's Theorem tells us that the LHS of Definition~\ref{df:type} can be replaced by any norm, if we change $\le$ to $\lesssim$. We get that having type $p$ is equivalent to 
+\[
+\E\ve{\sum_{i=1}^n \ep_i y_i}_Y^p \lesssim T^p \sum_{i=1}^n \ve{y_i}_Y^p.
+\]
+Recall the \ivocab{parallelogram identity} in a Hilbert space $H$:
+\[
+\E\ve{\sum_{i=1}^n \ep_i y_i}^2 = \sum_{i=1}^n \ve{y_i}_H^2.
+\]
+A different way to understand 
+%not as good a way
+the inequality in the definition of ``type" is: how far is a given norm from being an Euclidean norm? 
+The \ivocab{Jordan-von Neumann Theorem} says that if  parallelogram identity holds then it's a Euclidean space. What happes if we turn it in an inequality?
+\[
+\E\ve{\sum_{i=1}^n \ep_i y_i}_H^2 \gle T\sum_{i=1}^n \ve{y_i}_H^2.
+\]
+Either inequality \emph{still} characterizes a Euclidean space. 
+
+What happens if we add constants or change the power? We recover the definition for type and cotype (which has the inequality going the other way):
+\[
+\E\ve{\sum_{i=1}^n \ep_i y_i}_H^q \begin{array}{c}
+\gtrsim\\
+\lesssim
+\end{array} \sum_{i=1}^n \ve{y_i}_H^q.
+\]
+
+\begin{df}
+Say it has \ivocab{cotype $q$} if
+\[
+\sum_{i=1}^n \ve{y_i}_Y^q \lesssim C^q \E \ve{\sum_{i=1}^n \ep_i y_i}_Y^q
+\]
+\end{df}
+R. C. James invented the local theory of Banach spaces, the study of geometry that involves properties involving finitely many vectors ($\forall x_1,\ldots, x_n, P(x_1,\ldots, x_n)$ holds). As a counterexample, reflexivity cannot be characterized using finitely many vectors (this is a theorem).
+
+Ribe discovered link between metric and linear spaces.
+
+First, terminology.
+
+\begin{df}
+Two Banach spaces are \ivocab{uniformly homeomorphic} if there exists $f:X\to Y$ that is 1-1 and onto and $f,f^{-1}$ are uniformly continuous. 
+\end{df}
+
+Without the word ``uniformly", if you think of the spaces as topological spaces, all of them are equivalent. Things become interesting when you quantify! ``Uniformly" means you're controlling the quantity.
+\begin{thm}[Kadec]\index{Kadec's Theorem}
+Any two infinite-dimensional separable Banach spaces are homeomorphic.
+\end{thm}
+%They are all the same as Hilbert spaces.
+This is a amazing fact: these spaces are all topologically equivalent to Hilbert spaces!
+
+Over time people people found more examples of Banach spaces that are homeomorphic but not uniformly homeomorphic. Ribe's rigidity theorem clarified a big chunk of what was happening.
+
+\index{rigidity theorem}
+\begin{thm}[Rigidity Theorem, Martin Ribe (1975)]\llabel{thm:ribe}
+%government official in Sweden.
+Suppose that $X,Y$ are uniformly homeomorphic Banach spaces.  Then $X$ is finitely representable in $Y$ and $Y$ is finitely representable in $X$.
+\end{thm} 
+For example, for $L^p$ and $L^q$, for $p\ne q$ it's always that case that one is not finitely representable in the other, and hence by Ribe's Theorem, $L^p,L^q$ are not uniformly homeomorphic.
+%averages of sums with random signs
+%squaring things
+%$\ep$-uncorrelated, very linear
+%we will deduce from this general phen that you can't deform $L_p$ into $L_q$ even in a nonlinear category.
+%if you're equivalent in a weak category, you're equivalent in a stronger category.
+(When I write $L_p$, I mean $L_p(\R)$.)
+
+\begin{thm}
+For every $p\ge 1,p\ne2$, $L_p$ and $\ell_p$ are finitely representable in each other, yet not uniformly homeomorphic.
+\end{thm}
+(Here $\ell_p$ is the sequence space.) 
+Proof of finite representability is a good exercise. You'll need to remember some measure theory.
+
+When $p=2$, $L_p,\ell_p$ are separable and isometric.
+
+The theorem in various cases was proved by:
+\begin{enumerate}
+\item
+$p=1$: Enflo
+\item
+$1<p<2$: Bourgain
+\item
+$p>2$: Gorelik, applying the Brouwer fixed point theorem (topology)
+\end{enumerate}
+%can't deform function into sequence space in uniformly continuous way.
+
+Every linear property of a Banach signs which is local (type, cotype, etc.; involving summing, powers, etc.) is preserved under a general nonlinear deformation.
+
+After the theorem, people wondered: can we reformulate the local theory of Banach spaces without mentioning anything about the linear structure? 
+%uniform homomorphism
+In metric spaces, we are only allowed to discuss distances between points, not linear properties (ex. summing up). Suppose we can reformulate local theory in this way---find a dictionary that reformulates each linear property and theorem about linear properties as properties and theorems involving distances. Then we can state the analogous theorems for metric spaces. In particular, we can discuss when metric spaces have type and cotype. Maybe the theorems remain true---often they do, for different reasons. Now we can apply the theorem to graphs, groups, etc. %Somewhere
+%transl concept, theorems, phenomenon fro linear spaces to metric spaces.
+Thus, we end up applying theorems on linear spaces in situations with \emph{a priori nothing} to do with linear spaces. This is massively powerful.
+%massively powerful. 
+%mysterious dictionary.
+
+There are very crucial entries that are missing in the dictionary. We don't even now how to define many of the properties! %how to reformulate
+This program has many interesting proofs. Some of the most interesting conjectures are how to define things!
+
+\begin{cor}\llabel{cor:uh-type}
+If $X,Y$ are uniformly homeomorphic and if one of them is of type $p$, then the other does. 
+\end{cor}
+This follows from Ribe's Theorem~\ref{thm:ribe} and Proposition~\ref{pr:finrep-type}. Can we prove something like this theorem without using Ribe's Theorem~\ref{thm:ribe}?
+%going back to the abstract principle?
+We want to reformulate the definition of type using only the distance, so this becomes self-evident.
+
+Enflo had an amazing idea. 
+Suppose $X$ is a Banach space, $x_1,\ldots, x_n\in X$. The type $p$ inequality  says 
+\beq{eq:type-p}
+\E\ba{\ve{\sum_{i=1}^n \ep_i x_i}^p} \lesssim_X \sum_{i=1}^n \ve{x_i}^p.
+\eeq
+Let's rewrite this in a silly way. Define $f:\{\pm 1\}^n\to X$ by
+\[
+f(\ep_1,\ldots, \ep_n)=\sum_{i=1}^n \ep_i x_i.
+\]
+Write $\ep=(\ep_1,\ldots, \ep_n)$. Multiplying by $2^n$, we can write the inequality~\eqref{eq:type-p} as
+\beq{eq:type-gen}
+\E\ba{
+\ve{f(\ep) - f(-\ep)}^p
+}\lesssim_X
+\sum_{i=1}^n \E\ba{ \ve{f(\ep)-f(\ep_1,\ldots, \ep_{i-1}, -\ep_i, \ep_{i+1},\ldots, \ep_n)}^p}.
+\eeq
+This inequality just involves distances between points $f(\ep)$, so it is the reformulation we seek.
+
+\begin{df}\llabel{df:enflo}
+A metric space $(X,d_X)$ has \ivocab{Enflo type $p$} if there exists $T>0$ such that $n$ and every $f:\{\pm 1\}^n\to X$,
+\[
+\E[d_X(f(\ep), f(-\ep))^p]\le T^p \sum_{i=1}^n \E[ d_X(f(\ep), f(\ep_1,\ldots, \ep_{i-1}, -\ep_i, \ep_{i+1},\ldots, \ep_n))].
+\]
+\end{df}
+This is bold. 
+%you should worry about this!
+%The discrete cube is all these vectors with $\ep$. The function goes into the Banach space and assigns $2^n$ arbitrary points.
+In~\eqref{eq:type-gen}, the points had to be vertices of a cube, but in Definition~\ref{df:enflo}, they are arbitrary. The moment you choose the labelings, you impose a cube structure between the points. %on the cube.
+
+\ig{images/1-1}{.25}
+
+The inequality says:
+\[
+\sum \diag^p\lesssim_X\sum \text{edge}^p.
+\]
+The total $p$th power of lengths of diagonals is up to a constant, at most the same thing over all edges.
+
+This is a vast generalization of type; we don't even know a Banach space satisfies this.
+%This is a vast generalization
+The following is one of my favorite conjectures.
+\begin{conj}[Enflo]
+If a Banach space has type $p$ then it also has Enflo type $p$.
+\end{conj}
+This has been open for 40 years. We will prove the following.
+\begin{thm}[Bourgain-Milman-Wolfson, Pisier]
+If $X$ is a Banach space of type $p>1$ then $X$ also has type $p-\ep$ for every $\ep>0$.
+\end{thm}
+If you know the type inequality for parallelograms, you get it for arbitrary sets of points, up to $\ep$.
+
+The conjecture is true for many spaces. For example, it's true for $L^4$. Index functions by vertices; some pairs are edges, some are diagonals; then the $L^4$ norm of the diagonals is at most that of the edges.
+
+%know just for linear functions, want to deduce for arbitrary functions.
+
+The moment that I throw away the linear structure, Proposition~\ref{pr:uh-type} becomes easy.
+\begin{pr}\llabel{pr:uh-enflo}
+If $X,Y$ are uniformly homeomorphic Banach spaces and $Y$ has Enflo type $p$, then so does $X$.
+\end{pr}
+
+\begin{lem}[Corson-Klee]\index{Corson-Klee Lemma}\llabel{lem:corson-klee}
+If $X,Y$ are Banach spaces and $\psi:X\to Y$ are uniformly continuous, then for every $a>0$ there exists $L(a)$ such that 
+\[
+\ve{x_1-x_2}_X\ge a \implies \ve{\psi(x_1)-\psi(x_2)}\le L\ve{x_1-x_2}.
+%lower bound gives lipschitz
+\]
+\end{lem}
+
+\begin{proof}[Proof of~\ref{pr:uh-enflo} given Lemma~\ref{lem:corson-klee}]
+%Given $f:\{\pm 1\}^n \to X$, 
+By definition of uniform homeomorphic, there exists a homeomorphism $\psi:X\to Y$ such that $\psi,\psi^{-1}$ are uniformly continuous. Lemma~\ref{lem:corson-klee} tells us that $\psi$ perserves distance up to a constant. Dividing so that the smallest nonzero distance you see is at least 1, we get the same inequality in the image and the preimage.
+\end{proof}
+%Then we know 
+%distance preserved under constants.
+%can rescale. 
+%divide so smallest nonzer distance you see is at least 1. then it's the same inequality in the image and preimge.
+%make Ribe's theorem explicit.
+%version when I took power 1. Improvement of triangle inequlities
+%don't know equivalences of this type in metric.
+
+The parallelogram inequality for exponent 1 instead of 2 follows from using the triangle inequality on all possible paths for all paths of diagonals. Type $p>1$ is a strengthening of the triangle inequality. For which metric spaces does it hold?
+
+%Fruits of Ribe's theorem.
+%Switch gears to metric spaces.
+What's an example of a metric space where the inequality doesn't hold with $p>1$? The cube itself (with $L^1$ distance).
+\[
+n^p\nleq n.
+\]
+I will prove to you that this is the only obstruction: given a metric space that doesn't contain bi-Lipschitz embeddings of arbitrary large cubes, the inequality holds. 
+
+We know an alternative inequality involving distance equivalent to type; I can prove it. It is, however, not a satisfactory solution to the Ribe program. There are other situations where we have complete success.
+
+We will prove some things, then switch gears, slow down and discuss Grothendieck's inequality and applications. They will come up in the nonlinear theory later.
