@@ -137,8 +137,13 @@ For example, for $L^p$ and $L^q$, for $p\ne q$ it's always that case that one is
 \begin{thm}
 For every $p\ge 1,p\ne2$, $L_p$ and $\ell_p$ are finitely representable in each other, yet not uniformly homeomorphic.
 \end{thm}
-(Here $\ell_p$ is the sequence space.) 
-Proof of finite representability is a good exercise. You'll need to remember some measure theory.
+(Here $\ell_p$ is the sequence space.)
+
+\begin{exr}
+Prove the first part of this theorem: $L_p$ is finitely representable in $\ell_p$.
+%take a finite basis, approximate
+\end{exr}
+Hint: approximate using step functions. You'll need to remember some measure theory.
 
 When $p=2$, $L_p,\ell_p$ are separable and isometric.
 
@@ -192,9 +197,9 @@ Write $\ep=(\ep_1,\ldots, \ep_n)$. Multiplying by $2^n$, we can write the inequa
 This inequality just involves distances between points $f(\ep)$, so it is the reformulation we seek.
 
 \begin{df}\llabel{df:enflo}
-A metric space $(X,d_X)$ has \ivocab{Enflo type $p$} if there exists $T>0$ such that $n$ and every $f:\{\pm 1\}^n\to X$,
+A metric space $(X,d_X)$ has \ivocab{Enflo type $p$} if there exists $T>0$ such that for every $n$ and every $f:\{\pm 1\}^n\to X$,
 \[
-\E[d_X(f(\ep), f(-\ep))^p]\le T^p \sum_{i=1}^n \E[ d_X(f(\ep), f(\ep_1,\ldots, \ep_{i-1}, -\ep_i, \ep_{i+1},\ldots, \ep_n))].
+\E[d_X(f(\ep), f(-\ep))^p]\le T^p \sum_{i=1}^n \E[ d_X(f(\ep), f(\ep_1,\ldots, \ep_{i-1}, -\ep_i, \ep_{i+1},\ldots, \ep_n))^p].
 \]
 \end{df}
 This is bold. 
@@ -226,7 +231,7 @@ The conjecture is true for many spaces. For example, it's true for $L^4$. Index 
 
 %know just for linear functions, want to deduce for arbitrary functions.
 
-The moment that I throw away the linear structure, Proposition~\ref{pr:uh-type} becomes easy.
+The moment that I throw away the linear structure, Corollary~\ref{cor:uh-type} becomes easy.
 \begin{pr}\llabel{pr:uh-enflo}
 If $X,Y$ are uniformly homeomorphic Banach spaces and $Y$ has Enflo type $p$, then so does $X$.
 \end{pr}
@@ -239,9 +244,9 @@ If $X,Y$ are Banach spaces and $\psi:X\to Y$ are uniformly continuous, then for 
 \]
 \end{lem}
 
-\begin{proof}[Proof of~\ref{pr:uh-enflo} given Lemma~\ref{lem:corson-klee}]
+\begin{proof}[Proof sketch of~\ref{pr:uh-enflo} given Lemma~\ref{lem:corson-klee}]
 %Given $f:\{\pm 1\}^n \to X$, 
-By definition of uniform homeomorphic, there exists a homeomorphism $\psi:X\to Y$ such that $\psi,\psi^{-1}$ are uniformly continuous. Lemma~\ref{lem:corson-klee} tells us that $\psi$ perserves distance up to a constant. Dividing so that the smallest nonzero distance you see is at least 1, we get the same inequality in the image and the preimage.
+By definition of uniformly homeomorphic, there exists a homeomorphism $\psi:X\to Y$ such that $\psi,\psi^{-1}$ are uniformly continuous. Lemma~\ref{lem:corson-klee} tells us that $\psi$ perserves distance up to a constant. Dividing so that the smallest nonzero distance you see is at least 1, we get the same inequality in the image and the preimage.
 \end{proof}
 %Then we know 
 %distance preserved under constants.
@@ -250,6 +255,36 @@ By definition of uniform homeomorphic, there exists a homeomorphism $\psi:X\to Y
 %make Ribe's theorem explicit.
 %version when I took power 1. Improvement of triangle inequlities
 %don't know equivalences of this type in metric.
+\begin{proof}[Proof details.]
+Let $\ep^i$ denote $\ep$ with the $i$th coordinate flipped. We need to prove 
+\[
+\E(d_X(f(\ep), f(-\ep))^p) \le T_f^p \sui \E(d_X(f(\ep), f(\ep^i))^p)
+\]
+Without loss of generality, by scaling $f$ we may assume that all the points $f(\ep)$ are distance at least 1 apart. ($X$ is a Banach space, so distance scales linearly; this doesn't affect whether the inequality holds.)
+
+Let $\psi:X\to Y$ be such that $\psi,\psi^{-1}$ are uniform homeomorphisms. Because $\psi^{-1}$ is uniformly homeomorphic, there is $C$ such that $d_Y(y_1,y_2)\le 1$ implies $d_X(\psi^{-1}(y_1),\psi^{-1}(y_2))< C$. WLOG, by scaling $f$ we may assume that all the points $f(\ep)$ are $\max(1,C)$ apart, so that the points $\psi\circ f(\ep)$ are at least 1 apart.
+
+We know that for any $g:\{\pm 1\}^n\to Y$ that 
+\[
+\E(d_X(g(\ep), g(-\ep))^p) \le T_g^p \sui \E(d_X(g(\ep), g(\ep^i))^p).
+\]
+We apply this to $g=\psi\circ f$,
+\[
+\xymatrix{
+& X\ar[dd]^{\psi}\\
+\{\pm 1\}^n \ar[ru]^f \ar[rd]_{g=\psi\circ f}& \\
+& Y
+}
+\]
+to get
+\bal
+\E(d_X(f(\ep), f(-\ep))^p) &=\E(d_X(\psi^{-1}\circ g(\ep), \psi^{-1}\circ g(-\ep))^p)\\
+&\le L_{\psi^{-1}}(1) \E(d_Y(g(\ep), g(-\ep))^p)\\
+&\le L_{\psi^{-1}}(1) T_g^p \sui \E(d_Y(g(\ep), g(\ep^i)))\\
+&\le L_{\psi^{-1}}(1)L_{\psi}(1) T_g^p \sui \E(d_X(g(\ep), g(\ep^i))^p)
+\end{align*}
+as needed.
+\end{proof}
 
 The parallelogram inequality for exponent 1 instead of 2 follows from using the triangle inequality on all possible paths for all paths of diagonals. Type $p>1$ is a strengthening of the triangle inequality. For which metric spaces does it hold?
 

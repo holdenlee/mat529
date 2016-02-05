@@ -4,32 +4,32 @@
 
 %Last time we stated Ribe's Theorem.
 
-\begin{exr}
-$L_p$ is finitely representable in $\ell_p$.
-%take a finite basis, approximate
-\end{exr}
-Hint: approximate using step functions.
-
 We will use the Corson-Klee Lemma~\ref{lem:corson-klee}. %This is the reason that all the inequalities.
 
-\fixme{Concrete versions of Ribe's Theorem. Charcterize using finie inequality, trivially preserved under uniform h. Minimum smallest distance, scale it to 1. Then the unif homeo is bi-Lipschitz. write the estimates.}
+%\fixme{Concrete versions of Ribe's Theorem. Charcterize using finie inequality, trivially preserved under uniform h. Minimum smallest distance, scale it to 1. Then the unif homeo is bi-Lipschitz. write the estimates.}
 %The hardest part is to show that the property involving 
 %
 
 \begin{proof}[Proof of Lemma~\ref{lem:corson-klee}]
-Suppose $x,y\in X$, $\ve{x-y}\ge a$. Break up the line segment from $x,y$ into intervals of length $a$; let $x=x_0,x_1,\ldots, x_k=y$ be the endpoints of those intervals.
+Suppose $x,y\in X$, $\ve{x-y}\ge a$. Break up the line segment from $x,y$ into intervals of length $a$; let $x=x_0,x_1,\ldots, x_k=y$ be the endpoints of those intervals, with
+\[
+\ve{x_{i+1}-x_i}\le a.
+\]
 The \vocab{modulus of continuity} is defined as
 \[
 W_f(t)=\sup \set{\ve{f(u)-f(v)}}{u,v\in X,\ve{u-v}\le t}. 
 \]
-Uniform continuity says $\lim_{t\to 0}W_f(t)=0$.  \fixme{!}
+Uniform continuity says $\lim_{t\to 0}W_f(t)=0$. 
+The number of intervals is
 \[
-\ve{x_{i+1}-x_i}\le a , \quad K\le \fc{\ve{x-y}{a}+1}\le \fc{2\ve{x-y}}a,
+k\le \fc{\ve{x-y}}{a}+1\le \fc{2\ve{x-y}}a.
 \]
+hen
 \bal
 \ve{f(x)-f(y)} & \le \sum_{i=1}^k \ve{f(x_i)-f(x_{i-1})} \\
-&\le KW_f(a) \le \fc{2W_f(a)}{a}\ve{x-y}.
+&\le KW_f(a) \le \fc{2W_f(a)}{a}\ve{x-y},
 \end{align*}
+so we can let $L(a) = \fc{2W_f(a)}{a}$.
 \end{proof}
 \subsection{Bourgain's discretization theorem}
 
@@ -40,19 +40,19 @@ Ribe's original proof, 1987.
 \item
 HK, 1990, a genuinely different proof.
 \item
-Bourgain, a Fourier analytic proof which gives a quantitative version. This is the version we'll prove.
+Bourgain's proof, a Fourier analytic proof which gives a quantitative version. This is the version we'll prove.
 \end{enumerate}
 Bourgain uses the Discretization Theorem~\ref{thm:bdt}. There is an amazing open problem in this context.
 
-Let $X$ be a finite-dimensional normed space $\dim(X)=n<\iy$. Let $Y$ be a Banach space.  Consider the unit ball $B_X$ in $X$. Take an $\de$-net $\cal N_\de$ in $B_X$ (a maximal $\de$-separated subset). Suppose we can embed $N_\de$ into $Y$ via $f:\cal N_\de\to Y$. Suppose we know in $Y$ that
+Let $X$ be a finite-dimensional normed space $\dim(X)=n<\iy$. Let $Y$ be a Banach space.  Consider the unit ball $B_X$ in $X$. Take an $\de$-net $\cal N_\de$ in $B_X$ (a maximal $\de$-separated subset). Suppose we can embed $\cal N_\de$ into $Y$ via $f:\cal N_\de\to Y$. Suppose we know in $Y$ that
 \[
 \ve{x-y}\le \ve{f(x)-f(y)}\le D\ve{x-y}.
 \] 
 %also interesting not in context of normed spaces.
-(We say that $N_\de$ embeds with distortion $D$ into $Y$.)
+(We say that $\cal N_\de$ embeds with distortion $D$ into $Y$.)
 You can prove using a nice compactness argument that if this holds for $\de$ is small enough, then the entire space $X$ embeds into $Y$ with rough the same distortion. %you lose a factor
 %if $Y$ is reflexive, you can get this easily; for general $Y$ you need more work.
-You can choose $\de=\de_n$ to be independent of the geometry of $X$ and $Y$.
+Bourgain's discretization theorem~\ref{thm:bdt} says that you can choose $\de=\de_n$ to be independent of the geometry of $X$ and $Y$.
 %$\de$-approximation encodes all the information. Whenever you try . Succeed for the net, succeed for object.
 
 I often use this theorem in this way: I use continuous methods to show embedding $X$ into $Y$ requires big distortion; immediately I get an example with a finite object.
@@ -67,7 +67,8 @@ The infimum over those $D\ge 1$ such that $X$ embeds into $Y$ with distortion is
 \end{df}
 \begin{df}
 \nomenclature{$\de_{X\hra Y}(\ep)$}{supremum over all those $\de>0$ such that for every $\de$-net $\cal N_\de$ in $B_X$, $C_Y(\cal N_\de)\ge (1-\ep)C_Y(X)$}
-Let be a $n$-dimensional normed space and $Y$ be any Banach space, $\ep\in (0,1)$. Let $\de_{X\hra Y}(\ep)$ be the supremum over all those $\de>0$ such that for every $\de$-net $\cal N_\de$ in $B_X$, $C_Y(\cal N_\de)\ge (1-\ep)C_Y(X)$.
+Let be a $n$-dimensional normed space and $Y$ be any Banach space, $\ep\in (0,1)$. Let $\de_{X\hra Y}(\ep)$ be the supremum over all those $\de>0$ such that for every $\de$-net $\cal N_\de$ in $B_X$, 
+\[C_Y(\cal N_\de)\ge (1-\ep)C_Y(X).\]
 
 Here $B_X:=\set{x\in X}{\ve{x}\le 1}$.
 \end{df}
@@ -76,14 +77,17 @@ The way to read this is that if you got $C_Y(\cal N_\de)$ to be small, then the 
 \begin{thm}[Bourgain's discretization theorem]\label{thm:bdt}
 For every $n$, $\ep\in (0,1)$, for every $X,Y$, $\dim X=n$, 
 \[
-\de_{X\hra Y}(\ep)\le  e^{-\pf{n}{\ep}^{Cn}}.
+\de_{X\hra Y}(\ep)\ge  e^{-\pf{n}{\ep}^{Cn}}.
 \]
-Moreover for $\de=e^{-(2n)^{Cn}}$ then $C_Y(X)\le 2C_Y(\cal N_\de)$.
+Moreover for $\de=e^{-(2n)^{Cn}}$, we have $C_Y(X)\le 2C_Y(\cal N_\de)$.
 \end{thm}
 %lower bound
-%$\de$ dependent on dimension, look at $\de$-net, encodes all the information about $X$ embedding into everything else. Only a function of ... not of other relevant discussion.
-\fixme{1}
-The proof is via a linear operator. All the inequality says is that you can find a function with the given distortion. The proof will actually give a linear operator. 
+%$\de$ dependent on dimension, 
+The theorem says that if you look at a $\de$-net in the unit ball, it encodes all the information about $X$ when it comes to embedding into everything else. %There is a discrete version , 
+The amount you have to discretize is just a function of the dimension, and not of any of the other relevant geometry.
+\begin{rem}
+The proof is via a linear operator. All the inequality says is that you can find a \emph{function} with the given distortion. The proof will actually give a \emph{linear operator}. 
+\end{rem}
 
 The best known upper bound is 
 \[
@@ -122,7 +126,7 @@ RB_X = \set{x\in X}{\ve{x}\le R},
 \]
 then $C_Y(\cal N)\le K$.
 %define distortion to be scale invariant
-Equivalently, for every $\de>0$ every $\de$-net in $\cal B_X$ satisfies $C_Y(\cal N)\le K$. 
+Equivalently, for every $\de>0$ every $\de$-net in $B_X$ satisfies $C_Y(\cal N)\le K$. 
 If $F\subeq X$ is a finite dimension subspace and $\de = e^{-(2\dim F)^{C\dim F}}$, then by the ``moreover" part of Bourgain's Theorem~\ref{thm:bdt}, there exists a linear operator $T: F\to Y$ such that 
 \[
 \ve{x-y}\le \ve{Tx-Ty}\le 2K\ve{x-y}
@@ -161,7 +165,7 @@ and the norm of $A^{-1}:A(\R^\si)\to \R^{\si}$ is small.
 
 A priori this seems a crazy thing to do; take a small multiple of the identity. But we can find conditions that allow us to achieve this goal.
 
-\begin{thm}[Bourgain-Tzafriri restricted invertibility principle, 1987]\index{restricted invertibility principle}
+\begin{thm}[Bourgain-Tzafriri restricted invertibility principle, 1987]\index{restricted invertibility principle}\llabel{thm:btrip}
 Let $A:\R^m\to \R^m$ be a linear operator such that 
 \[
 \ve{Ae_j}_2=1
@@ -169,9 +173,9 @@ Let $A:\R^m\to \R^m$ be a linear operator such that
 for every $j\in \{1,\ldots, m\}$. Then there exist $\si\subeq \{1,\ldots, m\}$ such that
 \begin{enumerate}
 \item
-$|\si|\ge \fc{cm}{\ve{A}^2}$.
+$|\si|\ge \fc{cm}{\ve{A}^2}$, where $\ve{A}$ is the operator norm of $A$.
 \item
-$A$ is invertible on $\R^{\si}$ and the norm of $A^{-1}:A(\R^{\si})\to \R^{\si}$ is at most $A^{-1}:A(\R^{\si})\to \R^{\si}$, where $\ve{A}$ is the operator norm of $A$.
+$A$ is invertible on $\R^{\si}$ and the norm of $A^{-1}:A(\R^{\si})\to \R^{\si}$ is at most $C'$.
 \end{enumerate}
 Here $c,C'$ are universal constants.
 \end{thm}
@@ -180,7 +184,7 @@ Here $c,C'$ are universal constants.
 %if repeated a lot get huge norm. The fact that norm small. Exercise in linear algebra, says something about rank being big.
 %the norm is at most a universal constant.
 
-Suppose the biggest eigenvalue is at most 100. Then you can always find a coordinte subset of proportional size such that on this subset, $A$ is invertible and the inverse has norm bounded by a universal  constant.
+Suppose the biggest eigenvalue is at most 100. Then you can always find a coordinate subset of proportional size such that on this subset, $A$ is invertible and the inverse has norm bounded by a universal  constant.
 
 All of the proofs use something very amazing.
 
@@ -205,7 +209,7 @@ where $D$ is a matrix with $s_i(A)$'s on the diagonal, and $U,V$ are unitary.
 For $p\ge 1$ the \ivocab{Schatten-von Neumann $p$-norm} of $A$ is 
 \bal 
 \ve{A}_{S_p}
-&=\pa{\sum_{i=1}^k  s_i(A)^p}^{\rc p}\\
+&:=\pa{\sum_{i=1}^k  s_i(A)^p}^{\rc p}\\
 &= (\Tr((A^*A)^{\fc p2}))^{\rc p}\\
 &= (\Tr((AA^*)^{\fc p2}))^{\rc p}
 \end{align*}
@@ -245,7 +249,7 @@ The numerator is the sum of squares of the singular values, and the denominator 
 to be close to the stable rank.
 
 
-\begin{thm}[Spielman-Srivastava]
+\begin{thm}[Spielman-Srivastava]\llabel{thm:ss}
 For every linear operator $A:\R^m\to \R^n$, $\ep\in (0,1)$, 
 %userful, better than BT.
 there exists $\si\subeq \{1,\ldots, m\}$ with $|\si|\ge (1-\ep)\text{srank}(A)$ such that
@@ -253,11 +257,11 @@ there exists $\si\subeq \{1,\ldots, m\}$ with $|\si|\ge (1-\ep)\text{srank}(A)$ 
 \ve{(AJ_\si)^{-1}}_{S_{\iy}} \lesssim \fc{\sqrt m}{\ep\ve{A}_{S_2}}.
 \]
 \end{thm}
-This is stronger than Bourgain-Tzafriri: the columns were unit vectors. Then $\ve{A}_{S_2}=\sqrt m$ and $\text{srank}(A)=\fc{m}{\ve{A}^2_{S_{\iy}}}$. 
+This is stronger than Bourgain-Tzafriri. To obtain Bourgain-Tzafriri the columns were unit vectors. Then $\ve{A}_{S_2}=\sqrt m$ \fixme{(why)} and $\text{srank}(A)=\fc{m}{\ve{A}^2_{S_{\iy}}}$. 
 %get all the way to the stable rank.
 This is a sharp dependence on $\ep$.
 
-The proof introduces algebraic rather than analytic methods; it was eye-opening. Marcus even got sets bigger than the stable rank and looked at $\fc{\ve{A}_{S_2}}{\ve{A}_{\iy}}^2$, which is much stronger.
+The proof introduces algebraic rather than analytic methods; it was eye-opening. Marcus even got sets bigger than the stable rank and looked at $pf{\ve{A}_{S_2}}{\ve{A}_{S_4}}^2$, which is much stronger.
 
 I'll show a theorem that implies all these intermediate theorems. We use (classical) analysis and geometry instead of algebra.
 What matters is not the ratio of the norms, but the tail of the distribution of $s_1(A)^2,\ldots, s_m(A)^2$.
@@ -268,6 +272,6 @@ Let $A:\R^m\to \R^n$ be a linear operator. If $k<\rank(A)$  then there exist $\s
 \ve{(AJ_\si)^{-1}} \lesssim \min_{k<r\le \rank(A)}\sfc{mr}{(r-k) \sum_{i=r}^m s_i(A)^2}.
 \]
 \end{thm}
-You have to optimize. You can get ratio of $L_p$ norms from the tail bounds. This implies all the known theorems in restricted invertibility.
+You have to optimize over $r$. You can get the ratio of $L_p$ norms from the tail bounds. This implies all the known theorems in restricted invertibility.
 
 Next time we'll show how this implies the other theorems, and then prove the theorem. %: show how the 
