@@ -1,0 +1,225 @@
+\blu{2-8-16}
+
+%\begin{thm}[Spielman-Srivastava]
+%For $k<\text{srank}(A)=\pf{\ve{A}_{S_2}^2}{\ve{A}_{S_{\iy}}}^2$, $k=(1-\ep)\text{srank}(A)$. 
+%$\exists \si\subeq \{1,\ldots, m\}, |\si|=k$, ...
+%%,/\op&2. 
+%%constant prop of m/ ... squred. 
+%%bourgain-tz up to stble rank.
+%%shatten root m.
+%\end{thm}
+
+A subsequent theorem gave the same theorem but instead of the stable rank, used something bigger.
+\begin{thm}[Marcus, Spielman, Srivastava]\llabel{thm:mss4}
+If 
+\[
+k<\rc4 \pf{\ve{A}_{S_2}}{\ve{A}_{S_4}}^4,
+\]
+there exists $\si\subeq \{1,\ldots, m\}$, $|\si|=k$ such that
+\[
+\ve{(AJ_{\si})^{-1}}_{S_{\iy}} \lesssim \fc{\sqrt m}{\ve{A}_{S_2}}.
+\]
+%stable rank. 
+%got strange norms.
+\end{thm}
+A lot of these norms started popping up in people's results. The correct generalization is the following.
+\begin{df}
+For $p>2$, define the \ivocab{stable $p$th rank} by \[\text{srank}_p(A)= \pf{\ve{A}_{S_2}}{\ve{A}_{S_p}}^{\fc{2p}{p-2}}.\]
+\end{df}
+\begin{exr}
+Show that if $p\ge q>2$, then
+\[
+\text{srank}_p(A) \le \text{srank}_q(A).
+\]
+(Hint: Use H\"older's inequality.)
+\end{exr}
+\begin{proof}[Proof of Theorem~\ref{thm:gen-srank}]
+Note that 
+\bal
+\ve{A}_{S_2}^2 & =\sum_{j=1}^m s_j(A)^2\\
+&=\sum_{j=1}^{r-1} s_j(A)^2 + \sum_{j=r}^m s_j(A)^2\\
+&\le (r-1)^{1-\fc 2p} \pa{\sum_{j=1}^{r-1} s_j(A)^p}^{\fc 2p} + \sum_{j=r}^m s_j(A)^2\\
+&\le (r-1)^{1-\fc 2p} \ve{A}_{S_p}^2  + \sum_{j=1}^m s_j(A)^2\\
+\sum_{j=r}^m s_j(A)^2 & \ge \ve{A}_{S_2}^2 \pa{1-\pf{r-1}{\text{srank}_p(A)}^{1-\fc2p}}\\
+\ve{(AJ_\si)^{-1}}&\lesssim\min_{k+1\le r\le \rank(A)} \sfc{mr}{(r-k)\ve{A}_{S_2}^2 \pa{1-\pf{r-1}{\text{srank}_p(A)}^{1-\fc 2p}}}\\
+&=\fc{\sqrt m}{\ve{A}_{\iy}}\min_{k+1\le r\le \rank(A)} \sfc{r}{(r-k)\pa{1-\pf{r-1}{\text{srank}_p(A)}^{1-\fc 2p}}}
+\end{align*}
+\end{proof}
+To optimize, fixing the stable rank, differentiate in $r$, and set to 0. All theorems in the literature follow from this theorem; in particular, we get all the bounds we got before. %3, 2.1.
+There was nothing special about the number 4 in Theorem~\ref{thm:mss4}; this is about the distribution of the eigenvalues. 
+
+We'll be doing linear algebra. It's mostly mechanical, except we'll need this lemma.
+\begin{lem}[Ky Fan maximum principle]\index{Ky Fan maximum principle}
+Suppose that $P:\R^m\to \R^m$ is a rank $k$ orthogonal projection. Then
+\[
+\Tr(A^*AP ) \le \sum_{i=1}^k s_i(A)^2.
+\]
+\end{lem}
+\begin{proof}
+\fixme{This proof isn't complete. I will fix it next time.}
+
+We will prove that if $B:\R^m\to \R^m$ is positive semidefinite, then
+\[
+\Tr(BP)\le \sum_{i=1}^k s_i(B).
+\]
+To get the lemma, set $B=A^*A$. 
+
+Apply arbitrarily small perturbation $s_i$ so that
+\[
+s_1(B)>s_2(B)>\cdots > s_m(B).
+\]
+Let $v_1,\ldots, v_m$ be an orthonormal basis such that $Bv_i=s_i(B) v_i$. Let $u_1,\ldots, u_k$ be an orthonormal basis of $P\R^m$ ordered so that 
+\[
+\an{Bu_1,u} \ge \an{Bu_2,u_2}\ge \cdots \ge \an{Bu_k,u_k}.
+\]
+We calculate
+\bal
+\Tr(BP) & =\sum_{i=1}^k  \an{BPu_i, u_i}\\
+&=\sum_{i=1}^k \an{Bu_i,u_i}.
+\end{align*}
+We will prove by induction on $i$ that 
+\[
+\an{Bu_i,u_i}\le s_i(B).
+\]
+For $i=1$, 
+\[
+s_1(B)=\ve{B}_{S_{\iy}},
+\]
+and (when $\ve{u_1}=1$)
+\[
+\an{Bu_1,u_1} \le \ve{B}_{S_{\iy}} = s_1(B).
+\]
+Suppose we proved the claim for $j-1$. If \fixme{?$ \an{Bu_i,u_i}\le s_j(B)$} $\an{Bu_{j-1},u_{j-1}}\le s_j(B)$ then we're done because $\an{Bu_j,u_j}\le \an{Bu_{j-1},u_{j-1}} \le s_j(B)$. So we may assume that $\an{Bu_{j-1}, u_{j-1}}>s_j(B)$. 
+
+Write the $u$'s in the basis of $v$'s:
+\[
+u_i = \sum_{l=1}^m c_{il}v_l.
+\]
+The fact that the $u_i$'s are orthonormal means that the $c_i$'s are probability vectors,
+\[
+\sum_{l=1}^m c_{il}^2=1.
+\]
+We have 
+\[
+\an{Bu_i,u_i} = \sumo lm m c_{il}^2 s_l(B).
+\]
+If $c_{il}^2>0$ for any $l\ge j$. 
+%there can be no weight from $j$ onwards.
+%u_j in span of $v_j$ upwards. Need for 1 to $j$. 
+%1 to $u_{j-1}$. 
+\end{proof}
+
+\subsection{Finding big subsets}
+We'll present 4 lemmas for finding big subsets with certain properties. We'll put them together at the end.
+\begin{thm}[Little Grothendieck inequality]\llabel{thm:lgi}
+Fix $k,m,n\in \N$. Suppose that $T:\R^m\to \R^n$ is a linear operator. Then for every $x_1,\ldots, x_k\in \R^m$,
+\[
+\sumo rk \ve{Tx_r}_2^2\le \fc{\pi}2\ve{T}_{\ell_{\iy}^m \to \ell_2^n}^2 \sumo rk x_{ri}^2
+\]
+for some $c\in \{1,\ldots, m\}$ where $x_r=(x_{r1},\ldots, x_{rm})$.
+\end{thm}
+Later we will show $\fc{\pi}2$ is sharp. 
+
+If we had only 1 vector, what does this say?
+\[
+\ve{Tx_1}_2\le \sfc{\pi}2\ve{T}_{\ell_{\iy}^m \to \ell_2^n}\ve{X_1}_{\iy}
+\]
+%The definition of the operator norm is at most ... times the \iy$ norm
+We know the inequality for $k=1$ with constant 1, and we get it true for arbitrary many vectors, losing an universal constant ($\pf{\pi}2$). After we see the proof, the example where $\fc{\pi}2$ is attained will be natural.
+
+We give Grothendieck's original proof.
+
+The key claim is the following.
+\begin{clm}\llabel{clm:lgi}
+\beq{eq:lgi1}
+\sumo jm \pa{\sumo rk (T^*Tx_r)_j^2}^{\rc2}
+\le \sfc{\pi}2 \ve{T}_{\ell_{\iy}^m \to \ell_2^n}\pa{\sum_{r=1}^k \ve{Tx_r}^2}^{\rc 2}.
+\eeq
+\end{clm}
+
+\begin{proof}[Proof of Theorem~\ref{thm:lgi}]
+Assuming the claim, we prove the theorem.
+\bal
+\sumo rk \ve{Tx_r}_2^2 & = \sumo rk \an{Tx_r,Tx_r}\\
+&=\sumo rk \an{x_r, T^*Tx_r}\\
+&=\sumo rk \sumo jm x_{rj}(T^*Tx_r)_j\\
+&\le \sumo jm \pa{\sumo rk x_{rj}^2}^{\rc 2} \pa{\sumo rk (T^*Tx_r)_j^2}^{\rc 2}&\text{by Cauchy-Schwarz}\\
+&\le \pa{\max_{1\le j\le m} \pa{\sumo rk x_{rj}^2}^{\rc 2}}
+\pa{\sumo jm \sumo rk (T^*Tx_r)_j^2}^{\rc 2}\\
+&\le \max_{1\le j\le m}\pa{\sumo ik x_{ij}^2}^{\rc 2}\sfc{\pi}2 \ve{T}_{\ell_{\iy}^m \to \ell_2^n} \pa{\sumo rk \ve{Tx_r}_2^2}^{\rc 2}\\
+\sumo rk \ve{Tx_r}_2^2 & \le \fc{\pi}2 \ve{T}_{\ell_{\iy}^m \to \ell_2^n}^2 \max_j \sumo rk x_{ij}^2.
+%bound by square root of multiple of same term, bootstrap.
+\end{align*}
+We bounded by a square root of the multiple of the same term, a bootstrapping argument. In the last step, divide and square.
+%where we used Cauchy-Schwarz
+\end{proof}
+
+\begin{proof}[Proof of Claim~\ref{clm:lgi}]
+Let $g_1,\ldots, g_k$ be iid standard Gaussian random variables. For every fixed $j\in \{1,\ldots, m\}$, 
+\[
+\sum_{r=1}^k g_r (T^* T x_r)_j.
+\]
+This is a Gaussian random variable with mean 0 and variance  %whatever the $L^2$ norm of these coefficients are
+$\sumo rk (T^*Tx_r)_j^2$. Taking the expectation,
+\bal
+\E\ab{\sumo rk g_r(T^*T x_r)_j}
+&= \pa{\sumo rk (T^*T x_r)_j^2}^{\rc 2} \sfc 2{\pi}.
+\end{align*}
+Sum these over $j$:
+\bal
+\E \ba{
+\sumo jm \ab{T^* (\sumo rk g_r T x_r)_j}
+} & = \sfc 2\pi \sumo jm \pa{\sumo rk (T^*Tx_r)_j^2}^{\rc 2}\\
+\sumo jm \pa{\sumo rk (T^*Tx_r)_j^2}^{\rc 2}
+&= \sfc{\pi}2 \E\ba{\sumo jm \ab{T^* \sumo rk g_r(Tx_r)_j}}.
+\end{align*}
+Define a random sign vector $z\in \{\pm 1\}^m$ by 
+\[
+z_j = \sign\pa{\pa{T^*\sumo rk g_r Tx_r}_j}
+\]
+Then 
+\bal
+\sumo jm \ab{(T^* \sumo rk g Tx_r)_j} 
+&=\an{z, T^* \sumo rk g_r Tx_r}\\
+&= \an{Tz,\sumo rk g_r Tx_r}\\
+& \le \ve{Tz}_2 \ve{\sumo rk g_r Tx_r}_2\\
+%l_\iy to l_2. all most whatever norm of operator is.
+&\le \ve{T}_{\ell_{\iy}^m \to \ell_2^n} \ve{\sumo rk g_r Tx_r}_2
+%expointed was bounded pointwise pointwise.
+\end{align*}
+This is a pointwise inequality. Taking expectations,
+\bal
+\E\ba{
+\sum_{j=1}^m \ab{\pa{T^* \sumo rk g_r Tx_r}_j}
+} & \le \ve{T}_{\ell_{\iy}^m \to \ell_2^n}\pa{\E \ve{\sumo rk g_r Tx_r}_2^2}^{\rc 2}.
+\end{align*}
+What is the second moment? Expand:
+\bal
+\E\ve{\sumo rk g_i Tx_r}_2^2 
+&=\sumo rk \ve{Tx_r}_2^2=\E\ba{\sum_{ij} g_i g_j \an{Tx_i,Tx_j}}.
+\end{align*}
+%bound by L^2 norm above
+\end{proof}
+
+Why use the Gaussians? The identity characterizes the Gaussians using rotation invariance. %The expectation of the Gaussian 
+%\sumo jm\sumo rk ... \sfc{\pi}2
+%up to this piit use gaussians
+Using other random variables gives other constants that are not sharp.
+
+There will be lots of geometric lemmas. Some fact about restricting matrices. Another geometric argument to give  a different method for selecting subsets. Combinatorial lemma for selecting subsets. Put together in crazy induction.
+
+From this proof you can reverse engineer vectors that make the inequality sharp. You need to come up with $T$ and the points.
+
+Let $g_1,g_2,\ldots, $ be iid Gaussians on the probability space $(\Om, P)$. Let $T:L_{\iy}(\Om, P)\to \ell_2^k$ be %infinite $l^{\iy}$ space. 
+%abstract nonsense: approx
+%replace Gaussians with central limit theorem, take $\pm1$ bits.
+%never equality for finite. (ratio of gamma functions)
+%in limit converges
+\[
+Tf = (\E[fg_1],\ldots, \E[fg_m]).
+\]
+let $x_r \in L_{\iy} (\Om, P)$, 
+\[
+x_r = \fc{g_r}{\pa{\sumo ik g_i^2}^{\rc 2}}.
+\]
+%no black magic, just understand this.
