@@ -144,6 +144,8 @@ First we'll prove a theorem that has nothing to do with Ribe's Theorem. There ar
 
 \chapter{Restricted invertibility principle}
 \section{Restricted invertibility principle}
+
+\subsection{The first restricted invertibility principles}
 %link to nonlinear world will appear later.
 %famous, great achievements of analysis in the 1980's.
 We take basic facts in linear algebra and make things quantitative. This is the lesson of the course: when you make things quantitative, new mathematics appears.
@@ -256,13 +258,15 @@ there exists $\si\subeq \{1,\ldots, m\}$ with $|\si|\ge (1-\ep)\text{srank}(A)$ 
 \[
 \ve{(AJ_\si)^{-1}}_{S_{\iy}} \lesssim \fc{\sqrt m}{\ep\ve{A}_{S_2}}.
 \]
-Here, $J_\si$ is the identity function restricted to $\R^{\si}$: $\R^{\si}\hra \R^m$. 
+Here, $J_\si$ is the identity function restricted to $\R^{\si}$,  $J:\R^{\si}\hra \R^m$. 
 \end{thm}
 This is stronger than Bourgain-Tzafriri. To obtain Bourgain-Tzafriri the columns were unit vectors. Then $\ve{A}_{S_2}=\sqrt m$ \fixme{(why)} and $\text{srank}(A)=\fc{m}{\ve{A}^2_{S_{\iy}}}$. 
 %get all the way to the stable rank.
 This is a sharp dependence on $\ep$.
 
 The proof introduces algebraic rather than analytic methods; it was eye-opening. Marcus even got sets bigger than the stable rank and looked at $pf{\ve{A}_{S_2}}{\ve{A}_{S_4}}^2$, which is much stronger.
+
+\subsection{A general restricted invertibility principle}
 
 I'll show a theorem that implies all these intermediate theorems. We use (classical) analysis and geometry instead of algebra.
 What matters is not the ratio of the norms, but the tail of the distribution of $s_1(A)^2,\ldots, s_m(A)^2$.
@@ -275,6 +279,6 @@ Let $A:\R^m\to \R^n$ be a linear operator. If $k<\rank(A)$  then there exist $\s
 \end{thm}
 You have to optimize over $r$. You can get the ratio of $L_p$ norms from the tail bounds. This implies all the known theorems in restricted invertibility.
 
-The subset as big as you want up to the rank, and we have sharp control in the entire range.
+The subset can be as big as you want up to the rank, and we have sharp control in the entire range.
 
 Next time we'll show how this implies the other theorems, and then prove the theorem. %: show how the 
