@@ -177,7 +177,7 @@ for every $j\in \{1,\ldots, m\}$. Then there exist $\si\subeq \{1,\ldots, m\}$ s
 \item
 $|\si|\ge \fc{cm}{\ve{A}^2}$, where $\ve{A}$ is the operator norm of $A$.
 \item
-$A$ is invertible on $\R^{\si}$ and the norm of $A^{-1}:A(\R^{\si})\to \R^{\si}$ is at most $C'$.
+$A$ is invertible on $\R^{\si}$ and the norm of $A^{-1}:A(\R^{\si})\to \R^{\si}$ is at most $C'$ (i.e., $\ve{AJ_{\si}}_{S^{\iy}}\le C'$, to use the notation introduced below).
 \end{enumerate}
 Here $c,C'$ are universal constants.
 \end{thm}
@@ -260,8 +260,15 @@ there exists $\si\subeq \{1,\ldots, m\}$ with $|\si|\ge (1-\ep)\text{srank}(A)$ 
 \]
 Here, $J_\si$ is the identity function restricted to $\R^{\si}$,  $J:\R^{\si}\hra \R^m$. 
 \end{thm}
-This is stronger than Bourgain-Tzafriri. To obtain Bourgain-Tzafriri the columns were unit vectors. Then $\ve{A}_{S_2}=\sqrt m$ \fixme{(why)} and $\text{srank}(A)=\fc{m}{\ve{A}^2_{S_{\iy}}}$. 
+This is stronger than Bourgain-Tzafriri. In Bourgain-Tzafriri the columns were unit vectors. 
+\begin{proof}[Proof of Theorem~\ref{thm:btrip} from Theorem~\ref{thm:ss}]
+Let $A$ be as in Theorem~\ref{thm:btrip}. Then $\ve{A}_{S_2}=\sqrt{\Tr(A^*A)}=\sqrt m$ and $\text{srank}(A)=\fc{m}{\ve{A}^2_{S_{\iy}}}$. We obtain the existence of 
+\[
+|\si|\ge (1-\ep)\fc{m}{\ve{A}^2_{S_{\iy}}}
+\]
+with $\ve{(AJ_{\si})^{-1}}_{S_{\iy}}\lesssim \fc{\sqrt m}=\rc{\ep}$.
 %get all the way to the stable rank.
+\end{proof}
 This is a sharp dependence on $\ep$.
 
 The proof introduces algebraic rather than analytic methods; it was eye-opening. Marcus even got sets bigger than the stable rank and looked at $pf{\ve{A}_{S_2}}{\ve{A}_{S_4}}^2$, which is much stronger.
