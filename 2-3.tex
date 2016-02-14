@@ -24,13 +24,14 @@ The number of intervals is
 \[
 k\le \fc{\ve{x-y}}{a}+1\le \fc{2\ve{x-y}}a.
 \]
-hen
+Then
 \bal
 \ve{f(x)-f(y)} & \le \sum_{i=1}^k \ve{f(x_i)-f(x_{i-1})} \\
 &\le KW_f(a) \le \fc{2W_f(a)}{a}\ve{x-y},
 \end{align*}
 so we can let $L(a) = \fc{2W_f(a)}{a}$.
 \end{proof}
+
 \subsection{Bourgain's discretization theorem}
 
 There are 3 known proofs of Ribe's Theorem.
@@ -44,27 +45,35 @@ Bourgain's proof, a Fourier analytic proof which gives a quantitative version. T
 \end{enumerate}
 Bourgain uses the Discretization Theorem~\ref{thm:bdt}. There is an amazing open problem in this context.
 
-Let $X$ be a finite-dimensional normed space $\dim(X)=n<\iy$. Let $Y$ be a Banach space.  Consider the unit ball $B_X$ in $X$. Take an $\de$-net $\cal N_\de$ in $B_X$ (a maximal $\de$-separated subset). Suppose we can embed $\cal N_\de$ into $Y$ via $f:\cal N_\de\to Y$. Suppose we know in $Y$ that
+Saying $\delta$ is big says there is a not-too-fine net, which is enough. Therefore we are interested in lower bounds on $\delta$. 
+
+\begin{df} Discretization modulus. \\
+Let $X$ be a finite-dimensional normed space $\dim(X)=n<\iy$. Let target space $Y$ be an arbitrary Banach space.  Consider the unit ball $B_X$ in $X$. Take an $\de$-net (the distance between points is at most $\de$) $\cal N_\de$ in $B_X$ (a maximal $\de$-separated subset). Suppose we can embed $\cal N_\de$ into $Y$ via $f:\cal N_\de\to Y$. Suppose we know in $Y$ that
 \[
 \ve{x-y}\le \ve{f(x)-f(y)}\le D\ve{x-y}.
-\] 
+\]
+for all $x, y \in N_{\de}$. 
 %also interesting not in context of normed spaces.
 (We say that $\cal N_\de$ embeds with distortion $D$ into $Y$.)
-You can prove using a nice compactness argument that if this holds for $\de$ is small enough, then the entire space $X$ embeds into $Y$ with rough the same distortion. %you lose a factor
+\end{df}
+You can prove using a nice compactness argument that if this holds for $\de$ is small enough, then the entire space $X$ embeds into $Y$ with rough the same distortion. 
+Bourgain's discretization theorem~\ref{thm:bdt} says that you can choose $\de=\de_n$ to be independent of the geometry of $X$ and $Y$ such that if you give a $\delta$-approximation of the unit-ball in the $n$-dimensional norm, you succeed in embedding the whole space. 
+%you lose a factor
 %if $Y$ is reflexive, you can get this easily; for general $Y$ you need more work.
-Bourgain's discretization theorem~\ref{thm:bdt} says that you can choose $\de=\de_n$ to be independent of the geometry of $X$ and $Y$.
 %$\de$-approximation encodes all the information. Whenever you try . Succeed for the net, succeed for object.
 
-I often use this theorem in this way: I use continuous methods to show embedding $X$ into $Y$ requires big distortion; immediately I get an example with a finite object.
-\begin{df}
+I often use this theorem in this way: I use continuous methods to show embedding $X$ into $Y$ requires big distortion; immediately I get an example with a finite object. Let us now make the notion of distortion more precise. 
+
+\begin{df} Distortion. \\
 Suppose $(X,d_X),(Y,d_Y)$ are metric spaces $D\ge 1$. We say that $X$ embeds into $Y$ with \ivocab{distortion} $D$ if there exists $f:X\to Y$ and $s>0$ such that for all $x,y\in X$,
 \[
 Sd_X(x,y) \le d_Y(f(x),f(y)) \le DSd_X(x,y).
 \]
 \nomenclature{$C_Y(X)$}{infimum of $D$ where $X$ imbeds into $Y$ with distortion $D$}
-The infimum over those $D\ge 1$ such that $X$ embeds into $Y$ with distortion is denoted $C_Y(X)$.
+The infimum over those $D\ge 1$ such that $X$ embeds into $Y$ with distortion is denoted $C_Y(X)$. This is a measure of how far $X$ is being from a subgeometry of $Y$. 
 %how far from being subgeometry.
 \end{df}
+
 \begin{df}
 \nomenclature{$\de_{X\hra Y}(\ep)$}{supremum over all those $\de>0$ such that for every $\de$-net $\cal N_\de$ in $B_X$, $C_Y(\cal N_\de)\ge (1-\ep)C_Y(X)$}
 Let be a $n$-dimensional normed space and $Y$ be any Banach space, $\ep\in (0,1)$. Let $\de_{X\hra Y}(\ep)$ be the supremum over all those $\de>0$ such that for every $\de$-net $\cal N_\de$ in $B_X$, 
@@ -72,15 +81,17 @@ Let be a $n$-dimensional normed space and $Y$ be any Banach space, $\ep\in (0,1)
 
 Here $B_X:=\set{x\in X}{\ve{x}\le 1}$.
 \end{df}
-The way to read this is that if you got $C_Y(\cal N_\de)$ to be small, then the distortion of the entire object is not much larger.
+In other words, the distortion of the $\delta$-net is not much larger than the distortion of the whole space. That is, the discrete $\delta$-ball encodes almost all information about the space when it comes to embedding into $Y$: If you got $C_Y(\cal N_\de)$ to be small, then the distortion of the entire object is not much larger.
 %a discretization modulus. $\de$-net encodes all the info when it comes to embedding things into $Y$.
 \begin{thm}[Bourgain's discretization theorem]\label{thm:bdt}
 For every $n$, $\ep\in (0,1)$, for every $X,Y$, $\dim X=n$, 
 \[
 \de_{X\hra Y}(\ep)\ge  e^{-\pf{n}{\ep}^{Cn}}.
 \]
-Moreover for $\de=e^{-(2n)^{Cn}}$, we have $C_Y(X)\le 2C_Y(\cal N_\de)$.
+Thus there is a delta which is just dependent on the dimension such that in any $n$-dim norm space if you look at the unit ball it encodes all the information of embedding $X$ into \textbf{anything else}. It's only a function of the dimension, not of any of the relevant geometry. 
+Moreover for $\de=e^{-(2n)^{Cn}}$, we have $C_Y(X)\le 2C_Y(\cal N_\de)$ via a linear operator. 
 \end{thm}
+
 %lower bound
 %$\de$ dependent on dimension, 
 The theorem says that if you look at a $\de$-net in the unit ball, it encodes all the information about $X$ when it comes to embedding into everything else. %There is a discrete version , 
@@ -94,6 +105,7 @@ The best known upper bound is
 \de_{X\hra Y}\prc2 \lesssim\rc n.
 \]
 %how mch to discretize to encode all information.
+The latest progress was $1987$, there isn't a better bound yet. You have a month to think about it before you get corrupted by Bourgain's proof. 
 
 There is a better bound when the target space is a $L^p$ space.
 \begin{thm}[Gladi, Naor, Shechtman]
@@ -222,6 +234,8 @@ The cases $p=\iy,2$ give the operator and Frobenius norm,
 \ve{A}_{S_2}& = \sqrt{\Tr(A^*A)} = \pa{\sum a_{ij}^2}^{\rc 2}.
 \end{align*}
 
+
+
 \begin{exr}
 $\ved_{S_p}$ is a norm on $\cal M_{n\times m}(\R)$. You have to prove that given $A,B$,
 \[
@@ -232,14 +246,14 @@ $\ved_{S_p}$ is a norm on $\cal M_{n\times m}(\R)$. You have to prove that given
 \]
 %if they commute it is trivial
 \end{exr}
-This requires an idea. Note if $A,B$ commute this is trivial. Von Neumann wrote a paper called ``Matric spaces," and the only thing he proves is this inequality, and he didn't know what it was useful for. Schatten later wrote books on applications. There is a lot to do with this!
+This requires an idea. Note if $A,B$ commute this is trivial. 
+Apparently von Neumann wrote a paper called ``Metric Spaces'' in the $1930$s in which he just proves this inequality and doesn't know what to do with it, so it got forgotten for a while until the $1950$s, when Schatten wrote books on applications. When I was a student in grad school, I was taking a class on random matrices. There was two weeks break, I was certain that it was trivial because the professor had not said it was not, and it completely ruined my break though I came up with a different proof of it. It's short, but not trivial: It's not typical linear algebra!. This is like another triangle inequality, which we may need later on.
 
 %if linear algebra then trivial. Random matrices class. 
 %sometimes you find a completely different proof.
-Hint: it's short but it's not typical linear algebra!
 
 Spielman and Srivastava have a beautiful theorem. %People in numerical linear algebra call the 
-\begin{df}
+\begin{df} Stable rank. \\
 Let $A:\R^m \to \R^n$. 
 The \ivocab{stable rank} is defined as
 \nomenclature{$\text{srank}(A)$}{stable rank, $\pf{\ve{A}_{S_2}}{\ve{A}_{S_\iy}}^2$}
@@ -281,11 +295,10 @@ What matters is not the ratio of the norms, but the tail of the distribution of 
 \begin{thm}\llabel{thm:gen-srank}
 Let $A:\R^m\to \R^n$ be a linear operator. If $k<\rank(A)$  then there exist $\si\subeq \{1,\ldots, m\}$ with $|\si|=k$ such that 
 \[
-\ve{(AJ_\si)^{-1}} \lesssim \min_{k<r\le \rank(A)}\sfc{mr}{(r-k) \sum_{i=r}^m s_i(A)^2}.
+\ve{(AJ_\si)^{-1}}_{S_{\infty}} \lesssim \min_{k<r\le \rank(A)}\sfc{mr}{(r-k) \sum_{i=r}^m s_i(A)^2}.
 \]
 \end{thm}
 You have to optimize over $r$. You can get the ratio of $L_p$ norms from the tail bounds. This implies all the known theorems in restricted invertibility.
-
 The subset can be as big as you want up to the rank, and we have sharp control in the entire range.
-
-Next time we'll show how this implies the other theorems, and then prove the theorem. %: show how the 
+This theorem generalizes Spielman-Srivasta (Theorem~\ref{thm:ss}), which had generalized Bourgain-Tzafriri (Theorem ~\ref{thm:btrip}). 
+%Next time we'll show how this implies the other theorems, and then prove the theorem. %: show how the 

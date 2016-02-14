@@ -4,10 +4,16 @@
 
 
 \section{The Ribe Program}
-Our main motivation is the \ivocab{Ribe Program}. The program is inspired from a theorem from 1975 called Ribe's Rigidity Theorem~\ref{thm:ribe}. The theorem is about Banach spaces, specifically a relationship between their linear structure and metric structure.
+
+The main motivation for most of what we will discuss is called the Ribe Program, which is a research program many hundreds of papers large. We will see some snapshots of it, and it all comes from a theorem from $1975$, \textbf{Ribe's rigidity theorem}~\ref{thm:ribe}, which we will state now and prove later in a modern way. This theorem was Martin Ribe's dissertation, which started a whole direction of mathematics, but after he wrote his dissertation he left mathematics. He's apparently a government official in Sweden. The theorem is in the context of Banach spaces; a relation between their linear structure and their structure as metric spaces. Now for some terminology. 
+
+\begin{df} Banach space. \\
+A Banach space is a complete, normed vector space. Therefore, a Banach space is equipped with a metric which defines vector length and distances between vectors. It is complete, so every Cauchy sequence of converges to a limit defined inside the space. 
+\end{df}
+
 
 \begin{df}
-Let $(X,\ved_X), (Y,\ved_Y)$ by Banach spaces. We say that $X$ is (crudely) \ivocab{finitely representable} in $Y$ if there exists $K>0$ such that for every finite-dimensional linear subspace $F\subeq X$, there is a linear operator $S:F\to Y$ such that for every $x\in F$, 
+Let $(X,\ved_X), (Y,\ved_Y)$ be Banach spaces. We say that $X$ is (crudely) \ivocab{finitely representable} in $Y$ if there exists some constant $K>0$ such that for every finite-dimensional linear subspace $F\subeq X$, there is a linear operator $S: F \to Y$ such that for every $x\in F$, 
 \[
 \ve{x}_X\le \ve{Sx}_Y\le K\ve{x}_X.
 \]
@@ -160,11 +166,14 @@ $p>2$: Gorelik, applying the Brouwer fixed point theorem (topology)
 
 Every linear property of a Banach signs which is local (type, cotype, etc.; involving summing, powers, etc.) is preserved under a general nonlinear deformation.
 
-After the theorem, people wondered: can we reformulate the local theory of Banach spaces without mentioning anything about the linear structure? 
+After Ribe's rigidity theorem, people wondered: can we reformulate the local theory of Banach spaces without mentioning anything about the linear structure? 
+Ribe's rigidity theorem is more of an existence statement, we can't see anything about an explicit dictionary which maps statements about linear sums into statements about metric spaces. So people started to wonder whether we could reformulate the local theory of Banach spaces, but only looks at distances between pairs instead of summing things up. Local theory is one of the hugest subjects in analysis. If you could actually find a dictionary which takes one linear theorem at a time, and restate it with only distances, there is a huge potential here! Because the definition of type only involves distances between points, we can talk about a metric space's type or cotype. So maybe we can use the intution given by linear arguments, and then state things for metric spaces which often for very different reasons remain true from the linear domain. And then now maybe you can apply these arguments to graphs, or groups! We could be able to prove things about the much more general metric spaces. Thus, we end up applying theorems on linear spaces in situations with \emph{a priori nothing} to do with linear spaces. This is massively powerful.
+
+
 %uniform homomorphism
-In metric spaces, we are only allowed to discuss distances between points, not linear properties (ex. summing up). Suppose we can reformulate local theory in this way---find a dictionary that reformulates each linear property and theorem about linear properties as properties and theorems involving distances. Then we can state the analogous theorems for metric spaces. In particular, we can discuss when metric spaces have type and cotype. Maybe the theorems remain true---often they do, for different reasons. Now we can apply the theorem to graphs, groups, etc. %Somewhere
+%In metric spaces, we are only allowed to discuss distances between points, not linear properties (ex. summing up). Suppose we can reformulate local theory in this way---find a dictionary that reformulates each linear property and theorem about linear properties as properties and theorems involving distances. Then we can state the analogous theorems for metric spaces. In particular, we can discuss when metric spaces have type and cotype. Maybe the theorems remain true---often they do, for different reasons. Now we can apply the theorem to graphs, groups, etc. %Somewhere
 %transl concept, theorems, phenomenon fro linear spaces to metric spaces.
-Thus, we end up applying theorems on linear spaces in situations with \emph{a priori nothing} to do with linear spaces. This is massively powerful.
+%Thus, we end up applying theorems on linear spaces in situations with \emph{a priori nothing} to do with linear spaces. This is massively powerful.
 %massively powerful. 
 %mysterious dictionary.
 
@@ -202,18 +211,18 @@ A metric space $(X,d_X)$ has \ivocab{Enflo type $p$} if there exists $T>0$ such 
 \E[d_X(f(\ep), f(-\ep))^p]\le T^p \sum_{i=1}^n \E[ d_X(f(\ep), f(\ep_1,\ldots, \ep_{i-1}, -\ep_i, \ep_{i+1},\ldots, \ep_n))^p].
 \]
 \end{df}
-This is bold. 
-%you should worry about this!
-%The discrete cube is all these vectors with $\ep$. The function goes into the Banach space and assigns $2^n$ arbitrary points.
-In~\eqref{eq:type-gen}, the points had to be vertices of a cube, but in Definition~\ref{df:enflo}, they are arbitrary. The moment you choose the labelings, you impose a cube structure between the points. %on the cube.
 
-\ig{images/1-1}{.25}
-
-The inequality says:
+This is bold. It wasn't true before for a general function! The discrete cube (Boolean hypercube) $\{\pm 1\}^n$ is all the $\epsilon$ vectors, of which there are $2^n$. Our function just assigns $2^n$ points arbitrarily. No structure whatsoever. As they are indexed this way, you see nothing. But you're free to label them by vertices of the cube however you want. But there are many labelings! In~\eqref{eq:type-gen}, the points had to be vertices of a cube, but in Definition~\ref{df:enflo}, they are arbitrary. The moment you choose the labelings, you impose a cube structure between the points. Some of them are diagonals of the cube, some of them are edges. $\epsilon$ and $-\epsilon$ are antipodal points. But it's not really a diagonal. They are points on a manifold, and are a function of how you decided to label them. What this sum says is that the sum over all diagonals, the length of the diagonals to the power $p$ is less than the sum over edges to the $p^{th}$ powers (these are the points where one $\epsilon_i$ is different). Thus we can see 
 \[
 \sum \diag^p\lesssim_X\sum \text{edge}^p.
 \]
 The total $p$th power of lengths of diagonals is up to a constant, at most the same thing over all edges.
+%you should worry about this!
+%The discrete cube is all these vectors with $\ep$. The function goes into the Banach space and assigns $2^n$ arbitrary points.
+%In~\eqref{eq:type-gen}, the points had to be vertices of a cube, but in Definition~\ref{df:enflo}, they are arbitrary. The moment you choose the labelings, you impose a cube structure between the points. %on the cube.
+
+\ig{images/1-1}{.25}
+
 
 This is a vast generalization of type; we don't even know a Banach space satisfies this.
 %This is a vast generalization
@@ -226,16 +235,19 @@ This has been open for 40 years. We will prove the following.
 If $X$ is a Banach space of type $p>1$ then $X$ also has type $p-\ep$ for every $\ep>0$.
 \end{thm}
 If you know the type inequality for parallelograms, you get it for arbitrary sets of points, up to $\ep$.
+Basically, you're getting arbitrarily close to $p$ instead of getting the exact result. 
+We also know that the conjecture stated before is true for a lot of specific Banach spaces, though we do not yet have the general result. 
+For instance, this is true for the $L_4$ norm.  Index functions by vertices; some pairs are edges, some are diagonals; then the $L^4$ norm of the diagonals is at most that of the edges.
 
-The conjecture is true for many spaces. For example, it's true for $L^4$. Index functions by vertices; some pairs are edges, some are diagonals; then the $L^4$ norm of the diagonals is at most that of the edges.
+How do you go from knowing this for a linear function to deducing this for an arbitrary function? 
 
-%know just for linear functions, want to deduce for arbitrary functions.
+Once you do this, you have a new entry in the hidden Ribe dictionary. If $X$ and $Y$ are uniformly homeomorphic Banach spaces and $Y$ has Enflo type $p$, then so is $X$. The minute you throw away the linear structure, Corollary~\ref{cor:uh-type} becomes easy. It requires a tiny argument. Now you can take a completely arbitrary function $f: \{\pm 1\}^n \to X$. There exists a homeomorphism $\psi: X \to Y$ such that $\psi, \psi^{-1}$ are uniformly continuous. Now we want to deduce that the same inequality in $Y$ gives the same inequality in $X$.  
 
-The moment that I throw away the linear structure, Corollary~\ref{cor:uh-type} becomes easy.
 \begin{pr}\llabel{pr:uh-enflo}
 If $X,Y$ are uniformly homeomorphic Banach spaces and $Y$ has Enflo type $p$, then so does $X$.
 \end{pr}
 
+This is an example of making the abstract Ribe theorem explicit.
 \begin{lem}[Corson-Klee]\index{Corson-Klee Lemma}\llabel{lem:corson-klee}
 If $X,Y$ are Banach spaces and $\psi:X\to Y$ are uniformly continuous, then for every $a>0$ there exists $L(a)$ such that 
 \[
