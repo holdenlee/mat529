@@ -1,0 +1,382 @@
+\blu{2-15-16}
+
+%We were in the process of proving three or four subset selection principles, which we will somehow use to prove the RIP. %
+
+%Now I owe you a proof (just ask me for the linear algebra proof) - I'll show you an analytic proof. %
+
+%We proved the little Grothendieck inequality (Theorem~\ref{thm:lgt}), which is part of an amazing area of mathematics with many applications. It's little, but it's also very useful. Just to remind you, we had an linear operator $T: \R^m \to \R^n$. Then for every $x_1, \cdots, x_k \in \R^m$, we get a bounded operator. If you look at the sum of the Euclidean lengths $\left(\sum_{i = 1}^k \|Tx\|_2^2\right)^{1/2} \leq \sqrt{\pi/2}\|T\|_{l_{\infty}^m \to l_2^n} \cdot \max_{1 \leq j \leq m} \left(\sum_{i = 1}^k x_{rj}^2\right)^{1/2}$. This is really the way Grothendieck did it, but the proof we saw is really the original proof, re-organized. For completeness, we'll show the fact that this inequality is sharp (cannot be improved). %
+
+%\begin{cor} $\sqrt{\pi/2}$ is the best constant in Theorem~\ref{thm:lgt}. \\
+%\end{cor}
+%\begin{proof}
+%Define $g_1, \cdots, g_k$ be i.i.d standard Gaussians, defined on probability space $(\Omega, P)$. We define $T: L_{\infty}(\Omega, \mathbb{P}) \to \R^k$. Then $Tf = \left(\mathbb{E}(fg_1), \mathbb{E}(fg_2), \cdots, \mathbb{E}(fg_k) \right)$. Choose $X_r = \frac{g_r}{\left(\sum_i^k g_i^2\right)^{1/2}}$. This is nothing more than a vector on the $k$-dimensional unit sphere. So it's a bounded function. We also note that $x_r$ is a function on the measure space $\Omega$.  We can also write
+%\[
+%\sum_{r = 1}^k x_r(\omega)^2 = \sum_{r = 1}^k \frac{g_r(\omega)^2}{\sum_{i = 1}^r g_i(\omega)^2} = 1
+%\]
+%We can use the Central Limit Theorem to make things precise: $g_r \approx \frac{\epsilon_{r_1} + \cdots + \epsilon_{r_N}}{\sqrt{N}}$ as $N \to \infty$. So all these statements will be asymptotically true. Where does the family of random variables $\{g_r\}$ live in $\Omega$? Well $\Omega = \{\pm 1\}^{NK}$. So $L_{\infty}(\Omega) = \l_{\infty}^{2^{NK}}$, which is some huge dimension, but it's still finite. So $\omega$ will really be a coordinate in $\Omega$. %
+
+%Now we show two things; nothing more than computations. 
+%\begin{enumerate}%
+
+%\item $\|T\|_{L_{\infty}(\Omega, \textbf{P}) \to l_2^k} = \sqrt{2/\pi}$, %
+
+%\item We also show $\sum_{r = 1}^k \|Tx_r\|_2^2 \to^{k \to \infty} 1$. %
+
+%\end{enumerate}%
+
+%First we tackle the first case. We have 
+%\begin{align}
+%\begin{split}
+%\|T\|_{\infty \to 1} &= \text{sup}_{\|f\|_{\infty} \leq 1}\left(\sum_{r = 1}^k \mathbb{E}\left[fg_r\right]^2 \right)^{1/2}
+%\\
+%&= \text{sup}_{\|f\|_{\infty} \leq 1} \text{sup}_{\sum_{r = 1}^k \alpha_r^2 = 1} \sum_{r = 1}\alpha_r \mathbb{E}\left[fg_r\right]
+%\\
+%&= \text{sup}_{\sum_{r = 1}^k} \text{sup}_{\|f\|_{\infty} \leq 1} \mathbb{E}\left[f\sum_{i = 1}^k \alpha_r g_r \right]
+%\\
+%&= \text{sup}_{\sum_{r = 1}^k} \mathbb{E}\left| \sum_{r = 1}^k \alpha_r g_r \right| = \mathbb{E} |g_1| = \sqrt{\frac{2}{\pi}}
+%\end{split}
+%\end{align}%
+
+%as we claimed. Now we tackle the second computation: 
+%\begin{align}
+%\begin{split}
+%\sum_{r = 1}^k \|Tx_r\|_2^2 &= \sum_{r = 1}^k \left(\mathbb{E} \left[\frac{g_r^2}{\left(\sum_{i = 1}^k g_i^2\right)^{1/2}}\right]\right)^2
+%\\
+%&= K \left(\mathbb{E}\left[\frac{g_1^2}{\left(\sum_{i = 1}^k g_i^2\right)^{1/2}}\right]\right)
+%\\
+%&= K\left(\frac{1}{K}\mathbb{E}\left[\sum_{r = 1}^k \frac{g_r^2}{\left(\sum g_i^2\right)^{1/2}}\right]\right)^2
+%\\
+%&= \frac{1}{K} \left(\mathbb{E}\left[\left(\sum_{i = 1}^k g_i^2\right)^{1/2}\right]\right)^2
+%\end{split}
+%\end{align}
+%and you can use Stirling to finish. This is just a $\chi^2$-distribution. %
+
+%In this case $\mathbb{E} \frac{g_1g_2}{\left(\sum_i g_i^2\right)^{1/2}} = \mathbb{E} \frac{g_1 (-g_2)}{\left(\sum g_i^2\right)^{1/2}}$. 
+%Also note that if $(g_1, \cdots, g_k) \in \R^k$ is a standard Gaussian, then $\frac{(g_1, \cdots, g_k)}{\left(\sum_{i = 1}^k g_i^2\right)^{1/2}}$ and $\left(\sum_{i = 1}^k g_i^2)^{1/2}\right)$ are independent. In other words, the length and angle are independent: This is just polar coordinates, you can check this. 
+%\end{proof}%
+
+%Now, how does this relate to the Restricted Invertibility Problem? %
+
+%\begin{thm} Pietsch Domination Theorem.\llabel{thm:pdt} \\
+%Fix $m, n \in \mathbb{N}$ and $M  > 0$. Suppose that $T: \R^m \to \R^n$ is a linear operator such that for every $x_1, \cdots, x_k \in \R^m$ have 
+%\[
+%\left(\sum_{r = 1}^k \|Tx_r\|_2^2\right)^{1/2} \leq M \text{max}_{1 \leq j \leq m} \left(\sum_{r = 1}^k x_{rj}^2\right)^{1/2}
+%\]
+%Then there exist $\mu = (\mu_1, \cdots, \mu_m) \in \R^m$ with $\mu_1 \geq 0$ and $\sum_{i = 1}^m = 1$ such that for every $x \in \R^m$
+%\[
+%\|Tx\|_2 \leq M\left(\sum_{i = 1}^M \mu_ix_i^2\right)^{1/2}
+%\]
+%It's really an iff: The latter is a stronger statement than the former, and in fact they are equivalent.
+%You can come out with a probability measure, a way to weight the coordinates, such that the norm of T as an operator as a standard norm from $l_{\infty}$ to $l_2$, is bounded by $M$. 
+%\end{thm}
+%\begin{proof}
+%Define $K \subseteq \R^m$ with 
+%\[
+%K = \left\{y \in \R^m: y_i = \sum_{r = 1}^k \|Tx_r\|_2^2 - M^2\sum_{r = 1}^m x_{ri}^2 \text{ for some } k, x_1, \cdots, x_k \in \R^m\right\}
+%\]
+%Basically we cleverly select a convex set. Every $n$-tuple of vectors in $\R^m$ gives you a new vector in $\R^m$. Let's check that $K$ is convex. We have to check if two vectors $y, z \in K$ have all points on the line between them in $K$. $y \in K$ means that 
+%\[
+%y_i = \sum_{r = 1}^k \|Tx_r\|_2^2 - M^2 \sum_{r = 1}^m x_{ri}^2
+%\] 
+%\[
+%z_i = \sum_{r = 1}^l \|Tw_r\|_2^2 - M^2 \sum_{r = 1}^l w_{ri}^2
+%\]
+%for all $i$. So what can you say about the average $\frac{y_i + z_i}{2}$? It comes from $\left(\frac{x_1}{\sqrt{2}}, \cdots, \frac{x_k}{\sqrt{2}}, \frac{w_1}{\sqrt{2}}, \cdots, \frac{w_l}{\sqrt{2}}\right)$. So trivially by design this is a convex set. %
+
+%Now, the assumption of the theorem says that 
+%\[
+%\left(\sum_{r = 1}^k \|Tx_r\|_2^2\right)^{1/2} \leq M \text{max}_{1 \leq j \leq m} \left(\sum_{r = 1}^k x_{rj}^2\right)^{1/2}
+%\]
+%which implies 
+%\[
+%\|Tx_r\|_2^2 - M^2 \text{max}_{1 \leq j \leq m} \sum_{r = 1}^m x_{rj}^2 \leq 0
+%\]
+%which implies $K \cap (0, \infty)^m = \emptyset$. By the hyperplane separation theorem (for two disjoint convex sets in $\R^m$ with at least one compact, there is a hyperplane between them), there exists $0 \neq \mu = (\mu_1, \cdots, \mu_m) \in \R^m$. We have 
+%\[
+%\langle \mu, y \rangle \leq \langle \mu, z\rangle
+%\]
+%for all $y \in K$ and $z \in (0, \infty)^m$. By renormalizing, $\sum_{i = 1}^m = 1$. Moreover $\mu$ cannot have any strictly negative coordinate: Otherwise you could take $z$ to have arbitrarily large value at a strictly negative coordinate with zeros everywhere else, implying $\langle u, z \rangle$ is no longer bounded from below, a contradiction. Therefore, $\mu$ is a probability vector and $\langle \mu, z \rangle$ can be arbitrarily small. So for every $y \in K$, $\sum_{i = 1}^m \mu_iy_i \leq 0$. Then $y_i = \|Tx\|_2^2 - M^2x_i \in K$, and if you write this out, $\|Tx\|_2^2 - M^2 \sum_{i = 1}^n \mu_i y_i \leq 0$, which is exactly what we wanted. 
+%\end{proof}%
+
+%\begin{lem} \llabel{lem:projbound}
+%$m, n \in \mathbb{N}$, $\epsilon \in (0, 1)$, $T: \R^n \to \R^m$ a linear operator. Then $\exists \sigma \subset \{1, \cdots, m\}$ with $|\sigma| \geq (1 - \epsilon)m$ such that 
+%\[
+%\|\text{Proj}_{\R^{\sigma}} T\|_{S_{\infty}} \leq \sqrt{\frac{\pi}{2\epsilon m}} \|T\|_{l_2^n \to l_1^m}
+%\] 
+%We will find ways to restrict a matrix to a big big submatrix, but we won't be able to control its operator norm, but we will be able to control the norm from $l_2^n \to l_1^m$. So then you go to a further subset, which this becomes an operator norm on, which is an improvement which Grothendieck gave us. This is the first very useful tool to start finding big sub matrices. 
+%\end{lem}
+%\begin{proof}
+%We have $T: l_2^n \to l_1^m$, $T^*: l_{\infty}^m \to l_2^n$. Now some abstract nonsense gives us that for Banach spaces, the norm of an operator and its adjoint are equal, i.e. $\|T\|_{l_2^n \to l_1^m}  = \|T^*\|_{l_{\infty}^m \to l_2^n}$. This statement follows from Hahn-Banach theorem (come see me if you haven't seen this before, I'll tell you what book to read). 
+%From the Little Grothendieck inequality (Theorem~\ref{thm:lgi}), $T^*$ satisfies the assumption of the Pietsch domination theorem with $M = \sqrt{\frac{\pi}{2}} \|T\|_{l_2^n \to l_1^m}$ (we're applying it to $T^*$). So we have probability vector $(\mu_1, \cdots, \mu_m)$ such that for every $y \in \R^m$
+%\[
+%\|T^*y\|_2 = M\left(\sum_{i = 1}^m \mu_iy_i^2\right)^{1/2}
+%\]
+%with $M = \sqrt{\frac{\pi}{2}} \|T\|_{l_2^n \to l_1^m}$. Define $\sigma = \left\{i \in \{1, \cdots, m\}: \mu_i \leq \frac{1}{m\epsilon}\right\}$, then $|\sigma| \geq (1 - \epsilon)m$ by Markov's inequality. We can also see this by writing
+%\[
+%1 = \sum \mu_i = \sum_{i \in \sigma} \mu_i + \sum_{i \not\in \sigma} \mu_i > \sum_{i \in \sigma} \mu_i + \frac{m - |\sigma|}{m\epsilon}
+%\]
+%which follows since $\mu_j$ for $j \not\in \sigma$ has $\mu_j > \frac{1}{m\epsilon}$. Continuing, 
+%\[
+%\frac{m\epsilon - m + |\sigma|}{m\epsilon} \geq \sum_{i \in \sigma} \mu_i
+%\]
+%\[
+%|\sigma| \geq (m\epsilon)\sum_{i \in \sigma} \mu_i +  m(1 - \epsilon)
+%\]
+%Then, since $(m\epsilon)\sum_{i \in \sigma} \mu_i  \geq 0$ since $\mu$ is a probability distribution, we have
+%\[
+%|\sigma| \geq m(1 - \epsilon)
+%\]%
+
+%Now take $x \in \R^n$ and choose $y \in \R^m$ with $\|y\|_2 = 1$. Then 
+%\[
+%\langle y, \text{Proj}_{\R^{\sigma}} Tx \rangle^2 = \|\text{Proj}_{\R^{\sigma}} Tx\|_2^2 \leq \langle T^* \text{Proj}_{\R^{\sigma}} y, x \rangle^2 \leq \|T^*\text{Proj}_{\R^{\sigma}} y\|_2^2 \cdot \|x\|_2^2
+%\] 
+%\[
+%\leq \frac{\pi}{2}\|T\|_{l_2^n \to l_1^m} \left(\sum_{i \in \sigma} \mu_iy_i^2\right) \|x\|_2^2 \leq \frac{\pi}{2} \|T\|_{l_2^n \to l_1^m}^2 \frac{1}{m\epsilon}\|x\|_2^2
+%\]
+%by Cauchy-Schwarz. Then, taking square roots gives the desired result.
+%\end{proof}
+%In the previous proof, we used a lot of duality to get an interesting subset. %
+
+%\begin{rem}
+%In Lemma~\ref{lem:projbound}, I think that either the constant $\pi/2$ is sharp (no subset are bigger; it could come from the Gaussians), or there is a different constant here. If the constant is $1$, I think you can optimize the previous argument and get the constant to be arbitrarily close to $1$, which would have some nice applications: In other words, getting $\sqrt{\frac{\pi}{2\epsilon m}}$ as close to $1$ as possible would be good. I didn't check before class, but you might want to check if you can carry out this argument using the Gaussian argument we made for the sharpness of $\frac{\pi}{2}$ in Grothendieck's inequality (Theorem~\ref{thm:lgt}). It's also possible that there is a different universal constant. 
+%\end{rem}%
+
+%Now we will give another lemma which is very easy and which we will use a lot. 
+%\begin{lem} Sauer-Shelah. \llabel{lem:saushel} \\
+%Take integers $m, n \in \mathbb{N}$ and suppose that we have a large set $\Omega \subseteq \{\pm 1\}^n$ with 
+%\[
+%|\Omega| > \sum_{k = 0}^{n - 1} {n \choose k}
+%\]
+%Then $\exists \sigma \subseteq \{1, \cdots, n\}$ such that with $|\sigma| = m$, if you project onto $\R^{\sigma}$ the set of vectors, you get the entire cube: $\text{Proj}_{\R^{\sigma}}(\Omega) = \{\pm 1\}^{\sigma}$. For every $\epsilon \in \{\pm 1\}^{\sigma}$, there are signs $\delta = (\delta_1, \cdots, \delta_n) \in \Omega$ such that $\delta_j = \epsilon_j$ for $j \in \sigma$.
+%\end{lem}%
+
+%Note that Lemma~\ref{lem:saushel} is used in the proof of the Fundamental Theorem of Statistical Learning Theory. %
+
+%\begin{proof}
+%% The strengthening of induction I'm about to use is due to Pajor.
+%We want to prove by induction on $n$. First denote the shattering set
+%\[
+%\txtn{sh}(\Omega) = \{\sigma \subseteq \{1, \cdots, n\}: \txtn{Proj}_{\R^{\sigma}}\Omega = \{\pm 1\}^{\sigma}\}
+%\]
+%The claim is that the number of sets shattered by a given set is $|\text{sh}(\Omega)| \geq |\Omega|$. The empty set case is trivial. What happens when $n = 1$? $\Omega \subset \{-1, 1\}$, and thus the set is shattered. Assume that our claim holds for $n$, and now set $\Omega \subseteq \{\pm 1\}^{n + 1} = \{\pm 1\}^n \times \{\pm 1\}$. Define
+%\[
+%\Omega_+ = \{\omega \in \{\pm 1\}^n: (\omega, 1) \in \Omega\}
+%\] 
+%\[
+%\Omega_{-} = \{ \omega \in \{\pm 1\}^n: (\omega, -1) \in \Omega\}
+%\]
+%Then, letting $\tilde{\Omega}_+ = \{(\omega, 1)\in \{\pm 1\}^{n+1}: \omega \in \Omega_+\}$ and $\tilde{\Omega}_-$ similarly, we have $|\Omega| = |\tilde{\Omega}_+| + |\tilde{\Omega}_-| = |\Omega_+| + |\Omega_-|$. By our inductive step, we have sh$(\Omega_+) \geq |\Omega_+|$ and sh$(\Omega_-) \geq |\Omega_-|$. Note that any subset that shatters $\Omega_+$ also shatters $\Omega$, and likewise for $\Omega_{-}$. Note that if a set $\Omega'$ shatters both of them, we are allowed to add on an extra coordinate to get $\Omega' \times \{\pm 1\}$ which shatters $\Omega$. Therefore, 
+%\[
+%\txtn{sh}(\Omega_+) \cup \txtn{sh}(\Omega_-) \cup \left\{\sigma \cup \{n + 1\}: \sigma \in \txtn{sh}(\Omega_+) \cap \txtn{sh}(\Omega_-)\right\} \subseteq \txtn{sh}(\Omega)
+%\]
+%where the last union is disjoint since the dimensions are different. Therefore, we can now use this set inclusion to complete the induction using the principle of inclusion-exclusion: 
+%\bal
+%|\txtn{sh}(\Omega)| &\geq |\txtn{sh}(\Omega_+) \cup \txtn{sh}(\Omega_-)| + |\txtn{sh}(\Omega_+) \cap \txtn{sh}(\Omega_-)| \hspace{3em} \txtn{  (disjoint sets)}
+%\\
+%&= |\txtn{sh}(\Omega_+)| + |\txtn{sh}(\Omega_-)| - |\txtn{sh}(\Omega_+) \cap \txtn{sh}(\Omega_-)|  + |\txtn{sh}(\Omega_+) \cap \txtn{sh}(\Omega_-)| 
+%\\
+%&= |\txtn{sh}(\Omega_+)| + |\txtn{sh}(\Omega_-)|
+%\\
+%&\geq |\Omega_+| + |\Omega_-| = |\Omega|
+%\end{align*}
+%which completes the induction as desired. 
+%\end{proof}%
+
+%\begin{cor} If $|\Omega| \geq 2^{n -1}$ then there exists $\sigma \subseteq \{1, \cdots, n\}$ with $|\sigma| \geq \lceil \frac{n + 1}{2} \rceil \geq \frac{n}{2}$ such that $\txtn{Proj}_{\R^{\sigma}} \Omega = \{\pm 1\}^{\sigma}$. 
+%\end{cor}%
+%
+
+% TELL HOLDEN TO PULL TEMPLATES!!
+
+Last time we left off with the proof of the Sauer-Shelah lemma. To remind you, we were finding ways to find interesting subsets where matrices behave well. 
+
+Now recall we had a linear algebraic fact which I owe you; I will prove it in an analytic way.
+
+The lemma we will prove follows from the following general theorem: 
+\fixme{Link back to previous reference to the Ky-Fan maximum principle}
+\begin{thm} Ky-Fan maximum principle. \\\llabel{thm:eignmax}
+Let $B: \R^n \to \R^n$ be symmetric, and let $f: \R^n \to \R$ be a convex function. Then for every orthonormal basis $u_1, \cdots, u_n \in \R^n$, there exists a permutation $\pi$ such that 
+\[
+f(\langle Bu_1, u_1 \rangle, \cdots, \langle Bu_n, u_n \rangle) \leq f(\lambda\pi(1), \cdots, \lambda\pi(n))
+\]
+Essentially, we're saying using the eigenbasis maximizes the convex function. 
+\end{thm}
+\begin{proof}
+We need for every $i < j$, then $t \to f(x_1, \cdots, x_i + t, x_{i + 1}, \cdots, x_{j - 1}, x_{j} - t, x_{j + 1}, \cdots, x_n)$ is convex as a function of $t$. 
+Then if $f$ is smooth, we will have 
+\[
+\frac{\partial^2 f}{\partial x_i^2} + \frac{\partial^2 f}{\partial x_j^2} - 2 \frac{\partial^2 f}{\partial x_i\partial x_j} \geq 0 
+\]
+In other words, you just need that the Hessian is positive semidefinite (above, we wrote the determinant for all pairs $x_i, x_j$ - the above condition is equivalent). 
+
+YOu may assume that $f$ is smooth. Without loss of generality, we can give a strict inequality instead: 
+\[
+\frac{\partial^2 f}{\partial x_i^2} + \frac{\partial^2 f}{\partial x_j^2} - 2 \frac{\partial^2 f}{\partial x_i\partial x_j} > 0 
+\]
+since you can just take some $\epsilon > 0$ and perturb $f(x) + \epsilon \|x\|_2^2$. Then in the inequality in Theorem~\ref{thm:eignmax} is also perturbed by this slight change, and taking $\epsilon \to 0$ gives you the desired inequality.
+
+Now let $u_1, \cdots, u_n$ be an orthonormal basis at which $f(\langle Bu_1, u_1 \rangle, \cdots, \langle Bu_n, u_n\rangle)$ attains its maximum. Then for $u_i, u_j$, we want to rotate in the $i-j$ plane by angle $\theta$, so we replace $f$ with
+\[
+g(\theta) = f(\langle Bu_1, u_1 \rangle, \langle B(\cos(\theta) u_i \sin(\theta) u_j, \cos(\theta) u_i, \sin(\theta) u_j\rangle, \cdots, \langle B(\cos(\theta) u_i \sin(\theta) u_j, \cos(\theta) u_i, \sin(\theta) u_j\rangle)
+\] 
+Then we can show $g'(0) = 0, g''(0) \leq 0$ since $g$ attains its maximum at $\theta = 0$. Expanding out the dot products explicitly in $g(\theta)$, we get for the coefficient of $u_i$
+\[
+\cos^2(\theta)\langle Bu_i, u_i\rangle + \sin^2(\theta)\langle Bu_j, u_j \rangle + \sin(2\theta)\langle Bu_i, u_j \rangle
+\]
+and for $u_j$
+\[
+\sin^2(\theta)\langle Bu_i, u_i\rangle + \cos^2(\theta)\langle Bu_j, u_j \rangle - \sin(2\theta)\langle Bu_i, u_j \rangle
+\]
+Then we can mechanically take the derivatives at \fixme{Take derivatives with respect to what exactly?} %$\langle Bu_i, u_i \rangle$. 
+We get 
+\[
+0 = g'(0) = 2\langle Bu_i, u_j \rangle (f_{x_i} - f_{x_j})
+\]
+\[
+0 \geq g''(0) = 2\left(\langle Bu_j, u_j\rangle - \langle Bu_i, u_i \rangle\right)(f_{x_i} - f_{x_j}) + 4\langle Bu_i, u_j\rangle^2\left(f_{x_ix_i} + f_{x_jx_j} - 2f_{x_ix_j}\right)
+\]
+and this implies that $\langle Bu_i, u_j \rangle = 0$, which implies that for all $i$, $Bu_i = \mu_i\mu_i$. Thus any function applied to a vector of dot products is maximized at eigenvalues. 
+\end{proof}
+
+\begin{ex} $f:\R^n \to \R$ satisfies the conditions in Theorem~\ref{eignmax} and $(u_1, \cdots, u_n)$, $v_1, \cdots, v_n)$ are two orthonormal bases of $\R^n$. Then for every $A: \R^n \to \R^n$, there exists $\pi \in S_n$, $(\epsilon_1, \cdots, \epsilon_n) \in \{\pm 1\}^n$ such that
+\[
+f(\langle Au_1, v_1\rangle, \langle Au_2, v_2\rangle, \cdots, \langle Au_n, v_n \rangle) \leq f(\epsilon_1S_{\pi(1)}(A), \cdots, \epsilon_nS_{\pi(n)}(A))
+\]
+Then show that choosing $u, v$ as the singular values maximizes $f$. 
+\end{ex}
+To solve this problem, you can rotate both in the same direction and take derivatives, and also rotate them in opposite directions and take derivatives to get enough information to prove that the singular values are the maximum. 
+
+Essentially, a lot of the inequalities you find in these books follow from this. For instance, if you want to prove that the Schatten $p$-norm is a norm, it follows directly from this fact. 
+\begin{cor}
+Let $\|\cdot\|$ be a norm on $\R^n$ that is invariant under premutations and sign: 
+\[
+\|(x_1, \cdots, x_n)\| = \|(\epsilon_1x_{\pi(1)}, \cdots, \epsilon_nx_{\pi(n)})
+\]
+for all $\epsilon \in \{\pm 1\}^n$ and $\pi \in S_n$
+(In the literature, we call this a symmetric norm). 
+This induces a norm on matrices $M_{m \times n}(\R)$ with 
+\[
+\|A\| = \|(S_{\pi(1)}(A), \cdots, S_{\pi(n)}(A)\|)
+\]
+Then for $A, B$ matrices, we want to primarily show the triangle inequality: 
+\[
+\|A + B\| \leq \|A\| + \|B\|
+\]
+\[
+A + B = \sqrt{(A + B)^*(A + B)} \cdot W
+\]
+where $W$ is orthogonal matrix (this is just polar decomposition), and 
+\[
+|A + B| = \sqrt{(A + B)^*(A + B)}
+\]
+Let $u_1, \cdots, u_n$ be an orthonormal basis of $A+ B$. Then, 
+\[
+\|A + B\| = \|\langle |A + B|u_1, u_1 \rangle, \cdots, \langle |A + B|u_n, u_n \rangle\| = \|(\langle (A +  B)u_i, Wu_i\rangle)_{i = 1}^n \|
+\]
+\[
+\leq \|(\langle (A +  B)u_i, Wu_i\rangle)_{i = 1}^n \| + \|(Bu_i, Wu_i)\| \leq \|A\| + \|B\|
+\]
+So basically, the Schatten $p$-norm is a norm because it obeys rotational symmetries. 
+\end{cor}
+
+Remember this theorem! For many many results, you simply need to apply the right convex function to get the result. 
+
+Our lemma follows from setting $f(x) = \sum_{i = 1}^k x_i$. 
+\begin{lem}
+For every $A: \R^m \to \R^n$, and every orthogonal projection $P: \R^n \to \R$ of rank $k$, 
+\[
+\txtn{Tr}(A^*AP) \leq \sum_{i = 1}^k s_i(A)^2
+\]
+where the $s_i(A)$ are the square roots of the eigenvalues of $B = A^*A$. 
+\end{lem}
+\begin{proof}
+Take an orthonormal basis of $P$ $u_1, \cdots, u_n$ such that $u_1, \cdots, u_k$ is a basis of the range of $P$. Then
+\[
+\txtn{Tr}(BP) = \sum_{j = 1}^k \langle  Be_j, e_j \rangle \leq \sum_{i = 1}^k s_i(B) = \sum_{i = 1}^k s_i(A)^2
+\]
+\end{proof}
+
+Now we need another geometric lemma for the proof of \fixme{change name of theorem gen-srank to restricted invertibility principle? fix reference} Theorem~\ref{gen-srank}, the restricted invertibility principle. 
+
+\begin{lem} Step $1$. \llabel{lem:step1}
+Fix $m, n, r \in \N$. Let $A: \R^m \to \R^n$ be a linear operator with rank$(A) \geq r$. For every $\tau \subseteq \{1, \cdots, m\}$, denote
+\[
+E_{\tau} = \left(\txtn{span}((Ae_j)_{j \in \tau})\right)^{\perp}
+\] 
+Then there exists $\tau \subseteq \{1, \cdots, m\}$ with $|\tau| = r$ such that for all $j \in \tau$, 
+\[
+\|\txtn{Proj}_{E_{\tau \setminus \{j\}}} Ae_j\|_2 \geq \frac{1}{\sqrt{m}}\left(\sum_{i = 1}^m s_i(A)^2\right)^{1/2}
+\]
+Basically we're taking the projection of the $j^{th}$ column onto the orthogonal completement of the span of the subspace of all columns in the set except for the $j^{th}$ one, and bounding the norm of that by a dimension term and the square root of the sum of the eigenvalues. 
+(this is sharp asymptotically, and may in fact even be sharp as written too - I need to check \fixme{Check this?}). 
+\end{lem}
+\begin{proof}
+For every $\tau \subseteq \{1, \cdots, m\}$, denote
+\[
+K_{\tau} = \txtn{conv}\left(\{\pm Ae_j\}_{j \in \tau}\right)
+\]
+Essentially, you want to make this convex hull have big volume, and once you do that, you will get all these inequalities for free. Let $\tau \subseteq \{1, \cdots, m\}$ be such that $\txtn{vol}_r(K_{\tau})$ is maximized among all subsets of size $r$. We know that $\txtn{vol}_r(K_{\tau}) > 0$. Observe that for any $\beta \subseteq \{1, \cdots, m\}$ of size $r - 1$ and $i \not\in \beta$, we have 
+\[
+K_{\beta \cup \{i\}} = \txtn{conv}\left(K_{\beta} \cup \{\pm Ae_i \}\right)
+\]
+So all you're doing is having found $E_{\beta}$ and a point $Ae_i$, for the convex hull you get a double cone $E_{\beta}, +Ae_i, -Ae_i$ where $E_{\beta}$ is the orthogonal complement of the space spanned by $\beta$. So what is the height of this cone? This is just $\|\txtn{Proj}_{E_{\beta}} Ae_i\|_2$. Therefore, the $r$-dimensional volume is given by 
+\[
+\txtn{vol}_r(K_{\beta \cup \{i\}}) = 2\cdot \frac{\txtn{vol}_{r -1}(K_{\beta}) \cdot \|\txtn{Proj}_{E_{\beta}} Ae_i\|_2}{r}
+\]
+Then $|\tau| = r$ is the maximizing subset of $F_{\Omega}$. Any $j \in \tau$ and $i \in \{1, \cdots, m\}$. Then choosing $\beta = \tau \setminus \{j\}$ (we're choosing the maximizer). \fixme{Insert line comparing volumes for $j$ and $i$ here?} Then we get that 
+\[
+\|\txtn{Proj}_{E_{\tau \setminus \{j\}}} Ae_j\|_2 \geq \|\txtn{Proj}_{E_{\tau \setminus \{j\}}} Ae_i\|_2
+\]
+for every $j \in \tau$ and $i \in \{1, \cdots, m\}$. 
+But then
+\[
+\|\txtn{Proj}_{E_{\tau \setminus \{j\}}} A\|_{S_2}^2 = \sum_{i = 1}^m \|\txtn{Proj}_{E_{\tau \setminus \{j\}}} Ae_i\|_2^2 \leq m\|\txtn{Proj}_{E_{\tau \setminus \{j\}}} Ae_j\|_2^2
+\]
+Then, for all $j \in \tau$, 
+\[
+\|\txtn{Proj}_{E_{\tau \setminus \{j\}}} Ae_j\|_2 \geq \frac{1}{\sqrt{m}}\|\txtn{Proj}_{E_{\tau \setminus \{j\}}} A\|_{S_2}
+\]
+Let's denote $P = \txtn{Proj}_{E_{\tau \setminus \{j\}}}$, where $P$ is an orthogonal projection of rank $r - 1$. Then, 
+\[
+\|PA\|_{S_2}^2 = \txtn{Tr}((PA)^*(PA)) = \txtn{Tr}(A^*P^*PA) = \txtn{Tr}(A^*PA) = \txtn{Tr}(AA^*P)
+\]
+\[
+= \txtn{Tr}(AA^*) - \txtn{Tr}(AA^*(I - P)) \geq \sum_{i = 1}^m s_i(A)^2 - \sum_{i = 1}^{r + 1} s_i(A)^2 = \sum_{i = r}^m s_i(A)^2
+\]
+since $I - P$ is a projection of rank $m - r + 1$. So the maximum this could be is the tail, which is the variational argument we proved earlier. 
+And this is what we claimed. 
+\end{proof}
+
+In our proof of the restricted invertibility principle, this is the first step. Before proving it, let me just tell you what the second step looks like. 
+
+\begin{lem} Step $2$. \llabel{lem:step2}
+For $k, m, n \in \N$, $A: \R^m \to \R^n$, rank$(A) > k$. Let $\omega = \{1, \cdots, m\}$ with $|w| = \txtn{rank}(A)$ such that $\{Ae_j\}_{j \in \omega}$ are linearly independent. Denote for every $j \in \Omega$ 
+\[
+F_j = E_{\omega \setminus \{j\}} = \left(\txtn{span}(Ae_i)_{i \in \omega \setminus \{j\}}\right)
+\]
+Then there exists $\sigma \subseteq \omega$ with $|\omega| \geq k$ such that 
+\[
+\|\left(AJ_{\sigma}\right)^{-1}\|_{S_{\infty}} \leq \frac{\sqrt{\txtn{rank}(A)}}{\sqrt{\txtn{rank}(A) - k}} \cdot \max_{j \in \omega} \sqrt{\|\txtn{Proj}_{F_j} Ae_j\|}
+\]
+\end{lem}
+\begin{proof}
+Next Time. \fixme{TODO}
+\end{proof}
+
+Most of the work is in the second step. First we pass to a subset where we have some information about the shortest possible orthogonal project. But Step $1$ saves us by bounding what this can be. Here we use the Grothendieck inequality, Sauer-Shelah, etc. Everything: It's simple, but it kills the restricted invertibility principle. 
+
+\begin{thm} Step $1$ and Step $2$ imply the Restricted Invertibility Principle.
+\end{thm}
+\begin{proof}
+Take $A: \R^m \to \R^n$. 
+By Step $1$, we can find subset $\tau \subseteq \{1, \cdots, m\}$ with $|\tau| = r$. For all $j \in \tau$, we can find 
+\[
+\|\txtn{Proj}_{E_{\tau \setminus \{j\}}} Ae_j \|_2 \geq \frac{1}{\sqrt{m}}\left(\sum_{i = r}^m s_i(A)^2\right)^{1/2}
+\]
+Now we apply Step $2$ to $AJ_{\tau}$, using $\omega = \tau$, and find the further subset $\sigma \subseteq \tau$ such that 
+\[
+\|\left(AJ_{\sigma}\right)^{-1}\|_{S_{\infty}} \leq \min_{k < r < \txtn{rank}(A)} \sqrt{\frac{mr}{(k - r)\sum_{i = r}^m s_i(A)^2}}
+\]
+which we get by plugging directly in $mr$ for the rank and using Step $1$ to get the denominator. 
+\end{proof}
