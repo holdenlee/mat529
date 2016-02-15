@@ -146,7 +146,7 @@ Now we will give another lemma which is very easy and which we will use a lot.
 \begin{lem} Sauer-Shelah. \llabel{lem:saushel} \\
 Take integers $m, n \in \mathbb{N}$ and suppose that we have a large set $\Omega \subseteq \{\pm 1\}^n$ with 
 \[
-|\Omega| > \sum_{k = 0}^{n - 1} {n \choose k}
+|\Omega| > \sum_{k = 0}^{m - 1} {n \choose k}
 \]
 Then $\exists \sigma \subseteq \{1, \cdots, n\}$ such that with $|\sigma| = m$, if you project onto $\R^{\sigma}$ the set of vectors, you get the entire cube: $\text{Proj}_{\R^{\sigma}}(\Omega) = \{\pm 1\}^{\sigma}$. For every $\epsilon \in \{\pm 1\}^{\sigma}$, there are signs $\delta = (\delta_1, \cdots, \delta_n) \in \Omega$ such that $\delta_j = \epsilon_j$ for $j \in \sigma$.
 \end{lem}
@@ -183,7 +183,9 @@ where the last union is disjoint since the dimensions are different. Therefore, 
 which completes the induction as desired. 
 \end{proof}
 
-\begin{cor} If $|\Omega| \geq 2^{n -1}$ then there exists $\sigma \subseteq \{1, \cdots, n\}$ with $|\sigma| \geq \lceil \frac{n + 1}{2} \rceil \geq \frac{n}{2}$ such that $\txtn{Proj}_{\R^{\sigma}} \Omega = \{\pm 1\}^{\sigma}$. 
+\begin{cor} If $|\Omega| \geq 2^{n -1}$ then there exists $\sigma \subseteq \{1, \cdots, n\}$ with $|\sigma| \geq \lceil \frac{n + 1}{2} \rceil \geq \frac{n}{2}$ such that $\txtn{Proj}_{\R^{\sigma}} \Omega = \{\pm 1\}^{\sigma}$. If you have half of the points in terms of cardinality, you get half of the dimension: At least.
 \end{cor}
+
+We will primarily use the corollary. 
 
 
