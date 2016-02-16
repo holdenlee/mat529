@@ -57,70 +57,193 @@ This equation implies all the earlier theorems.
 To optimize, fix the stable rank, differentiate in $r$, and set to 0. All theorems in the literature follow from this theorem; in particular, we get all the bounds we got before. %3, 2.1.
 There was nothing special about the number 4 in Theorem~\ref{thm:mss4}; this is about the distribution of the eigenvalues. 
 
-\subsection{Ky Fan maximum principle}
+\section{Ky Fan maximum principle}\llabel{sec:kf}
 We'll be doing linear algebra. It's mostly mechanical, except we'll need this lemma.
-\begin{lem}[Ky Fan maximum principle]\index{Ky Fan maximum principle}
+\begin{lem}[Ky Fan maximum principle]\index{Ky Fan maximum principle}\llabel{lem:kf}
 Suppose that $P:\R^m\to \R^m$ is a rank $k$ orthogonal projection. Then
 \[
-\Tr(A^*AP ) \le \sum_{i=1}^k s_i(A)^2.
+\Tr(A^*AP ) \le \sum_{i=1}^k s_i(A)^2
 \]
+where $s_i(A)$ are the singular values, i.e., $s_i(A)^2$ are the eigenvalues of $B:=A^*A$.
 \end{lem}
+
+%%%%%%%%
+\blu{This material was given in class on 2-15.} 
+This lemma follows from the following general theorem.
+\begin{thm}[Convex function of dot products acheives maximum at eigenvectors] %Ky-Fan maximum principle. 
+\llabel{thm:eignmax}
+Let $B: \R^n \to \R^n$ be symmetric, and let $f: \R^n \to \R$ be a convex function. Then for every orthonormal basis $u_1, \ldots, u_n \in \R^n$, there exists a permutation $\pi$ such that 
+\beq{eq:kf0}
+f(\langle Bu_1, u_1 \rangle, \ldots, \langle Bu_n, u_n \rangle) \leq f(\lambda_{\pi(1)}, \ldots, \lambda_{\pi(n)})
+\eeq
+\end{thm}
+Essentially, we're saying using the eigenbasis maximizes the convex function. 
+\begin{rem}
+We can weaken the condition on $f$ to the following: 
+for every $i < j$, $t \mapsto f(x_1, \ldots, x_i + t, x_{i + 1}, \ldots, x_{j - 1}, x_{j} - t, x_{j + 1}, \ldots, x_n)$ is convex as a function of $t$. 
+If $f$ is smooth, this is equivalent to the second derivative in $t$ being $\ge 0$:
+\beq{eq:kf1}
+\frac{\partial^2 f}{\partial x_i^2} + \frac{\partial^2 f}{\partial x_j^2} - 2 \frac{\partial^2 f}{\partial x_i\partial x_j} \geq 0 
+\eeq
+In other words, you just need that the Hessian is positive semidefinite. (Above, we wrote the determinant of the Hessian on the $x_i-x_j$ plane. This being true for all pairs $i,j$ is the same as the Hessian being positive definite.) 
+\end{rem}
 \begin{proof}
-\fixme{This proof isn't complete. I will fix it next time.}
+We may assume\wog that
+\begin{enumerate}
+\item
+$f$ is smooth. If not, convolute with a good kernel.
+\item
+%Without loss of generality, we can give a strict inequality instead: 
+Strict inequality holds:
+\[
+\frac{\partial^2 f}{\partial x_i^2} + \frac{\partial^2 f}{\partial x_j^2} - 2 \frac{\partial^2 f}{\partial x_i\partial x_j} > 0 .
+\]
+To see this, note we can take any $\ep > 0$ and perturb $f(x)$ into $f(x) + \ep \|x\|_2^2$. The inequality to prove~\eqref{eq:kf0} is also perturbed by this slight change, and taking $\ep \to 0$ gives the desired inequality.
+\end{enumerate}
 
-We will prove that if $B:\R^m\to \R^m$ is positive semidefinite, then
+Now let $u_1, \ldots, u_n$ be an orthonormal basis at which $f(\langle Bu_1, u_1 \rangle, \ldots, \langle Bu_n, u_n\rangle)$ attains its maximum. Then for $u_i, u_j$, we want to rotate in the $i-j$ plane by angle $\theta$. Since $u_i, u_j$ span a two dimensional subspace, recall the $2$-dimensional rotation matrix.
+Let 
 \[
-\Tr(BP)\le \sum_{i=1}^k s_i(B).
+R_{\theta} = 
+\begin{bmatrix}
+\cos(\theta) & \sin(\theta) \\
+\sin(\theta) & -\cos(\theta)
+\end{bmatrix}; 
+u_{i;j} = 
+\begin{bmatrix}
+u_i \\
+u_j
+\end{bmatrix}
 \]
-To get the lemma, set $B=A^*A$. 
-
-Apply arbitrarily small perturbation $s_i$ so that
+Multiplying, we get
 \[
-s_1(B)>s_2(B)>\cdots > s_m(B).
-\]
-Let $v_1,\ldots, v_m$ be an orthonormal basis such that $Bv_i=s_i(B) v_i$. Let $u_1,\ldots, u_k$ be an orthonormal basis of $P\R^m$ ordered so that 
+R_{\theta}u_{i;j} = 
+\begin{bmatrix}
+\cos(\theta) & \sin(\theta) \\
+\sin(\theta) & -\cos(\theta)
+\end{bmatrix}
+\begin{bmatrix}
+u_i \\
+u_j
+\end{bmatrix}
+= 
+\begin{bmatrix}
+\cos(\theta)u_i + \sin(\theta)u_j \\
+\sin(\theta)u_i -\cos(\theta)u_j
+\end{bmatrix}
+= 
+\begin{bmatrix}
+\left(R_{\theta}u_{i;j}\right)_1 \\
+\left(R_{\theta}u_{i;j}\right)_2
+\end{bmatrix}
+\] 
+Then, we replace $f$ with $g(\theta) =$ %\langle Bu_1, u_1 \rangle,
 \[
-\an{Bu_1,u} \ge \an{Bu_2,u_2}\ge \cdots \ge \an{Bu_k,u_k}.
+f\left(\langle Bu_1, u_1 \rangle, \ldots, \langle B\left(R_{\theta}u_{i;j}\right)_1, \left(R_{\theta}u_{i;j}\right)_1 \rangle, \langle B\left(R_{\theta}u_{i;j}\right)_2, \left(R_{\theta}u_{i;j}\right)_2\rangle, \ldots, \langle Bu_n, u_n \rangle\right)
+\] 
+where we keep all other dot products the same. 
+By assumption, $g$ attains its maximum at $\te=0$, so $g'(0) = 0, g''(0) \leq 0$. Expanding out the rotated dot products explicitly in $g(\theta)$, we get that the $i$th argument is
+\[
+\cos^2(\theta)\langle Bu_i, u_i\rangle + \sin^2(\theta)\langle Bu_j, u_j \rangle + \sin(2\theta)\langle Bu_i, u_j \rangle
 \]
-We calculate
+and the $j$th argument is
+\[
+\sin^2(\theta)\langle Bu_i, u_i\rangle + \cos^2(\theta)\langle Bu_j, u_j \rangle - \sin(2\theta)\langle Bu_i, u_j \rangle
+\]
+Then we can mechanically take the derivatives at $\te=0$ to get
 \bal
-\Tr(BP) & =\sum_{i=1}^k  \an{BPu_i, u_i}\\
-&=\sum_{i=1}^k \an{Bu_i,u_i}.
+0 &= g'(0) = 2\langle Bu_i, u_j \rangle (f_{x_i} - f_{x_j})\\
+0 &\geq g''(0) = 2\left(\langle Bu_j, u_j\rangle - \langle Bu_i, u_i \rangle\right)\ub{(f_{x_i} - f_{x_j})}{=0\text{ if }\an{Bu_i,u_j}\ne 0} + 4\langle Bu_i, u_j\rangle^2\ub{\left(f_{x_ix_i} + f_{x_jx_j} - 2f_{x_ix_j}\right)}{\ge0}.
 \end{align*}
-We will prove by induction on $i$ that 
-\[
-\an{Bu_i,u_i}\le s_i(B).
-\]
-For $i=1$, 
-\[
-s_1(B)=\ve{B}_{S_{\iy}},
-\]
-and (when $\ve{u_1}=1$)
-\[
-\an{Bu_1,u_1} \le \ve{B}_{S_{\iy}} = s_1(B).
-\]
-Suppose we proved the claim for $j-1$. If \fixme{?$ \an{Bu_i,u_i}\le s_j(B)$} $\an{Bu_{j-1},u_{j-1}}\le s_j(B)$ then we're done because $\an{Bu_j,u_j}\le \an{Bu_{j-1},u_{j-1}} \le s_j(B)$. So we may assume that $\an{Bu_{j-1}, u_{j-1}}>s_j(B)$. 
-
-Write the $u$'s in the basis of $v$'s:
-\[
-u_i = \sum_{l=1}^m c_{il}v_l.
-\]
-The fact that the $u_i$'s are orthonormal means that the $c_i$'s are probability vectors,
-\[
-\sum_{l=1}^m c_{il}^2=1.
-\]
-We have 
-\[
-\an{Bu_i,u_i} = \sumo lm m c_{il}^2 s_l(B).
-\]
-If $c_{il}^2>0$ for any $l\ge j$. 
-%there can be no weight from $j$ onwards.
-%u_j in span of $v_j$ upwards. Need for 1 to $j$. 
-%1 to $u_{j-1}$. 
+This implies that for all $i\ne j$ $\langle Bu_i, u_j \rangle = 0$, which implies that for all $i$, $Bu_i = \mu_iu_i$ for some $\mu_i$. Thus any function applied to a vector of dot products is maximized at eigenvalues. 
 \end{proof}
 
-\subsection{Finding big subsets}
+\begin{exr}\llabel{exr:kf}
+ If $f:\R^n \to \R$ satisfies the conditions in Theorem~\ref{thm:eignmax} and $(u_1, \ldots, u_n)$, $(v_1, \ldots, v_n)$ are two orthonormal bases of $\R^n$, then for every $A: \R^n \to \R^n$, there exists $\pi \in S_n$, $(\ep_1, \ldots, \ep_n) \in \{\pm 1\}^n$ such that
+\[
+f(\langle Au_1, v_1\rangle, \langle Au_2, v_2\rangle, \ldots, \langle Au_n, v_n \rangle) \leq f(\ep_1s_{\pi(1)}(A), \ldots, \ep_ns_{\pi(n)}(A))
+\]
+Show that choosing $u, v$ as the singular vectors maximizes $f$ (over all pairs of orthonormal bases). 
+\end{exr}
+To solve this problem, you can rotate both vectors in the same direction and take derivatives, and also rotate them in opposite directions and take derivatives to get enough information to prove that the singular values are the maximum. 
+
+Essentially, a lot of the inequalities you find in books follow from this. For instance, if you want to prove that the Schatten $p$-norm is a norm, it follows directly from this fact. 
+\begin{cor}
+Let $\|\cdot\|$ be a norm on $\R^n$ that is invariant under premutations and sign: 
+\[
+\|(x_1, \ldots, x_n)\| = \|(\ep_1x_{\pi(1)}, \ldots, \ep_nx_{\pi(n)})\|
+\]
+for all $\ep \in \{\pm 1\}^n$ and $\pi \in S_n$
+(In the literature, we call this a \ivocab{symmetric norm}). 
+This induces a norm on matrices $M_{m \times n}(\R)$ with 
+\[
+\|A\| = \|(s_{\pi(1)}(A), \ldots, s_{\pi(n)}(A)\|)
+\]
+Then the triangle inequality holds for matrices $A,B$:
+\[
+\|A + B\| \leq \|A\| + \|B\|.
+\]
+\end{cor}
+\begin{proof}
+%\[
+%A + B = \sqrt{(A + B)^*(A + B)} \cdot W
+%\]
+%where $W$ is orthogonal matrix (this is just polar decomposition), and 
+%\[
+%|A + B| = \sqrt{(A + B)^*(A + B)}
+%\]
+%Let $u_1, \ldots, u_n$ be an orthonormal basis of $A+ B$. Then, 
+%\[
+%\|A + B\| = \|\langle |A + B|u_1, u_1 \rangle, \ldots, \langle |A + B|u_n, u_n \rangle\| = \|(\langle (A +  B)u_i, Wu_i\rangle)_{i = 1}^n \|
+%\]
+%\[
+%\leq \|(\langle (A +  B)u_i, Wu_i\rangle)_{i = 1}^n \| + \|(Bu_i, Wu_i)\| \leq \|A\| + \|B\|
+%\]
+%So basically, the Schatten $p$-norm is a norm because it obeys rotational symmetries. 
+%%HL: I'm confused by the proof above. I rewrote it. Check?
+We have by Exercise~\ref{exr:kf}
+\bal
+\ve{A+B}&= \max_{(u_i)\perp,(v_i) \perp} \ve{(\an{(A+B)u_i,v_i})_{i=1}^n}\\
+&\le \max_{(u_i)\perp,(v_i) \perp} \ve{(\an{(Au_i,v_i})_{i=1}^n} +
+\max_{(u_i)\perp,(v_i) \perp} \ve{(\an{Bu_i,v_i})_{i=1}^n}\\
+& \le \ve{A}+\ve{B}.
+\end{align*}
+\end{proof}
+
+Remember Theorem~\ref{thm:eignmax}! For many results, you simply need to apply the right convex function to get the result. 
+
+Our lemma follows from setting $f(x) = \sum_{i = 1}^k x_i$. 
+%\begin{lem}
+%For every $A: \R^m \to \R^n$, and every orthogonal projection $P: \R^n \to \R$ of rank $k$, 
+%\[
+%\txtn{Tr}(A^*AP) \leq \sum_{i = 1}^k s_i(A)^2
+%\]
+%where the $s_i(A)$ are the square roots of the eigenvalues of $B = A^*A$. 
+%\end{lem}
+\begin{proof}[Proof of Ky Fan Maximum Principle (Lemma~\ref{lem:kf})]
+Take an orthonormal basis $u_1, \ldots, u_n$ of $P$  such that $u_1, \ldots, u_k$ is a basis of the range of $P$. Then
+\[
+\txtn{Tr}(BP) = \sum_{j = 1}^k \langle  Be_j, e_j \rangle \leq \sum_{i = 1}^k s_i(B) = \sum_{i = 1}^k s_i(A)^2
+\]
+\end{proof}
+
+
+
+
+
+%%%%%%%%
+%\begin{proof}
+%%\fixme{This proof isn't complete. I will fix it next time.}
+%We will prove that if $B:\R^m\to \R^m$ is positive semidefinite, then
+%\[
+%\Tr(BP)\le \sum_{i=1}^k s_i(B).
+%\]
+%To get the lemma, set $B=A^*A$. 
+%\end{proof}
+
+\section{Finding big subsets}
 We'll present 4 lemmas for finding big subsets with certain properties. We'll put them together at the end.
+\subsection{Little Grothendieck inequality}
 \begin{thm}[Little Grothendieck inequality]\llabel{thm:lgi}
 Fix $k,m,n\in \N$. Suppose that $T:\R^m\to \R^n$ is a linear operator. Then for every $x_1,\ldots, x_k\in \R^m$,
 \[
@@ -148,7 +271,7 @@ The key claim is the following.
 \end{clm}
 
 \begin{proof}[Proof of Theorem~\ref{thm:lgi}]
-Assuming the claim, we prove the theorem.
+Assuming Claim~\ref{clm:lgi}, we prove the theorem.
 \bal
 \sumo rk \ve{Tx_r}_2^2 & = \sumo rk \an{Tx_r,Tx_r}\\
 &=\sumo rk \an{x_r, T^*Tx_r}\\
@@ -229,20 +352,3 @@ A combinatorial lemma for selecting subsets.
 \end{itemize}
 Finally we'll put them together in a crazy induction.
 
-From this proof you can reverse engineer vectors that make the inequality sharp. You need to come up with $T$ and the points.
-
-\begin{ex}
-Let $g_1,g_2,\ldots,g_k $ be iid Gaussians on the probability space $(\Om, P)$. Let $T:L_{\iy}(\Om, P)\to \ell_2^k$ be %infinite $l^{\iy}$ space. 
-%abstract nonsense: approx
-%replace Gaussians with central limit theorem, take $\pm1$ bits.
-%never equality for finite. (ratio of gamma functions)
-%in limit converges
-\[
-Tf = (\E[fg_1],\ldots, \E[fg_k]).
-\]
-Let $x_r \in L_{\iy} (\Om, P)$, 
-\[
-x_r = \fc{g_r}{\pa{\sumo ik g_i^2}^{\rc 2}}.
-\]
-%no black magic, just understand this.
-\end{ex}

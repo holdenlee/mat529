@@ -1,87 +1,122 @@
-\blu{2-10-16}
+\blu{2-10-16: We were in the process of proving three or four subset selection principles, which we will somehow use to prove the RIP. }
 
-We were in the process of proving three or four subset selection principles, which we will somehow use to prove the RIP. 
+%Now I owe you a proof (just ask me for the linear algebra proof) - I'll show you an analytic proof. 
 
-Now I owe you a proof (just ask me for the linear algebra proof) - I'll show you an analytic proof. 
+The little Grothendieck inequality (Theorem~\ref{thm:lgi}) is part of an amazing area of mathematics with many applications. It's little, but very useful. %Just to remind you, we had an linear operator $T: \R^m \to \R^n$. Then for every $x_1, \ldots, x_k \in \R^m$, we get a bounded operator. If you look at the sum of the Euclidean lengths $\left(\sum_{i = 1}^k \|Tx\|_2^2\right)^{1/2} \leq \sqrt{\pi/2}\|T\|_{l_{\infty}^m \to l_2^n} \cdot \max_{1 \leq j \leq m} \left(\sum_{i = 1}^k x_{rj}^2\right)^{1/2}$. This is really the way 
+The proof is really Grothendieck's original proof, re-organized. For completeness, we'll show the fact that the inequality is sharp (cannot be improved). 
 
-We proved the little Grothendieck inequality (Theorem~\ref{thm:lgt}), which is part of an amazing area of mathematics with many applications. It's little, but it's also very useful. Just to remind you, we had an linear operator $T: \R^m \to \R^n$. Then for every $x_1, \cdots, x_k \in \R^m$, we get a bounded operator. If you look at the sum of the Euclidean lengths $\left(\sum_{i = 1}^k \|Tx\|_2^2\right)^{1/2} \leq \sqrt{\pi/2}\|T\|_{l_{\infty}^m \to l_2^n} \cdot \max_{1 \leq j \leq m} \left(\sum_{i = 1}^k x_{rj}^2\right)^{1/2}$. This is really the way Grothendieck did it, but the proof we saw is really the original proof, re-organized. For completeness, we'll show the fact that this inequality is sharp (cannot be improved). 
+\subsubsection{Tightness of Grothendieck's inequality}
 
-\begin{cor} $\sqrt{\pi/2}$ is the best constant in Theorem~\ref{thm:lgt}. \\
+\begin{cor} $\sqrt{\pi/2}$ is the best constant in Theorem~\ref{thm:lgi}.
 \end{cor}
-\begin{proof}
-Define $g_1, \cdots, g_k$ be i.i.d standard Gaussians, defined on probability space $(\Omega, P)$. We define $T: L_{\infty}(\Omega, \mathbb{P}) \to \R^k$. Then $Tf = \left(\mathbb{E}(fg_1), \mathbb{E}(fg_2), \cdots, \mathbb{E}(fg_k) \right)$. Choose $X_r = \frac{g_r}{\left(\sum_i^k g_i^2\right)^{1/2}}$. This is nothing more than a vector on the $k$-dimensional unit sphere. So it's a bounded function. We also note that $x_r$ is a function on the measure space $\Omega$.  We can also write
+
+From the proof, we reverse engineer vectors that make the inequality sharp. They are given in the following example. %You need to come up with $T$ and the points.
+
+\begin{ex}
+Let $g_1,g_2,\ldots,g_k $ be iid Gaussians on the probability space $(\Om, P)$. Let $T:L_{\iy}(\Om, P)\to \ell_2^k$ be %infinite $l^{\iy}$ space. 
+%abstract nonsense: approx
+%replace Gaussians with central limit theorem, take $\pm1$ bits.
+%never equality for finite. (ratio of gamma functions)
+%in limit converges
 \[
-\sum_{r = 1}^k x_r(\omega)^2 = \sum_{r = 1}^k \frac{g_r(\omega)^2}{\sum_{i = 1}^r g_i(\omega)^2} = 1
+Tf = (\E[fg_1],\ldots, \E[fg_k]).
 \]
-We can use the Central Limit Theorem to make things precise: $g_r \approx \frac{\epsilon_{r_1} + \cdots + \epsilon_{r_N}}{\sqrt{N}}$ as $N \to \infty$. So all these statements will be asymptotically true. Where does the family of random variables $\{g_r\}$ live in $\Omega$? Well $\Omega = \{\pm 1\}^{NK}$. So $L_{\infty}(\Omega) = \l_{\infty}^{2^{NK}}$, which is some huge dimension, but it's still finite. So $\omega$ will really be a coordinate in $\Omega$. 
+Let $x_r \in L_{\iy} (\Om, P)$, 
+\[
+x_r = \fc{g_r}{\pa{\sumo ik g_i^2}^{\rc 2}}.
+\]
+%no black magic, just understand this.
+\end{ex}
 
-Now we show two things; nothing more than computations. 
+\begin{proof}
+%Define $g_1, \ldots, g_k$ be i.i.d standard Gaussians, defined on probability space $(\Omega, P)$. We define $T: L_{\infty}(\Omega, \mathbb{P}) \to \R^k$. Then $Tf = \left(\mathbb{E}(fg_1), \mathbb{E}(fg_2), \ldots, \mathbb{E}(fg_k) \right)$. Choose $X_r = \frac{g_r}{\left(\sum_i^k g_i^2\right)^{1/2}}$. 
+Le $g_1,\ldots, g_k; T; x_1,\ldots x_k$ be as in the example. Note the $x_r$ are nothing more than vectors on the $k$-dimensional unit sphere, so they are bounded functions on the measure space $\Omega$.  We can also write
+\beq{eq:sum-xr}
+\sum_{r = 1}^k x_r(\omega)^2 = \sum_{r = 1}^k \frac{g_r(\omega)^2}{\sum_{i = 1}^r g_i(\omega)^2} = 1
+\eeq
+%We can use the Central Limit Theorem to make things precise: 
+We use the Central Limit Theorem in order to replace the $\Om$ by a discrete space. Let $\ep_{r,i}$ be $\pm1$ random variables. Then letting
+\[
+g_r=\frac{\ep_{r,1} + \ldots + \ep_{r,N}}{\sqrt{N}}
+\]
+instead, we have that $g_r$ approaches a standard Gaussian in distribution, 
+%$g_r \approx \frac{\ep_{r_1} + \ldots + \ep_{r_N}}{\sqrt{N}}$ as $N \to \infty$. So all these 
+so the statements we make will be asymptotically true. With this discretization, the random variables $\{g_r\}$ live in %here does the family of random variables $\{g_r\}$ live in $\Omega$? Well 
+$\Omega = \{\pm 1\}^{NK}$. So $L_{\infty}(\Omega) = \l_{\infty}^{2^{NK}}$, which is in a large but finite dimension. So $\omega$ will really be a coordinate in $\Omega$. 
+
+Now we show two things; they are nothing more than computations. 
 \begin{enumerate}
-
-\item $\|T\|_{L_{\infty}(\Omega, \textbf{P}) \to l_2^k} = \sqrt{2/\pi}$, 
-
-\item We also show $\sum_{r = 1}^k \|Tx_r\|_2^2 \to^{k \to \infty} 1$. 
-
+\item $\|T\|_{L_{\infty}(\Omega, \Pj) \to l_2^k} = \sqrt{2/\pi}$, 
+\item We also show $\sum_{r = 1}^k \|Tx_r\|_2^2 \xra{k \to \infty} 1$. 
 \end{enumerate}
+From~\eqref{eq:sum-xr} and the 2 items, the little Grothendieck inequality is sharp in the limit.
 
-First we tackle the first case. We have 
+For (1), we have 
 \begin{align}
 \begin{split}
-\|T\|_{\infty \to 1} &= \text{sup}_{\|f\|_{\infty} \leq 1}\left(\sum_{r = 1}^k \mathbb{E}\left[fg_r\right]^2 \right)^{1/2}
+\|T\|_{\ell^\infty \to \ell^2} &= \text{sup}_{\|f\|_{\infty} \leq 1}\left(\sum_{r = 1}^k \mathbb{E}\left[fg_r\right]^2 \right)^{1/2}
 \\
 &= \text{sup}_{\|f\|_{\infty} \leq 1} \text{sup}_{\sum_{r = 1}^k \alpha_r^2 = 1} \sum_{r = 1}\alpha_r \mathbb{E}\left[fg_r\right]
 \\
-&= \text{sup}_{\sum_{r = 1}^k} \text{sup}_{\|f\|_{\infty} \leq 1} \mathbb{E}\left[f\sum_{i = 1}^k \alpha_r g_r \right]
+&= \text{sup}_{\sum_{r = 1}^k \alpha_r^2 = 1} \text{sup}_{\|f\|_{\infty} \leq 1} \mathbb{E}\left[f\sum_{i = 1}^k \alpha_r g_r \right]
 \\
 &= \text{sup}_{\sum_{r = 1}^k} \mathbb{E}\left| \sum_{r = 1}^k \alpha_r g_r \right| = \mathbb{E} |g_1| = \sqrt{\frac{2}{\pi}}
 \end{split}
 \end{align}
+as we claimed, since $\ve{\al}_2=1$ implies $\sum_{r=1}^k \al_rg_r$ is also a gaussian.
 
-as we claimed. Now we tackle the second computation: 
+Now for (2), %we tackle the second computation: 
 \begin{align}
 \begin{split}
 \sum_{r = 1}^k \|Tx_r\|_2^2 &= \sum_{r = 1}^k \left(\mathbb{E} \left[\frac{g_r^2}{\left(\sum_{i = 1}^k g_i^2\right)^{1/2}}\right]\right)^2
 \\
-&= K \left(\mathbb{E}\left[\frac{g_1^2}{\left(\sum_{i = 1}^k g_i^2\right)^{1/2}}\right]\right)
+&= K \left(\mathbb{E}\left[\frac{g_1^2}{\left(\sum_{i = 1}^k g_i^2\right)^{1/2}}\right]\right)^2
 \\
-&= K\left(\frac{1}{K}\mathbb{E}\left[\sum_{r = 1}^k \frac{g_r^2}{\left(\sum g_i^2\right)^{1/2}}\right]\right)^2
+&= K\left(\frac{1}{K}\mathbb{E}\left[\sum_{r = 1}^k \frac{g_r^2}{\left(\sum_{i=1}^k g_i^2\right)^{1/2}}\right]\right)^2
 \\
 &= \frac{1}{K} \left(\mathbb{E}\left[\left(\sum_{i = 1}^k g_i^2\right)^{1/2}\right]\right)^2
 \end{split}
 \end{align}
 and you can use Stirling to finish. This is just a $\chi^2$-distribution. 
 
-In this case $\mathbb{E} \frac{g_1g_2}{\left(\sum_i g_i^2\right)^{1/2}} = \mathbb{E} \frac{g_1 (-g_2)}{\left(\sum g_i^2\right)^{1/2}}$. 
-Also note that if $(g_1, \cdots, g_k) \in \R^k$ is a standard Gaussian, then $\frac{(g_1, \cdots, g_k)}{\left(\sum_{i = 1}^k g_i^2\right)^{1/2}}$ and $\left(\sum_{i = 1}^k g_i^2)^{1/2}\right)$ are independent. In other words, the length and angle are independent: This is just polar coordinates, you can check this. 
+In this case $\mathbb{E} \frac{g_1g_2}{\left(\sum_i g_i^2\right)^{1/2}} = \mathbb{E} \frac{g_1 (-g_2)}{\left(\sum_i g_i^2\right)^{1/2}}$. 
+Also note that if $(g_1, \ldots, g_k) \in \R^k$ is a standard Gaussian, then $\frac{(g_1, \ldots, g_k)}{\left(\sum_{i = 1}^k g_i^2\right)^{1/2}}$ and $\left(\sum_{i = 1}^k g_i^2)^{1/2}\right)$ are independent. In other words, the length and angle are independent: This is just polar coordinates, you can check this. 
 \end{proof}
 
 Now, how does this relate to the Restricted Invertibility Problem? 
 
-\begin{thm} Pietsch Domination Theorem.\llabel{thm:pdt} \\
-Fix $m, n \in \mathbb{N}$ and $M  > 0$. Suppose that $T: \R^m \to \R^n$ is a linear operator such that for every $x_1, \cdots, x_k \in \R^m$ have 
-\[
-\left(\sum_{r = 1}^k \|Tx_r\|_2^2\right)^{1/2} \leq M \text{max}_{1 \leq j \leq m} \left(\sum_{r = 1}^k x_{rj}^2\right)^{1/2}
-\]
-Then there exist $\mu = (\mu_1, \cdots, \mu_m) \in \R^m$ with $\mu_1 \geq 0$ and $\sum_{i = 1}^m = 1$ such that for every $x \in \R^m$
-\[
-\|Tx\|_2 \leq M\left(\sum_{i = 1}^M \mu_ix_i^2\right)^{1/2}
-\]
-It's really an iff: The latter is a stronger statement than the former, and in fact they are equivalent.
-You can come out with a probability measure, a way to weight the coordinates, such that the norm of T as an operator as a standard norm from $l_{\infty}$ to $l_2$, is bounded by $M$. 
+\subsection{Pietsch Domination Theorem}
+
+\begin{thm}[Pietsch Domination Theorem]\llabel{thm:pdt}
+\index{Pietsch Domination Theorem}
+Fix $m, n \in \mathbb{N}$ and $M  > 0$. Suppose that $T: \R^m \to \R^n$ is a linear operator such that for every $x_1, \ldots, x_k \in \R^m$ have 
+\beq{eq:pdt1}
+\left(\sum_{r = 1}^k \|Tx_r\|_2^2\right)^{1/2} \leq M \max_{1 \leq j \leq m} \left(\sum_{r = 1}^k x_{rj}^2\right)^{1/2}
+\eeq
+Then there exist $\mu = (\mu_1, \ldots, \mu_m) \in \R^m$ with $\mu_1 \geq 0$ and $\sum_{i = 1}^m \mu_i= 1$ such that for every $x \in \R^m$
+\beq{eq:pdt2}
+\|Tx\|_2 \leq M\left(\sum_{i = 1}^M \mu_i\ve{x_i}^2\right)^{1/2}
+\eeq
 \end{thm}
+
+The theorem says that you can come up with a probability measure such that the norm of T as an operator as a standard norm from $l_{\infty}$ to $l_2$ \fixme{(?)}, is bounded by $M$. 
+
+\begin{rem}
+The theorem really an iff: \eqref{eq:pdt2} is a stronger statement than \eqref{eq:pdt1}, and in fact they are equivalent.
+\end{rem}
 \begin{proof}
 Define $K \subseteq \R^m$ with 
 \[
-K = \left\{y \in \R^m: y_i = \sum_{r = 1}^k \|Tx_r\|_2^2 - M^2\sum_{r = 1}^m x_{ri}^2 \text{ for some } k, x_1, \cdots, x_k \in \R^m\right\}
+K = \left\{y \in \R^m: y_i = \sum_{r = 1}^k \|Tx_r\|_2^2 - M^2\sum_{r = 1}^m x_{ri}^2 \text{ for some } k, x_1, \ldots, x_k \in \R^m\right\}
 \]
-Basically we cleverly select a convex set. Every $n$-tuple of vectors in $\R^m$ gives you a new vector in $\R^m$. Let's check that $K$ is convex. We have to check if two vectors $y, z \in K$ have all points on the line between them in $K$. $y \in K$ means that 
-\[
-y_i = \sum_{r = 1}^k \|Tx_r\|_2^2 - M^2 \sum_{r = 1}^m x_{ri}^2
-\] 
-\[
-z_i = \sum_{r = 1}^l \|Tw_r\|_2^2 - M^2 \sum_{r = 1}^l w_{ri}^2
-\]
-for all $i$. So what can you say about the average $\frac{y_i + z_i}{2}$? It comes from $\left(\frac{x_1}{\sqrt{2}}, \cdots, \frac{x_k}{\sqrt{2}}, \frac{w_1}{\sqrt{2}}, \cdots, \frac{w_l}{\sqrt{2}}\right)$. So trivially by design this is a convex set. 
+Basically we cleverly select a convex set. Every $n$-tuple of vectors in $\R^m$ gives you a new vector in $\R^m$. Let's check that $K$ is convex. We have to check if two vectors $y, z \in K$, then all points on the line between them are in $K$. $y,z \in K$ means that there exist $(x_i)_{i=1}^k$, $(w_i)_{i=1}^l$,
+\bal
+y_i &= \sum_{r = 1}^k \|Tx_r\|_2^2 - M^2 \sum_{r = 1}^m x_{ri}^2\\
+z_i &= \sum_{r = 1}^l \|Tw_r\|_2^2 - M^2 \sum_{r = 1}^l w_{ri}^2
+\end{align*}
+for all $i$. Then $\al y_i+(1-\al)z_i$ comes from $(\sqrt{\al} x_1,\ldots, \sqrt{\al}x_k,\sqrt{1-\al}w_1,\ldots \sqrt{1-\al}w_k)$. 
+%So what can you say about the average $\frac{y_i + z_i}{2}$? It comes from $\left(\frac{x_1}{\sqrt{2}}, \ldots, \frac{x_k}{\sqrt{2}}, \frac{w_1}{\sqrt{2}}, \ldots, \frac{w_l}{\sqrt{2}}\right)$. So trivially 
+So by design, $K$ is a convex set. 
 
 Now, the assumption of the theorem says that 
 \[
@@ -91,73 +126,78 @@ which implies
 \[
 \|Tx_r\|_2^2 - M^2 \text{max}_{1 \leq j \leq m} \sum_{r = 1}^m x_{rj}^2 \leq 0
 \]
-which implies $K \cap (0, \infty)^m = \emptyset$. By the hyperplane separation theorem (for two disjoint convex sets in $\R^m$ with at least one compact, there is a hyperplane between them), there exists $0 \neq \mu = (\mu_1, \cdots, \mu_m) \in \R^m$. We have 
+which implies $K \cap (0, \infty)^m = \emptyset$. By the hyperplane separation theorem (for two disjoint convex sets in $\R^m$ with at least one compact, there is a hyperplane between them), there exists $0 \neq \mu = (\mu_1, \ldots, \mu_m) \in \R^m$ with
 \[
 \langle \mu, y \rangle \leq \langle \mu, z\rangle
 \]
-for all $y \in K$ and $z \in (0, \infty)^m$. By renormalizing, $\sum_{i = 1}^m = 1$. Moreover $\mu$ cannot have any strictly negative coordinate: Otherwise you could take $z$ to have arbitrarily large value at a strictly negative coordinate with zeros everywhere else, implying $\langle u, z \rangle$ is no longer bounded from below, a contradiction. Therefore, $\mu$ is a probability vector and $\langle \mu, z \rangle$ can be arbitrarily small. So for every $y \in K$, $\sum_{i = 1}^m \mu_iy_i \leq 0$. Then $y_i = \|Tx\|_2^2 - M^2x_i \in K$, and if you write this out, $\|Tx\|_2^2 - M^2 \sum_{i = 1}^n \mu_i y_i \leq 0$, which is exactly what we wanted. 
+for all $y \in K$ and $z \in (0, \infty)^m$. By renormalizing, we may assume $\sum_{i = 1}^m \mu_i= 1$. Moreover $\mu$ cannot have any strictly negative coordinate: Otherwise you could take $z$ to have arbitrarily large value at a strictly negative coordinate with zeros everywhere else, implying $\langle u, z \rangle$ is no longer bounded from below, a contradiction. Therefore, $\mu$ is a probability vector and $\langle \mu, z \rangle$ can be arbitrarily small. So for every $y \in K$, $\sum_{i = 1}^m \mu_iy_i \leq 0$. Write 
+\[y_i = \|Tx\|_2^2 - M^2\ve{x_i}^2 \in K.\] Expanding this out, 
+\[\|Tx\|_2^2 - M^2 \sum_{i = 1}^n \mu_i \ve{x_i}^2\leq 0,\] which is exactly what we wanted. 
 \end{proof}
 
+\subsection{A projection bound}
+
 \begin{lem} \llabel{lem:projbound}
-$m, n \in \mathbb{N}$, $\epsilon \in (0, 1)$, $T: \R^n \to \R^m$ a linear operator. Then $\exists \sigma \subset \{1, \cdots, m\}$ with $|\sigma| \geq (1 - \epsilon)m$ such that 
+$m, n \in \mathbb{N}$, $\ep \in (0, 1)$, $T: \R^n \to \R^m$ a linear operator. Then $\exists \sigma \subset \{1, \ldots, m\}$ with $|\sigma| \geq (1 - \ep)m$ such that 
 \[
-\|\text{Proj}_{\R^{\sigma}} T\|_{S_{\infty}} \leq \sqrt{\frac{\pi}{2\epsilon m}} \|T\|_{l_2^n \to l_1^m}
+\|\text{Proj}_{\R^{\sigma}} T\|_{S_{\infty}} \leq \sqrt{\frac{\pi}{2\ep m}} \|T\|_{l_2^n \to l_1^m}
 \] 
-We will find ways to restrict a matrix to a big big submatrix, but we won't be able to control its operator norm, but we will be able to control the norm from $l_2^n \to l_1^m$. So then you go to a further subset, which this becomes an operator norm on, which is an improvement which Grothendieck gave us. This is the first very useful tool to start finding big sub matrices. 
 \end{lem}
+We will find ways to restrict a matrix to a big submatrix. We won't be able to control its operator norm, but we will be able to control the norm from $l_2^n$ to $l_1^m$. Then we pass to a further subset, which this becomes an operator norm on, which is an improvement which Grothendieck gave us. This is the first very useful tool to start finding big submatrices. 
+
 \begin{proof}
-We have $T: l_2^n \to l_1^m$, $T^*: l_{\infty}^m \to l_2^n$. Now some abstract nonsense gives us that for Banach spaces, the norm of an operator and its adjoint are equal, i.e. $\|T\|_{l_2^n \to l_1^m}  = \|T^*\|_{l_{\infty}^m \to l_2^n}$. This statement follows from Hahn-Banach theorem (come see me if you haven't seen this before, I'll tell you what book to read). 
-From the Little Grothendieck inequality (Theorem~\ref{thm:lgi}), $T^*$ satisfies the assumption of the Pietsch domination theorem with $M = \sqrt{\frac{\pi}{2}} \|T\|_{l_2^n \to l_1^m}$ (we're applying it to $T^*$). So we have probability vector $(\mu_1, \cdots, \mu_m)$ such that for every $y \in \R^m$
+We have $T: l_2^n \to l_1^m$, $T^*: l_{\infty}^m \to l_2^n$. Now some abstract nonsense gives us that for Banach spaces, the norm of an operator and its adjoint are equal, i.e. $\|T\|_{l_2^n \to l_1^m}  = \|T^*\|_{l_{\infty}^m \to l_2^n}$. This statement follows from the Hahn-Banach theorem (come see me if you haven't seen this before, I'll tell you what book to read). 
+From the Little Grothendieck inequality (Theorem~\ref{thm:lgi}), $T^*$ satisfies the assumption of the Pietsch domination theorem~\ref{thm:pdt} with $M = \sqrt{\frac{\pi}{2}} \|T\|_{l_2^n \to l_1^m}$ (we're applying it to $T^*$). By the theorem, there exists a probability vector $(\mu_1, \ldots, \mu_m)$ such that for every $y \in \R^m$,
 \[
 \|T^*y\|_2 = M\left(\sum_{i = 1}^m \mu_iy_i^2\right)^{1/2}
 \]
-with $M = \sqrt{\frac{\pi}{2}} \|T\|_{l_2^n \to l_1^m}$. Define $\sigma = \left\{i \in \{1, \cdots, m\}: \mu_i \leq \frac{1}{m\epsilon}\right\}$, then $|\sigma| \geq (1 - \epsilon)m$ by Markov's inequality. We can also see this by writing
+with $M = \sqrt{\frac{\pi}{2}} \|T\|_{l_2^n \to l_1^m}$. Define $\sigma = \left\{i \in \{1, \ldots, m\}: \mu_i \leq \frac{1}{m\ep}\right\}$; then $|\sigma| \geq (1 - \ep)m$ by Markov's inequality. We can also see this by writing
 \[
-1 = \sum \mu_i = \sum_{i \in \sigma} \mu_i + \sum_{i \not\in \sigma} \mu_i > \sum_{i \in \sigma} \mu_i + \frac{m - |\sigma|}{m\epsilon}
+1 = \sum_{i=1}^m \mu_i = \sum_{i \in \sigma} \mu_i + \sum_{i \not\in \sigma} \mu_i > \sum_{i \in \sigma} \mu_i + \frac{m - |\sigma|}{m\ep}
 \]
-which follows since $\mu_j$ for $j \not\in \sigma$ has $\mu_j > \frac{1}{m\epsilon}$. Continuing, 
+which follows since for $j\nin \si$, $\mu_j> \frac{1}{m\ep}$. Continuing, 
+\bal
+\frac{m\ep - m + |\sigma|}{m\ep} &\geq \sum_{i \in \sigma} \mu_i\\
+|\sigma| &\geq (m\ep)\sum_{i \in \sigma} \mu_i +  m(1 - \ep)
+\end{align*}
+Then, because $\mu$ is a probability distribution,  $(m\ep)\sum_{i \in \sigma} \mu_i  \geq 0$ and we have
 \[
-\frac{m\epsilon - m + |\sigma|}{m\epsilon} \geq \sum_{i \in \sigma} \mu_i
-\]
-\[
-|\sigma| \geq (m\epsilon)\sum_{i \in \sigma} \mu_i +  m(1 - \epsilon)
-\]
-Then, since $(m\epsilon)\sum_{i \in \sigma} \mu_i  \geq 0$ since $\mu$ is a probability distribution, we have
-\[
-|\sigma| \geq m(1 - \epsilon)
+|\sigma| \geq m(1 - \ep)
 \]
 
 Now take $x \in \R^n$ and choose $y \in \R^m$ with $\|y\|_2 = 1$. Then 
-\[
-\langle y, \text{Proj}_{\R^{\sigma}} Tx \rangle^2 = \|\text{Proj}_{\R^{\sigma}} Tx\|_2^2 \leq \langle T^* \text{Proj}_{\R^{\sigma}} y, x \rangle^2 \leq \|T^*\text{Proj}_{\R^{\sigma}} y\|_2^2 \cdot \|x\|_2^2
-\] 
-\[
-\leq \frac{\pi}{2}\|T\|_{l_2^n \to l_1^m} \left(\sum_{i \in \sigma} \mu_iy_i^2\right) \|x\|_2^2 \leq \frac{\pi}{2} \|T\|_{l_2^n \to l_1^m}^2 \frac{1}{m\epsilon}\|x\|_2^2
-\]
-by Cauchy-Schwarz. Then, taking square roots gives the desired result.
+\bal
+\langle y, \text{Proj}_{\R^{\sigma}} Tx \rangle^2 &= 
+%\|\text{Proj}_{\R^{\sigma}} Tx\|_2^2 \leq 
+\langle T^* \text{Proj}_{\R^{\sigma}} y, x \rangle^2 \leq \|T^*\text{Proj}_{\R^{\sigma}} y\|_2^2 \cdot \|x\|_2^2\\
+&\leq \frac{\pi}{2}\|T\|_{l_2^n \to l_1^m} \left(\sum_{i \in \sigma} \mu_iy_i^2\right) \|x\|_2^2 \leq \frac{\pi}{2} \|T\|_{l_2^n \to l_1^m}^2 \frac{1}{m\ep}\|x\|_2^2
+\end{align*}
+by Cauchy-Schwarz. Taking square roots gives the desired result.
 \end{proof}
 In the previous proof, we used a lot of duality to get an interesting subset. 
 
 \begin{rem}
-In Lemma~\ref{lem:projbound}, I think that either the constant $\pi/2$ is sharp (no subset are bigger; it could come from the Gaussians), or there is a different constant here. If the constant is $1$, I think you can optimize the previous argument and get the constant to be arbitrarily close to $1$, which would have some nice applications: In other words, getting $\sqrt{\frac{\pi}{2\epsilon m}}$ as close to $1$ as possible would be good. I didn't check before class, but you might want to check if you can carry out this argument using the Gaussian argument we made for the sharpness of $\frac{\pi}{2}$ in Grothendieck's inequality (Theorem~\ref{thm:lgt}). It's also possible that there is a different universal constant. 
+In Lemma~\ref{lem:projbound}, I think that either the constant $\pi/2$ is sharp (no subset are bigger; it could come from the Gaussians), or there is a different constant here. If the constant is $1$, I think you can optimize the previous argument and get the constant to be arbitrarily close to $1$, which would have some nice applications: In other words, getting $\sqrt{\frac{\pi}{2\ep m}}$ as close to $1$ as possible would be good. I didn't check before class, but you might want to check if you can carry out this argument using the Gaussian argument we made for the sharpness of $\frac{\pi}{2}$ in Grothendieck's inequality (Theorem~\ref{thm:lgi}). It's also possible that there is a different universal constant. 
 \end{rem}
 
+\subsection{Sauer-Shelah Lemma}
+
 Now we will give another lemma which is very easy and which we will use a lot. 
-\begin{lem} Sauer-Shelah. \llabel{lem:saushel} \\
+\begin{lem}[Sauer-Shelah] \llabel{lem:saushel} \index{Sauer-Shelah}
 Take integers $m, n \in \mathbb{N}$ and suppose that we have a large set $\Omega \subseteq \{\pm 1\}^n$ with 
 \[
 |\Omega| > \sum_{k = 0}^{m - 1} {n \choose k}
 \]
-Then $\exists \sigma \subseteq \{1, \cdots, n\}$ such that with $|\sigma| = m$, if you project onto $\R^{\sigma}$ the set of vectors, you get the entire cube: $\text{Proj}_{\R^{\sigma}}(\Omega) = \{\pm 1\}^{\sigma}$. For every $\epsilon \in \{\pm 1\}^{\sigma}$, there are signs $\delta = (\delta_1, \cdots, \delta_n) \in \Omega$ such that $\delta_j = \epsilon_j$ for $j \in \sigma$.
+Then $\exists \sigma \subseteq \{1, \ldots, n\}$ such that with $|\sigma| = m$, if you project onto $\R^{\sigma}$ the set of vectors, you get the entire cube: $\text{Proj}_{\R^{\sigma}}(\Omega) = \{\pm 1\}^{\sigma}$.\footnote{I.e., the \vocab{VC dimension} of $\Om$ is $\ge m$.} For every $\ep \in \{\pm 1\}^{\sigma}$, there exists $\delta = (\delta_1, \ldots, \delta_n) \in \Omega$ such that $\delta_j = \ep_j$ for $j \in \sigma$.
 \end{lem}
 
 Note that Lemma~\ref{lem:saushel} is used in the proof of the Fundamental Theorem of Statistical Learning Theory. 
 
 \begin{proof}
 % The strengthening of induction I'm about to use is due to Pajor.
-We want to prove by induction on $n$. First denote the shattering set
+We want to prove by induction on $n$. First denote the \ivocab{shattering set}
 \[
-\txtn{sh}(\Omega) = \{\sigma \subseteq \{1, \cdots, n\}: \txtn{Proj}_{\R^{\sigma}}\Omega = \{\pm 1\}^{\sigma}\}
+\txtn{sh}(\Omega) = \{\sigma \subseteq \{1, \ldots, n\}: \txtn{Proj}_{\R^{\sigma}}\Omega = \{\pm 1\}^{\sigma}\}
 \]
 The claim is that the number of sets shattered by a given set is $|\text{sh}(\Omega)| \geq |\Omega|$. The empty set case is trivial. What happens when $n = 1$? $\Omega \subset \{-1, 1\}$, and thus the set is shattered. Assume that our claim holds for $n$, and now set $\Omega \subseteq \{\pm 1\}^{n + 1} = \{\pm 1\}^n \times \{\pm 1\}$. Define
 \[
@@ -183,9 +223,11 @@ where the last union is disjoint since the dimensions are different. Therefore, 
 which completes the induction as desired. 
 \end{proof}
 
-\begin{cor} If $|\Omega| \geq 2^{n -1}$ then there exists $\sigma \subseteq \{1, \cdots, n\}$ with $|\sigma| \geq \lceil \frac{n + 1}{2} \rceil \geq \frac{n}{2}$ such that $\txtn{Proj}_{\R^{\sigma}} \Omega = \{\pm 1\}^{\sigma}$. If you have half of the points in terms of cardinality, you get half of the dimension: At least.
+We will primarily use the theorem as the following corollary, which says that if you have half of the points in terms of cardinality, you get half of the dimension.
+
+\begin{cor} If $|\Omega| \geq 2^{n -1}$ then there exists $\sigma \subseteq \{1, \ldots, n\}$ with $|\sigma| \geq \lceil \frac{n + 1}{2} \rceil \geq \frac{n}{2}$ such that $\txtn{Proj}_{\R^{\sigma}} \Omega = \{\pm 1\}^{\sigma}$.
 \end{cor}
 
-We will primarily use the corollary. 
+ 
 
 

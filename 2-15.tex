@@ -1,207 +1,74 @@
-\blu{2-15-16}
+\blu{2-15-16: 
+Last time we left off with the proof of the Sauer-Shelah lemma. To remind you, we were finding ways to find interesting subsets where matrices behave well. Now recall we had a linear algebraic fact which I owe you; I will prove it in an analytic way. The proof has been moved to Section~\ref{sec:kf}.}
 
-% TELL HOLDEN TO PULL TEMPLATES!!
+\section{Proof of RIP}
 
-Last time we left off with the proof of the Sauer-Shelah lemma. To remind you, we were finding ways to find interesting subsets where matrices behave well. 
+Now we need another geometric lemma for the proof of %\fixme{change name of theorem gen-srank to restricted invertibility principle? fix reference} 
+Theorem~\ref{thm:gen-srank}, the restricted invertibility principle. 
 
-Now recall we had a linear algebraic fact which I owe you; I will prove it in an analytic way.
-
-The lemma we will prove follows from the following general theorem: 
-\fixme{Link back to previous reference to the Ky-Fan maximum principle}
-\begin{thm} Ky-Fan maximum principle. \\\llabel{thm:eignmax}
-Let $B: \R^n \to \R^n$ be symmetric, and let $f: \R^n \to \R$ be a convex function. Then for every orthonormal basis $u_1, \cdots, u_n \in \R^n$, there exists a permutation $\pi$ such that 
+\begin{lem}[Step 1] \llabel{lem:step1}
+Fix $m, n, r \in \N$. Let $A: \R^m \to \R^n$ be a linear operator with rank$(A) \geq r$. For every $\tau \subseteq \{1, \ldots, m\}$, denote
 \[
-f(\langle Bu_1, u_1 \rangle, \cdots, \langle Bu_n, u_n \rangle) \leq f(\lambda\pi(1), \cdots, \lambda\pi(n))
-\]
-Essentially, we're saying using the eigenbasis maximizes the convex function. 
-\end{thm}
-\begin{proof}
-We need for every $i < j$, then $t \to f(x_1, \cdots, x_i + t, x_{i + 1}, \cdots, x_{j - 1}, x_{j} - t, x_{j + 1}, \cdots, x_n)$ is convex as a function of $t$. 
-Then if $f$ is smooth, we will have 
-\[
-\frac{\partial^2 f}{\partial x_i^2} + \frac{\partial^2 f}{\partial x_j^2} - 2 \frac{\partial^2 f}{\partial x_i\partial x_j} \geq 0 
-\]
-In other words, you just need that the Hessian is positive semidefinite (above, we wrote the determinant for all pairs $x_i, x_j$ - the above condition is equivalent). 
-
-You may assume that $f$ is smooth. Without loss of generality, we can give a strict inequality instead: 
-\[
-\frac{\partial^2 f}{\partial x_i^2} + \frac{\partial^2 f}{\partial x_j^2} - 2 \frac{\partial^2 f}{\partial x_i\partial x_j} > 0 
-\]
-since you can just take some $\epsilon > 0$ and perturb $f(x) + \epsilon \|x\|_2^2$. Then in the inequality in Theorem~\ref{thm:eignmax} is also perturbed by this slight change, and taking $\epsilon \to 0$ gives you the desired inequality.
-
-Now let $u_1, \cdots, u_n$ be an orthonormal basis at which $f(\langle Bu_1, u_1 \rangle, \cdots, \langle Bu_n, u_n\rangle)$ attains its maximum. Then for $u_i, u_j$, we want to rotate in the $i-j$ plane by angle $\theta$. Since $u_i, u_j$ span a two dimensional subspace, recall the $2$-dimensional rotation matrix.
-Let 
-\[
-R_{\theta} = 
-\begin{bmatrix}
-\cos(\theta) & \sin(\theta) \\
-\sin(\theta) & -\cos(\theta)
-\end{bmatrix}; 
-u_{i;j} = 
-\begin{bmatrix}
-u_i \\
-u_j
-\end{bmatrix}
-\]
-Multiplying, we get
-\[
-R_{\theta}u_{i;j} = 
-\begin{bmatrix}
-\cos(\theta) & \sin(\theta) \\
-\sin(\theta) & -\cos(\theta)
-\end{bmatrix}
-\begin{bmatrix}
-u_i \\
-u_j
-\end{bmatrix}
-= 
-\begin{bmatrix}
-\cos(\theta)u_i + \sin(\theta)u_j \\
-\sin(\theta)u_i -\cos(\theta)u_j
-\end{bmatrix}
-= 
-\begin{bmatrix}
-\left(R_{\theta}u_{i;j}\right)_1 \\
-\left(R_{\theta}u_{i;j}\right)_2
-\end{bmatrix}
+E_{\tau} = \left(\txtn{span}((Ae_j)_{j \in \tau})\right)^{\perp}.
 \] 
-Then, we replace $f$ with $g(\theta) =$ %\langle Bu_1, u_1 \rangle,
+Then there exists $\tau \subseteq \{1, \ldots, m\}$ with $|\tau| = r$ such that for all $j \in \tau$, 
 \[
-f\left(\langle Bu_1, u_1 \rangle, \cdots, \langle B\left(R_{\theta}u_{i;j}\right)_1, \left(R_{\theta}u_{i;j}\right)_1 \rangle, \langle B\left(R_{\theta}u_{i;j}\right)_2, \left(R_{\theta}u_{i;j}\right)_2\rangle, \cdots, \langle Bu_n, u_n \rangle\right)
-\] 
-where we keep all other dot products the same. 
-Then we can show $g'(0) = 0, g''(0) \leq 0$ since $g$ attains its maximum at $\theta = 0$. Expanding out the rotated dot products explicitly in $g(\theta)$, we get 
-\[
-\cos^2(\theta)\langle Bu_i, u_i\rangle + \sin^2(\theta)\langle Bu_j, u_j \rangle + \sin(2\theta)\langle Bu_i, u_j \rangle
+\|\txtn{Proj}_{E_{\tau \setminus \{j\}}} Ae_j\|_2 \geq \frac{1}{\sqrt{m}}\left(\sum_{i = 1}^m s_i(A)^2\right)^{1/2}.
 \]
-and
-\[
-\sin^2(\theta)\langle Bu_i, u_i\rangle + \cos^2(\theta)\langle Bu_j, u_j \rangle - \sin(2\theta)\langle Bu_i, u_j \rangle
-\]
-Then we can mechanically take the derivatives at \fixme{Take derivatives with respect to what exactly?} %$\langle Bu_i, u_i \rangle$. 
-We get 
-\[
-0 = g'(0) = 2\langle Bu_i, u_j \rangle (f_{x_i} - f_{x_j})
-\]
-\[
-0 \geq g''(0) = 2\left(\langle Bu_j, u_j\rangle - \langle Bu_i, u_i \rangle\right)(f_{x_i} - f_{x_j}) + 4\langle Bu_i, u_j\rangle^2\left(f_{x_ix_i} + f_{x_jx_j} - 2f_{x_ix_j}\right)
-\]
-and this implies that $\langle Bu_i, u_j \rangle = 0$, which implies that for all $i$, $Bu_i = \mu_i\mu_i$. Thus any function applied to a vector of dot products is maximized at eigenvalues. 
-\end{proof}
-
-\begin{ex} $f:\R^n \to \R$ satisfies the conditions in Theorem~\ref{eignmax} and $(u_1, \cdots, u_n)$, $v_1, \cdots, v_n)$ are two orthonormal bases of $\R^n$. Then for every $A: \R^n \to \R^n$, there exists $\pi \in S_n$, $(\epsilon_1, \cdots, \epsilon_n) \in \{\pm 1\}^n$ such that
-\[
-f(\langle Au_1, v_1\rangle, \langle Au_2, v_2\rangle, \cdots, \langle Au_n, v_n \rangle) \leq f(\epsilon_1S_{\pi(1)}(A), \cdots, \epsilon_nS_{\pi(n)}(A))
-\]
-Then show that choosing $u, v$ as the singular values maximizes $f$. 
-\end{ex}
-To solve this problem, you can rotate both in the same direction and take derivatives, and also rotate them in opposite directions and take derivatives to get enough information to prove that the singular values are the maximum. 
-
-Essentially, a lot of the inequalities you find in these books follow from this. For instance, if you want to prove that the Schatten $p$-norm is a norm, it follows directly from this fact. 
-\begin{cor}
-Let $\|\cdot\|$ be a norm on $\R^n$ that is invariant under premutations and sign: 
-\[
-\|(x_1, \cdots, x_n)\| = \|(\epsilon_1x_{\pi(1)}, \cdots, \epsilon_nx_{\pi(n)})
-\]
-for all $\epsilon \in \{\pm 1\}^n$ and $\pi \in S_n$
-(In the literature, we call this a symmetric norm). 
-This induces a norm on matrices $M_{m \times n}(\R)$ with 
-\[
-\|A\| = \|(S_{\pi(1)}(A), \cdots, S_{\pi(n)}(A)\|)
-\]
-Then for $A, B$ matrices, we want to primarily show the triangle inequality: 
-\[
-\|A + B\| \leq \|A\| + \|B\|
-\]
-\[
-A + B = \sqrt{(A + B)^*(A + B)} \cdot W
-\]
-where $W$ is orthogonal matrix (this is just polar decomposition), and 
-\[
-|A + B| = \sqrt{(A + B)^*(A + B)}
-\]
-Let $u_1, \cdots, u_n$ be an orthonormal basis of $A+ B$. Then, 
-\[
-\|A + B\| = \|\langle |A + B|u_1, u_1 \rangle, \cdots, \langle |A + B|u_n, u_n \rangle\| = \|(\langle (A +  B)u_i, Wu_i\rangle)_{i = 1}^n \|
-\]
-\[
-\leq \|(\langle (A +  B)u_i, Wu_i\rangle)_{i = 1}^n \| + \|(Bu_i, Wu_i)\| \leq \|A\| + \|B\|
-\]
-So basically, the Schatten $p$-norm is a norm because it obeys rotational symmetries. 
-\end{cor}
-
-Remember this theorem! For many many results, you simply need to apply the right convex function to get the result. 
-
-Our lemma follows from setting $f(x) = \sum_{i = 1}^k x_i$. 
-\begin{lem}
-For every $A: \R^m \to \R^n$, and every orthogonal projection $P: \R^n \to \R$ of rank $k$, 
-\[
-\txtn{Tr}(A^*AP) \leq \sum_{i = 1}^k s_i(A)^2
-\]
-where the $s_i(A)$ are the square roots of the eigenvalues of $B = A^*A$. 
 \end{lem}
-\begin{proof}
-Take an orthonormal basis of $P$ $u_1, \cdots, u_n$ such that $u_1, \cdots, u_k$ is a basis of the range of $P$. Then
-\[
-\txtn{Tr}(BP) = \sum_{j = 1}^k \langle  Be_j, e_j \rangle \leq \sum_{i = 1}^k s_i(B) = \sum_{i = 1}^k s_i(A)^2
-\]
-\end{proof}
-
-Now we need another geometric lemma for the proof of \fixme{change name of theorem gen-srank to restricted invertibility principle? fix reference} Theorem~\ref{gen-srank}, the restricted invertibility principle. 
-
-\begin{lem} Step $1$. \llabel{lem:step1}
-Fix $m, n, r \in \N$. Let $A: \R^m \to \R^n$ be a linear operator with rank$(A) \geq r$. For every $\tau \subseteq \{1, \cdots, m\}$, denote
-\[
-E_{\tau} = \left(\txtn{span}((Ae_j)_{j \in \tau})\right)^{\perp}
-\] 
-Then there exists $\tau \subseteq \{1, \cdots, m\}$ with $|\tau| = r$ such that for all $j \in \tau$, 
-\[
-\|\txtn{Proj}_{E_{\tau \setminus \{j\}}} Ae_j\|_2 \geq \frac{1}{\sqrt{m}}\left(\sum_{i = 1}^m s_i(A)^2\right)^{1/2}
-\]
 Basically we're taking the projection of the $j^{th}$ column onto the orthogonal completement of the span of the subspace of all columns in the set except for the $j^{th}$ one, and bounding the norm of that by a dimension term and the square root of the sum of the eigenvalues. 
-(this is sharp asymptotically, and may in fact even be sharp as written too - I need to check \fixme{Check this?}). 
-\end{lem}
+(This is sharp asymptotically, and may in fact even be sharp as written too---I need to check. \fixme{Check this?})
+
 \begin{proof}
-For every $\tau \subseteq \{1, \cdots, m\}$, denote
+For every $\tau \subseteq \{1, \ldots, m\}$, denote
 \[
 K_{\tau} = \txtn{conv}\left(\{\pm Ae_j\}_{j \in \tau}\right)
 \]
-Essentially, you want to make this convex hull have big volume, and once you do that, you will get all these inequalities for free. Let $\tau \subseteq \{1, \cdots, m\}$ be such that $\txtn{vol}_r(K_{\tau})$ is maximized among all subsets of size $r$. We know that $\txtn{vol}_r(K_{\tau}) > 0$. Observe that for any $\beta \subseteq \{1, \cdots, m\}$ of size $r - 1$ and $i \not\in \beta$, we have 
+The idea is to make the convex hull have big volume. Once we do that, wewill get all these inequalities for free. Let $\tau \subseteq \{1, \ldots, m\}$ be the subset of size $r$ that maximizes $\txtn{vol}_r(K_{\tau})$. We know that $\txtn{vol}_r(K_{\tau}) > 0$. Observe that for any $\beta \subseteq \{1, \ldots, m\}$ of size $r - 1$ and $i \not\in \beta$, we have 
 \[
-K_{\beta \cup \{i\}} = \txtn{conv}\left(K_{\beta} \cup \{\pm Ae_i \}\right)
+K_{\beta \cup \{i\}} = \txtn{conv}\left(K_{\beta} \cup \{\pm Ae_i \}\right),
 \]
-So all you're doing is having found $E_{\beta}$ and a point $Ae_i$, for the convex hull you get a double cone $E_{\beta}, +Ae_i, -Ae_i$ where $E_{\beta}$ is the orthogonal complement of the space spanned by $\beta$. So what is the height of this cone? This is just $\|\txtn{Proj}_{E_{\beta}} Ae_i\|_2$. Therefore, the $r$-dimensional volume is given by 
+which is a double cone. 
+%So all you're doing is having found $E_{\beta}$ and a point $Ae_i$, for the convex hull you get a double cone $E_{\beta}, +Ae_i, -Ae_i$ where $E_{\beta}$ is the orthogonal complement of the space spanned by $\beta$. So 
+What is the height of this cone? It is $\|\txtn{Proj}_{E_{\beta}} Ae_i\|_2$, as $E_\be$ is the orthogonal complement of the space spanned by $\be$. Therefore, the $r$-dimensional volume is given by 
 \[
 \txtn{vol}_r(K_{\beta \cup \{i\}}) = 2\cdot \frac{\txtn{vol}_{r -1}(K_{\beta}) \cdot \|\txtn{Proj}_{E_{\beta}} Ae_i\|_2}{r}
 \]
-Then $|\tau| = r$ is the maximizing subset of $F_{\Omega}$. Any $j \in \tau$ and $i \in \{1, \cdots, m\}$. Then choosing $\beta = \tau \setminus \{j\}$ (we're choosing the maximizer). \fixme{Insert line comparing volumes for $j$ and $i$ here?} Then we get that 
+Because $|\tau| = r$ is the maximizing subset of $F_{\Omega}$, for any $j \in \tau$ and $i \in \{1, \ldots, m\}$, choosing $\beta = \tau \setminus \{j\}$, we get
+\bal
+\vol_r(K_{\be\cup \{j\}}) & \ge \vol_r(K_{\be \cup \{i\}})\\
+\implies
+\|\txtn{Proj}_{E_{\tau \setminus \{j\}}} Ae_j\|_2 &\geq \|\txtn{Proj}_{E_{\tau \setminus \{j\}}} Ae_i\|_2.
+\end{align*}
+for every $j \in \tau$ and $i \in \{1, \ldots, m\}$. 
+Summing,
 \[
-\|\txtn{Proj}_{E_{\tau \setminus \{j\}}} Ae_j\|_2 \geq \|\txtn{Proj}_{E_{\tau \setminus \{j\}}} Ae_i\|_2
-\]
-for every $j \in \tau$ and $i \in \{1, \cdots, m\}$. 
-But then
-\[
-\|\txtn{Proj}_{E_{\tau \setminus \{j\}}} A\|_{S_2}^2 = \sum_{i = 1}^m \|\txtn{Proj}_{E_{\tau \setminus \{j\}}} Ae_i\|_2^2 \leq m\|\txtn{Proj}_{E_{\tau \setminus \{j\}}} Ae_j\|_2^2
+m\|\txtn{Proj}_{E_{\tau \setminus \{j\}}} Ae_j\|_2^2
+\ge \sum_{i = 1}^m \|\txtn{Proj}_{E_{\tau \setminus \{j\}}} Ae_i\|_2^2 = \|\txtn{Proj}_{E_{\tau \setminus \{j\}}} A\|_{S_2}^2.
 \]
 Then, for all $j \in \tau$, 
-\[
+\beq{eq:rip-s1-1}
 \|\txtn{Proj}_{E_{\tau \setminus \{j\}}} Ae_j\|_2 \geq \frac{1}{\sqrt{m}}\|\txtn{Proj}_{E_{\tau \setminus \{j\}}} A\|_{S_2}
-\]
-Let's denote $P = \txtn{Proj}_{E_{\tau \setminus \{j\}}}$, where $P$ is an orthogonal projection of rank $r - 1$. Then, 
-\[
-\|PA\|_{S_2}^2 = \txtn{Tr}((PA)^*(PA)) = \txtn{Tr}(A^*P^*PA) = \txtn{Tr}(A^*PA) = \txtn{Tr}(AA^*P)
-\]
-\[
-= \txtn{Tr}(AA^*) - \txtn{Tr}(AA^*(I - P)) \geq \sum_{i = 1}^m s_i(A)^2 - \sum_{i = 1}^{r + 1} s_i(A)^2 = \sum_{i = r}^m s_i(A)^2
-\]
-since $I - P$ is a projection of rank $m - r + 1$. So the maximum this could be is the tail, which is the variational argument we proved earlier. 
-And this is what we claimed. 
+\eeq
+Let's denote $P = \txtn{Proj}_{E_{\tau \setminus \{j\}}}$. Note $P$ is an orthogonal projection of rank $r - 1$. Then, 
+\beq{eq:rip-s1-2}
+\begin{split}
+\|PA\|_{S_2}^2 &= \txtn{Tr}((PA)^*(PA)) = \txtn{Tr}(A^*P^*PA) = \txtn{Tr}(A^*PA) = \txtn{Tr}(AA^*P)\\
+&= \txtn{Tr}(AA^*) - \txtn{Tr}(AA^*(I - P)) \geq \sum_{i = 1}^m s_i(A)^2 - \sum_{i = 1}^{r - 1} s_i(A)^2 = \sum_{i = r}^m s_i(A)^2
+\end{split}
+\eeq
+using the Ky Fan maximal principle~\ref{lem:kf}, 
+since $I - P$ is a projection of rank $m - r + 1$. 
+%So the maximum this could be is the tail. %, which is the variational argument we proved earlier (Ky Fan maximal principle).
+%And this is what we claimed. 
+
+Putting~\eqref{eq:rip-s1-1} and~\eqref{eq:rip-s1-2} together gives the result.
 \end{proof}
 
-In our proof of the restricted invertibility principle, this is the first step. Before proving it, let me just tell you what the second step looks like. 
+\blu{In our proof of the restricted invertibility principle, this is the first step. Before proving it, let me just tell you what the second step looks like. }
 
-\begin{lem} Step $2$. \llabel{lem:step2}
-For $k, m, n \in \N$, $A: \R^m \to \R^n$, rank$(A) > k$. Let $\omega = \{1, \cdots, m\}$ with $|w| = \txtn{rank}(A)$ such that $\{Ae_j\}_{j \in \omega}$ are linearly independent. Denote for every $j \in \Omega$ 
+\begin{lem}[Step $2$] \llabel{lem:step2}
+For $k, m, n \in \N$, $A: \R^m \to \R^n$, $\rank(A) > k$. Let $\omega = \{1, \ldots, m\}$ with $|w| = \txtn{rank}(A)$ such that $\{Ae_j\}_{j \in \omega}$ are linearly independent. Denote for every $j \in \Omega$ 
 \[
 F_j = E_{\omega \setminus \{j\}} = \left(\txtn{span}(Ae_i)_{i \in \omega \setminus \{j\}}\right)
 \]
@@ -216,17 +83,20 @@ Next Time. \fixme{TODO}
 
 Most of the work is in the second step. First we pass to a subset where we have some information about the shortest possible orthogonal project. But Step $1$ saves us by bounding what this can be. Here we use the Grothendieck inequality, Sauer-Shelah, etc. Everything: It's simple, but it kills the restricted invertibility principle. 
 
-\begin{thm} Step $1$ and Step $2$ imply the Restricted Invertibility Principle.
-\end{thm}
-\begin{proof}
+%\begin{thm} Step $1$ and Step $2$ imply the Restricted Invertibility Principle.
+%\end{thm}
+\begin{proof}[Proof of Theorem~\ref{thm:gen-srank} given Step 1 and 2]
 Take $A: \R^m \to \R^n$. 
-By Step $1$, we can find subset $\tau \subseteq \{1, \cdots, m\}$ with $|\tau| = r$. For all $j \in \tau$, we can find 
-\[
-\|\txtn{Proj}_{E_{\tau \setminus \{j\}}} Ae_j \|_2 \geq \frac{1}{\sqrt{m}}\left(\sum_{i = r}^m s_i(A)^2\right)^{1/2}
-\]
-Now we apply Step $2$ to $AJ_{\tau}$, using $\omega = \tau$, and find the further subset $\sigma \subseteq \tau$ such that 
-\[
-\|\left(AJ_{\sigma}\right)^{-1}\|_{S_{\infty}} \leq \min_{k < r < \txtn{rank}(A)} \sqrt{\frac{mr}{(k - r)\sum_{i = r}^m s_i(A)^2}}
-\]
-which we get by plugging directly in $mr$ for the rank and using Step $1$ to get the denominator. 
+By Step $1$ (Lemma~\ref{lem:step1}), we can find subset $\tau \subseteq \{1, \ldots, m\}$ with $|\tau| = r$ such that for all $j \in \tau$, 
+\beq{eq:step1}
+\|\txtn{Proj}_{E_{\tau \setminus \{j\}}} Ae_j \|_2 \geq \frac{1}{\sqrt{m}}\left(\sum_{i = r}^m s_i(A)^2\right)^{1/2}.
+\eeq
+Now we apply Step $2$ (Lemma~\ref{lem:step2}) to $AJ_{\tau}$, using $\omega = \tau$, and find a further subset $\sigma \subseteq \tau$ such that 
+\bal
+\|\left(AJ_{\sigma}\right)^{-1}\|_{S_{\infty}} 
+&\le \min_{k<r<\rank(A)}\sfc{\rank(A)}{\rank(A)-r} \max_{j\in \om} \sqrt{\ve{\Proj_{F_j} Ae_j}}\\
+&\leq \min_{k < r < \txtn{rank}(A)} \sqrt{\frac{mr}{(r - k)\sum_{i = r}^m s_i(A)^2}}
+\end{align*}
+which we get by plugging directly in $r$ for the rank and using Step $1$~\eqref{eq:step1} to get the denominator. 
 \end{proof}
+\fixme{? How did it get into the denominator?}
