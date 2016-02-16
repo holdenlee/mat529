@@ -23,21 +23,58 @@ Then if $f$ is smooth, we will have
 \]
 In other words, you just need that the Hessian is positive semidefinite (above, we wrote the determinant for all pairs $x_i, x_j$ - the above condition is equivalent). 
 
-YOu may assume that $f$ is smooth. Without loss of generality, we can give a strict inequality instead: 
+You may assume that $f$ is smooth. Without loss of generality, we can give a strict inequality instead: 
 \[
 \frac{\partial^2 f}{\partial x_i^2} + \frac{\partial^2 f}{\partial x_j^2} - 2 \frac{\partial^2 f}{\partial x_i\partial x_j} > 0 
 \]
 since you can just take some $\epsilon > 0$ and perturb $f(x) + \epsilon \|x\|_2^2$. Then in the inequality in Theorem~\ref{thm:eignmax} is also perturbed by this slight change, and taking $\epsilon \to 0$ gives you the desired inequality.
 
-Now let $u_1, \cdots, u_n$ be an orthonormal basis at which $f(\langle Bu_1, u_1 \rangle, \cdots, \langle Bu_n, u_n\rangle)$ attains its maximum. Then for $u_i, u_j$, we want to rotate in the $i-j$ plane by angle $\theta$, so we replace $f$ with
+Now let $u_1, \cdots, u_n$ be an orthonormal basis at which $f(\langle Bu_1, u_1 \rangle, \cdots, \langle Bu_n, u_n\rangle)$ attains its maximum. Then for $u_i, u_j$, we want to rotate in the $i-j$ plane by angle $\theta$. Since $u_i, u_j$ span a two dimensional subspace, recall the $2$-dimensional rotation matrix.
+Let 
 \[
-g(\theta) = f(\langle Bu_1, u_1 \rangle, \langle B(\cos(\theta) u_i \sin(\theta) u_j, \cos(\theta) u_i, \sin(\theta) u_j\rangle, \cdots, \langle B(\cos(\theta) u_i \sin(\theta) u_j, \cos(\theta) u_i, \sin(\theta) u_j\rangle)
+R_{\theta} = 
+\begin{bmatrix}
+\cos(\theta) & \sin(\theta) \\
+\sin(\theta) & -\cos(\theta)
+\end{bmatrix}; 
+u_{i;j} = 
+\begin{bmatrix}
+u_i \\
+u_j
+\end{bmatrix}
+\]
+Multiplying, we get
+\[
+R_{\theta}u_{i;j} = 
+\begin{bmatrix}
+\cos(\theta) & \sin(\theta) \\
+\sin(\theta) & -\cos(\theta)
+\end{bmatrix}
+\begin{bmatrix}
+u_i \\
+u_j
+\end{bmatrix}
+= 
+\begin{bmatrix}
+\cos(\theta)u_i + \sin(\theta)u_j \\
+\sin(\theta)u_i -\cos(\theta)u_j
+\end{bmatrix}
+= 
+\begin{bmatrix}
+\left(R_{\theta}u_{i;j}\right)_1 \\
+\left(R_{\theta}u_{i;j}\right)_2
+\end{bmatrix}
 \] 
-Then we can show $g'(0) = 0, g''(0) \leq 0$ since $g$ attains its maximum at $\theta = 0$. Expanding out the dot products explicitly in $g(\theta)$, we get for the coefficient of $u_i$
+Then, we replace $f$ with $g(\theta) =$ %\langle Bu_1, u_1 \rangle,
+\[
+f\left(\langle Bu_1, u_1 \rangle, \cdots, \langle B\left(R_{\theta}u_{i;j}\right)_1, \left(R_{\theta}u_{i;j}\right)_1 \rangle, \langle B\left(R_{\theta}u_{i;j}\right)_2, \left(R_{\theta}u_{i;j}\right)_2\rangle, \cdots, \langle Bu_n, u_n \rangle\right)
+\] 
+where we keep all other dot products the same. 
+Then we can show $g'(0) = 0, g''(0) \leq 0$ since $g$ attains its maximum at $\theta = 0$. Expanding out the rotated dot products explicitly in $g(\theta)$, we get 
 \[
 \cos^2(\theta)\langle Bu_i, u_i\rangle + \sin^2(\theta)\langle Bu_j, u_j \rangle + \sin(2\theta)\langle Bu_i, u_j \rangle
 \]
-and for $u_j$
+and
 \[
 \sin^2(\theta)\langle Bu_i, u_i\rangle + \cos^2(\theta)\langle Bu_j, u_j \rangle - \sin(2\theta)\langle Bu_i, u_j \rangle
 \]
