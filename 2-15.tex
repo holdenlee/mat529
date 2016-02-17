@@ -30,6 +30,9 @@ K_{\beta \cup \{i\}} = \txtn{conv}\left(K_{\beta} \cup \{\pm Ae_i \}\right),
 \]
 which is a double cone. 
 %So all you're doing is having found $E_{\beta}$ and a point $Ae_i$, for the convex hull you get a double cone $E_{\beta}, +Ae_i, -Ae_i$ where $E_{\beta}$ is the orthogonal complement of the space spanned by $\beta$. So 
+
+\ig{images/5-1}{.25}
+
 What is the height of this cone? It is $\|\txtn{Proj}_{E_{\beta}} Ae_i\|_2$, as $E_\be$ is the orthogonal complement of the space spanned by $\be$. Therefore, the $r$-dimensional volume is given by 
 \[
 \txtn{vol}_r(K_{\beta \cup \{i\}}) = 2\cdot \frac{\txtn{vol}_{r -1}(K_{\beta}) \cdot \|\txtn{Proj}_{E_{\beta}} Ae_i\|_2}{r}
@@ -68,18 +71,19 @@ Putting~\eqref{eq:rip-s1-1} and~\eqref{eq:rip-s1-2} together gives the result.
 \blu{In our proof of the restricted invertibility principle, this is the first step. Before proving it, let me just tell you what the second step looks like. }
 
 \begin{lem}[Step $2$] \llabel{lem:step2}
-For $k, m, n \in \N$, $A: \R^m \to \R^n$, $\rank(A) > k$. Let $\omega = \{1, \ldots, m\}$ with $|w| = \txtn{rank}(A)$ such that $\{Ae_j\}_{j \in \omega}$ are linearly independent. Denote for every $j \in \Omega$ 
+Let $k, m, n \in \N$, $A: \R^m \to \R^n$, $\rank(A) > k$. Let $\omega \subeq \{1, \ldots, m\}$ with $|\om| = \txtn{rank}(A)$ such that $\{Ae_j\}_{j \in \omega}$ are linearly independent. Denote for every $j \in \Omega$ 
 \[
-F_j = E_{\omega \setminus \{j\}} = \left(\txtn{span}(Ae_i)_{i \in \omega \setminus \{j\}}\right)
+F_j = E_{\omega \setminus \{j\}} = \left(\txtn{span}(Ae_i)_{i \in \omega \setminus \{j\}}\right).
 \]
-Then there exists $\sigma \subseteq \omega$ with $|\omega| \geq k$ such that 
+Then there exists $\sigma \subseteq \omega$ with $|\si| =k$ such that 
 \[
-\|\left(AJ_{\sigma}\right)^{-1}\|_{S_{\infty}} \leq \frac{\sqrt{\txtn{rank}(A)}}{\sqrt{\txtn{rank}(A) - k}} \cdot \max_{j \in \omega} \sqrt{\|\txtn{Proj}_{F_j} Ae_j\|}
+\|\left(AJ_{\sigma}\right)^{-1}\|_{S_{\infty}} %\leq
+\lesssim
+ \frac{\sqrt{\txtn{rank}(A)}}{\sqrt{\txtn{rank}(A) - k}} \cdot \max_{j \in \omega} \rc{{\|\txtn{Proj}_{F_j} Ae_j\|}}
 \]
+%pass to where uniformly big
+%first using geometry, find subspace making all the proj big, using singular values. Once you have this lemma, you apply that first, substitute in here.
 \end{lem}
-\begin{proof}
-Next Time. \fixme{TODO}
-\end{proof}
 
 Most of the work is in the second step. First we pass to a subset where we have some information about the shortest possible orthogonal project. But Step $1$ saves us by bounding what this can be. Here we use the Grothendieck inequality, Sauer-Shelah, etc. Everything: It's simple, but it kills the restricted invertibility principle. 
 
@@ -94,9 +98,9 @@ By Step $1$ (Lemma~\ref{lem:step1}), we can find subset $\tau \subseteq \{1, \ld
 Now we apply Step $2$ (Lemma~\ref{lem:step2}) to $AJ_{\tau}$, using $\omega = \tau$, and find a further subset $\sigma \subseteq \tau$ such that 
 \bal
 \|\left(AJ_{\sigma}\right)^{-1}\|_{S_{\infty}} 
-&\le \min_{k<r<\rank(A)}\sfc{\rank(A)}{\rank(A)-r} \max_{j\in \om} \sqrt{\ve{\Proj_{F_j} Ae_j}}\\
+&\le \min_{k<r<\rank(A)}\sfc{\rank(A)}{\rank(A)-r} \max_{j\in \om}\rc{{\ve{\Proj_{F_j} Ae_j}}}\\
 &\leq \min_{k < r < \txtn{rank}(A)} \sqrt{\frac{mr}{(r - k)\sum_{i = r}^m s_i(A)^2}}
 \end{align*}
 which we get by plugging directly in $r$ for the rank and using Step $1$~\eqref{eq:step1} to get the denominator. 
 \end{proof}
-\fixme{? How did it get into the denominator?}
+%\fixme{? How did it get into the denominator?}

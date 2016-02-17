@@ -1,0 +1,182 @@
+\blu{2-17}
+
+Now we prove Step 2 (Lemma~\ref{lem:step2}). Note we can assume $\om=\{1,\ldots, m\}$ and that the rank is $m$.
+
+First we need some lemmas.
+\begin{lem}\llabel{lem:rip-step2-1}
+Let $A:\R^m\to \R^n$ be such that $\{Ae_j\}_{j=1}^m$ are linearly independent, and $\si\subeq \{1,\ldots, m\}$, $t\in \N$. Then there exists $\tau\subeq \si$ with 
+\[
+|\tau|\ge \pa{1-\rc{2^t}}|\si|,
+\]
+such that denoting $\te = \tau\cup (\{1,\ldots, m\}\bs \si)$, $M=\max_{j \in \omega} \rc{{\|\txtn{Proj}_{F_j} Ae_j\|}}$, for all $\si\in \R^{\te}$,
+\[
+\sum_{i\in \tau}|a_i|\le 2^{\fc t2} M \sqrt{|\si|} \ve{\sum_{i\in \te} a_iAe_i}_2.
+\]
+%controlled by $L^2
+%ganos pulus
+\end{lem}
+This is proved by a nice inductive argument.
+%This sets us up for the second iteration in the proof.
+\begin{lem}\llabel{lem:rip-step2-2}
+Let $m,n,t\in \N$ and $\be\subeq \{1,\ldots, m\}$. Let $A:\R^m\to \R^n$ be a linear operator such that $\{Ae_j\}_{j=1}^m$ are linearly independent. Then there exist two subsets
+$
+\si \subeq \tau \subeq \be
+$
+such that
+$|\tau|\ge \pa{1-\rc{2^t}}|\be|$,  
+$|\tau\bs \si| \le \fc{|\be|}{4}$,
+and if we denote $\te=\tau\cup (\{1,\ldots, m\}\bs \be)$, then 
+%Restrict $A$ to the subset $\te$
+\[
+\ve{\Proj_{\R^{\si}}(AJ_{\te})^{-1}}_{S_{\iy}}\lesssim 2^{\fc t2}M,
+\]
+where $M=\max_{j \in \omega} \rc{{\|\txtn{Proj}_{F_j} Ae_j\|}}$.
+\end{lem}
+%restrict with big set, compose with orthogonal projection to $\si$. Get operator norm bound
+
+\begin{proof}[Proof of Lemma~\ref{lem:rip-step2-2} from Lemma~\ref{lem:rip-step2-1}]
+Apply Lemma~\ref{lem:rip-step2-1} with $\si=\be$. We find $\tau\subeq \be$ with $|\tau|\ge \pa{1-\rc{2^t}}|\be|$ such that 
+\[
+\sum_{i\in \tau} |a_i|\le 2^{\fc t2} M\sqrt{|\be|}\ve{\sum_{i\in \te} a_iAe_i}_2.
+\]
+Rewriting gives that for all $a\in \R^{\si}$,
+\bal
+\ve{\Proj_{\R^{\tau}}a} &\le 2^{\fc t2} M \sqrt{|\be|} \ve{AJ_{\te}a}_2\\
+\ve{\Proj_{\R^{\tau}} (AJ_\te)^{-1}}_{\ell_2^{\te}\to \ell_1^{\tau}}&\lesssim 2^{\fc t2} M \sqrt{|\be|}.
+\end{align*}
+%projection times b... is exactly operator norm.
+%extctly what came up in LGI in PDT. 
+%applied to vector at most $L^2$ of vector
+Deote $\ep=\fc{|\be|}{4|\tau|}$. By Lemma \fixme{which?}, there exists $\si\subeq \tau$, $|\si|\ge (1-\ep)|\tau|$ such that 
+\bal
+\ve{\Proj_{\R^{\si}} (AJ_{\te})^{-1}}_{S^{\iy}}=
+\ve{\Proj_{\R^{\si}}\Proj_{\R^{\tau}} (AJ_\te)^{-1}}_{S^{\iy}}
+&\lesssim \sfc{\pi}{2\ep |\tau|} 2^{\fc t2} M\sqrt{|\be|}\\
+&\lesssim 2^{\fc t2}M.
+\end{align*}
+%sauer shelah, many good signs
+%first lemma is $L^1$.
+%pass to signs? get second lemma.
+%Show lemma 2 and finish, or lemma 1.
+\end{proof}
+
+\begin{proof}[Proof of Lemma \ref{lem:step2} (Step 2)]
+%volume, grothendieck
+%only remaining is combinatorics (SS).
+%inductive construction.
+%Fix an integer $r$ such that $\rc{2^{2r+1}}\le 1-\fc km\le \rc{2^{2r}}$. 
+Proceed inductively as follows. First set
+\bal
+\tau_0&=\{1,\ldots, m\}\\
+\si_0&=\phi.
+\end{align*}
+Suppose $u\in \{0,\ldots, r+1\}$ and we constructed $\si_k,\tau_k\subeq \{1,\ldots, m\}$ such that if we denote $\be_u =\tau_u \bs \si_u$, $\te_u = \tau_u \cup (\{1,\ldots, m\}\bs \be_{u-1})$, then
+\begin{enumerate}
+\item
+$\si_u\subeq \tau_u \subeq \be_{u-1}$
+\item
+$|\tau_u|\ge \pa{1-\rc{2^{2r-u+4}}}|\be_{u-1}|$
+\item
+$|\be_u|\le \rc 4 |\be_{u-1}|$
+\item
+$\ve{\Proj_{R^{\si_u}}(AJ_{\te_u})^{-1}}_{S_{\iy}} \lesssim 2^{r-\fc u2}M$.
+\end{enumerate}
+Let $H=2r-u+4$. For instance, $|\tau_1|\ge \pa{1-\rc{2^{2r+4}}}|\be_0|$.
+%the projection onto $\R^{\si}$. is $\fc p2$. constant don't care about.
+What is the new $\be$? %$\tau_u0\si_u$.
+%we can chop off a piece such that 
+%projection onto $\R_{\si_2}$.
+
+For the inductive step, apply Lemma~\ref{lem:rip-step2-2} on $\be_{u-1}$ with $t=2r-u+4$ to get $\si_u\subeq \tau_u\subeq \be_{u-1}$ such that $|\tau_u|\ge \pa{1-\rc{2r-u+4}}|\be_{u-1}|$, $|\tau_u\bs \si_u|\le \fc{|\be_{u-1}|}{4}$, 
+%use lemma
+%add omre and more pieces.
+%set up so can get what want, ...
+%\te decreasing
+$\ve{\Proj_{\R^{\si_n}}(AJ_{\te_u})^{-1}}\le 
+2^{c-u/2}M$.
+
+We know $|\be_{u-1}|\le \fc{m}{4^{u-1}}$, 
+\begin{align*}
+\be_{u-1}&=\be_u \sqcup \si_u \sqcup (\be_{u-1}\bs \tau_u)\\
+|\be_{u-1}|&=|\be_u| + |\si_u|  +(|\be_{u-1}| - |\tau_u|)\\
+|\si_u|&=|\be_{u-1}|-|\be_u| + |\be_{u-1}\bs \tau_u|\\
+&\ge |\be_{u-1}|-|\be_u|-\fc{|\be_{u-1}|}{2^{2r-u+4}}\\
+&\ge |\be_{u-1}|-|\be_u| - \fc{m}{2r+u+2}.
+\end{align*}
+Our choice for the invertible subset is
+\[
+\si = \bigsqcup_{u=1}^{r+1}\si_u.
+\]
+Telescoping gives
+\bal
+|\si|&=\sumo u{r+1} |\si_u| \ge |\be_0|-|\be_{r+1}| - \fc{m}{2^{2r+2}}\sumo u{\iy} \rc{2^u} \\
+&=m-\fc{m}{4^{r+1}}-\fc{m}{2^{2r+2}}\\
+&=m\pa{1-\rc{2^{2r+1}}}\ge m\fc{k}m=k.
+\end{align*}
+%bookkeeping
+%new universe in $\tau_u$. Next bit is inside
+Observe that  $\si\subeq \bigcap_{u=1}^{r+1} \te_u$ for every $\si_u,\ldots, \si_{r+1}\subeq \tau_u$, 
+\[
+\si_1,\ldots, \si_{u-1} \subeq \{1,\ldots, m\} \bs \be_{u-1}
+\]
+%union is $\te_u$.
+%more confusing on the board.
+
+This allows me to use the conclusion for all the $\si_u$'s at once. 
+
+For $a\in \R^{\si}$, $J_{\si}a\subeq J_{\te_u} \R^{\te_u}$, 
+\[
+\Proj_{\R^{\si_u}}(AJ_{\te_u})^{-1} (AJ_\si) a = \Proj_{\R^{\si_u}}J_\si a.
+\] 
+%a sucset of $J_\si$. Apply $A$ to it.
+%R^\si$ inside $\R^{\si_u}$, so honest inverse. 
+Then
+\bal
+\ve{J_\si a}_2^2 &=\sumo  1{r+1} \ve{\Proj_{\R^{\si_u}}J_{\si}a}_2^2\\
+%blocks. l^2 norm is sum over blocks
+&=\sum_{u=1}^{r+1}\ve{\Proj_{\R^{\si_u}}(AJ_{\si_u})^{-1}(AJ_\si)a}_2^2 \\
+&\lesssim \sum_{u=1}^{r+1} 2^{2r-u} M^2 \ve{AJ_0 a}_2^2\\
+&\lesssim 2^{2r} M^2 \ve{AJ_\si a}_2^2\\
+&\le \fc{M^2}{1-\fc Km}\ve{AJ_\si a}_2^2\\
+\ve{J_\si a}_2 &\le \sfc{m}{m-k} M \ve{AJ_\si a}_2^2\\
+\implies \ve{(AJ_\si)^{-1}}_{S_{\iy}} &\lesssim \sfc{m}{m-k} M.
+%use lemma as black box.
+\end{align*}
+%in the end it's combinatorics.
+\end{proof}
+If remains to prove Lemma~\ref{lem:rip-step2-1}.
+
+%greedily instead of inductively?
+%improve over original
+%subset of proportional size, first bite gets the constrant fraction. To get to $1-\ep$. Each time, get half of what remains. it would be nice. get very close to rank. 
+%aggressive
+%initial proof they do it once.
+
+%SS. first time go to half. 
+%to get more, look at half of what remains. Hopefully we can continue. My hunch  a different way: skip over use of SS.
+
+%not true that SS take half of what remains
+%give bound from $L^1$ to $L^2$. Signs 
+%grothendieck further subset
+%correct wrong norms to operator norms.
+
+%Another aspect: this bound $\lesssim \sfc{m}{m-k}$ is existential statement. 
+%Hinted that Lemma 1 uses SS. 
+%Cloud of points. Some subset of coordinates such that when you project it you see the full cube. I'm quite certain that it's NP-hard. (How is the set given to you?) Sets we care about have  simple description.
+%Formulate correct algorithmic Sauer-Shelah lemma.
+%subset of half the diension.
+%formulate the question correctly. Some sort of description.
+%formulate question.
+%good chance for the particular sets we use, there is poly time algorithm.
+%intersection of cube with ellipsoid. In this case make algorithmic.
+
+%pitch.
+%In P, I'm not worried. It worked by duality. Look at explicitly defined convex set... probabilistic construction (RECORDING)
+%subset max vol among all subsets of various size. look at one which maximizes volume. 
+%If $\binom nr$. If $r=n/2$ also exponentially many. Find subsets with maximum volume fast. Might be a replacement, approximately maximizes volume.
+%Bottleneck for making this algorithm. 
+%tailored for our proof... intersection of cubes with ellipsoids, $>2^{n-1}$, polytime find subset. 
+%cubes intersected with other convex bodies?
+%I don't know the algorithmic literature.
+%I searched and looked at the literature.= and asked 
+%If you think about it, look at it.
