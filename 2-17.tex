@@ -196,14 +196,31 @@ The way the Pietsch Domination Theorem~\ref{thm:pdt} worked was by duality.
 %I'm not worried. It worked by duality. 
 We look at a certain explicitly defined convex set. We found a separating hyperplane which must be a probability measure. Then we had a probabilistic construction. This part is fine.
 
-There was another place where we chose a subset, the subset that maximizes the volume out of all subsets of a given size (Lemma~\ref{lem:step1}). Specifically, we want the set of columns of a matrix that maximizes the volume of the convex hull.
+
+
+The bottleneck for making this an algorithm (I do believe this will become an algorithm) consists of 2 parts:
+\begin{enumerate}
+\item
+Sauer-Shelah lemma~\ref{lem:saushel}: We have some cloud of points in the boolean cube, and we know there is some large subset of coordinates (half of them) such that when you project to it you see the full cube.  I'm quite certain that it's NP-hard in general. (Work is necessary to formulate the correct algorithmic Sauer-Shelah lemma. How is the set given to you?) 
+
+We only need to answer the algorithmic question tailored to our sets, which have a simple description: the intersection of an ellipsoid with a cube. There is a good chance that there is a polynomial time algorithm in this case. This question has other applications as well (perhaps one could generalize to the intersection of the cube with other convex bodies).
+%question tailored to our sets (if the intersection of an ellipsoid (or other convex bodies) with the boolean cube has $>2^{n-1}$ points, find a large shattering set in polynomial time; this would have other applications). 
+\footnote{There could be an algorithm out there, but I couldn't find one in the literature.}
+%Formulate correct algorithmic Sauer-Shelah lemma.
+%subset of half the diension.
+%formulate the question correctly. Some sort of description.
+%formulate question.
+%good chance for the particular sets we use, there is poly time algorithm.
+%intersection of cube with ellipsoid. In this case make algorithmic.
+\item
+The second bottleneck is finding a subset with maximal volume. 
+
+It's another place where we chose a subset, the subset that maximizes the volume out of all subsets of a given size (Lemma~\ref{lem:step1}). Specifically, we want the set of columns of a matrix that maximizes the volume of the convex hull.
 Computing the volume of the convex hull requires some thought.
 %subset max vol among all subsets of various size. look at one which maximizes volume. 
 Also, there are $\binom nr$ subsets of size $r$; if $r=n/2$ there are exponentially many. We need a way to find subsets with maximum volume fast. There might be a replacement algorithm which approximately maximizes this volume.
-
-The bottleneck for making this an algorithm (I do believe this will become an algorithm) is going through Sauer-Shelah, formulating the algorithmic question tailored to our sets (if the intersection of an ellipsoid (or other convex bodies) with the boolean cube has $>2^{n-1}$ points, find a large shattering set in polynomial time; this would have other applications). (There could be an algorithm out there, but I couldn't find one in the literature.)
-
-The second part is finding a subset with maximal volume. 
+\end{enumerate}
+% going through Sauer-Shelah, formulating the algorithmic 
 %Bottleneck for making this algorithm. 
 %tailored for our proof... intersection of cubes with ellipsoids, $>2^{n-1}$, polytime find subset. 
 %cubes intersected with other convex bodies?
