@@ -2,7 +2,7 @@
 Last time we left off with the proof of the Sauer-Shelah lemma. To remind you, we were finding ways to find interesting subsets where matrices behave well. Now recall we had a linear algebraic fact which I owe you; I will prove it in an analytic way. The proof has been moved to Section~\ref{sec:kf}.}
 
 \section{Proof of RIP}
-
+\subsection{Step 1}
 Now we need another geometric lemma for the proof of %\fixme{change name of theorem gen-srank to restricted invertibility principle? fix reference} 
 Theorem~\ref{thm:gen-srank}, the restricted invertibility principle. 
 
@@ -68,6 +68,8 @@ since $I - P$ is a projection of rank $m - r + 1$.
 Putting~\eqref{eq:rip-s1-1} and~\eqref{eq:rip-s1-2} together gives the result.
 \end{proof}
 
+\subsection{Step 2}
+
 \blu{In our proof of the restricted invertibility principle, this is the first step. Before proving it, let me just tell you what the second step looks like. }
 
 \begin{lem}[Step $2$] \llabel{lem:step2}
@@ -103,4 +105,3 @@ Now we apply Step $2$ (Lemma~\ref{lem:step2}) to $AJ_{\tau}$, using $\omega = \t
 \end{align*}
 which we get by plugging directly in $r$ for the rank and using Step $1$~\eqref{eq:step1} to get the denominator. 
 \end{proof}
-%\fixme{? How did it get into the denominator?}

@@ -15,6 +15,9 @@ such that denoting $\te = \tau\cup (\{1,\ldots, m\}\bs \si)$, $M=\max_{j \in \om
 %controlled by $L^2
 %ganos pulus
 \end{lem}
+
+\ig{images/6-1}{.25}
+
 This is proved by a nice inductive argument.
 %This sets us up for the second iteration in the proof.
 \begin{lem}\llabel{lem:rip-step2-2}
@@ -25,29 +28,31 @@ $
 such that
 $|\tau|\ge \pa{1-\rc{2^t}}|\be|$,  
 $|\tau\bs \si| \le \fc{|\be|}{4}$,
-and if we denote $\te=\tau\cup (\{1,\ldots, m\}\bs \be)$, then 
+and if we denote $\te=\tau\cup (\{1,\ldots, m\}\bs \be)$, $M=\max_{j \in \omega} \rc{{\|\txtn{Proj}_{F_j} Ae_j\|}}$, then 
 %Restrict $A$ to the subset $\te$
 \[
-\ve{\Proj_{\R^{\si}}(AJ_{\te})^{-1}}_{S_{\iy}}\lesssim 2^{\fc t2}M,
+\ve{\Proj_{\R^{\si}}(AJ_{\te})^{-1}}_{S_{\iy}}\lesssim 2^{\fc t2}M.
 \]
-where $M=\max_{j \in \omega} \rc{{\|\txtn{Proj}_{F_j} Ae_j\|}}$.
 \end{lem}
 %restrict with big set, compose with orthogonal projection to $\si$. Get operator norm bound
+
+\ig{images/6-2}{.25}
 
 \begin{proof}[Proof of Lemma~\ref{lem:rip-step2-2} from Lemma~\ref{lem:rip-step2-1}]
 Apply Lemma~\ref{lem:rip-step2-1} with $\si=\be$. We find $\tau\subeq \be$ with $|\tau|\ge \pa{1-\rc{2^t}}|\be|$ such that 
 \[
 \sum_{i\in \tau} |a_i|\le 2^{\fc t2} M\sqrt{|\be|}\ve{\sum_{i\in \te} a_iAe_i}_2.
 \]
-Rewriting gives that for all $a\in \R^{\si}$,
+Rewriting gives that %for all $a\in \R^{\si}$,
 \bal
+\forall a\in \R^{\si},\qquad
 \ve{\Proj_{\R^{\tau}}a} &\le 2^{\fc t2} M \sqrt{|\be|} \ve{AJ_{\te}a}_2\\
-\ve{\Proj_{\R^{\tau}} (AJ_\te)^{-1}}_{\ell_2^{\te}\to \ell_1^{\tau}}&\lesssim 2^{\fc t2} M \sqrt{|\be|}.
+\implies \ve{\Proj_{\R^{\tau}} (AJ_\te)^{-1}}_{\ell_2^{\te}\to \ell_1^{\tau}}&\lesssim 2^{\fc t2} M \sqrt{|\be|}.
 \end{align*}
 %projection times b... is exactly operator norm.
 %extctly what came up in LGI in PDT. 
 %applied to vector at most $L^2$ of vector
-Deote $\ep=\fc{|\be|}{4|\tau|}$. By Lemma \fixme{which?}, there exists $\si\subeq \tau$, $|\si|\ge (1-\ep)|\tau|$ such that 
+Denote $\ep=\fc{|\be|}{4|\tau|}$. By Lemma \fixme{which?}, there exists $\si\subeq \tau$, $|\si|\ge (1-\ep)|\tau|$ such that 
 \bal
 \ve{\Proj_{\R^{\si}} (AJ_{\te})^{-1}}_{S^{\iy}}=
 \ve{\Proj_{\R^{\si}}\Proj_{\R^{\tau}} (AJ_\te)^{-1}}_{S^{\iy}}
@@ -64,7 +69,7 @@ Deote $\ep=\fc{|\be|}{4|\tau|}$. By Lemma \fixme{which?}, there exists $\si\sube
 %volume, grothendieck
 %only remaining is combinatorics (SS).
 %inductive construction.
-%Fix an integer $r$ such that $\rc{2^{2r+1}}\le 1-\fc km\le \rc{2^{2r}}$. 
+Fix an integer $r$ such that $\rc{2^{2r+1}}\le 1-\fc km\le \rc{2^{2r}}$. 
 Proceed inductively as follows. First set
 \bal
 \tau_0&=\{1,\ldots, m\}\\
@@ -79,29 +84,37 @@ $|\tau_u|\ge \pa{1-\rc{2^{2r-u+4}}}|\be_{u-1}|$
 \item
 $|\be_u|\le \rc 4 |\be_{u-1}|$
 \item
-$\ve{\Proj_{R^{\si_u}}(AJ_{\te_u})^{-1}}_{S_{\iy}} \lesssim 2^{r-\fc u2}M$.
+$\ve{\Proj_{\R^{\si_u}}(AJ_{\te_u})^{-1}}_{S_{\iy}} \lesssim 2^{r-\fc u2}M$.
 \end{enumerate}
-Let $H=2r-u+4$. For instance, $|\tau_1|\ge \pa{1-\rc{2^{2r+4}}}|\be_0|$.
+
+\ig{images/6-3}{.25}
+
+Let $H=2r-u+4$. For instance, $|\tau_1|\ge \pa{1-\rc{2^{2r+3}}}|\be_0|$.
 %the projection onto $\R^{\si}$. is $\fc p2$. constant don't care about.
 What is the new $\be$? %$\tau_u0\si_u$.
 %we can chop off a piece such that 
 %projection onto $\R_{\si_2}$.
 
-For the inductive step, apply Lemma~\ref{lem:rip-step2-2} on $\be_{u-1}$ with $t=2r-u+4$ to get $\si_u\subeq \tau_u\subeq \be_{u-1}$ such that $|\tau_u|\ge \pa{1-\rc{2r-u+4}}|\be_{u-1}|$, $|\tau_u\bs \si_u|\le \fc{|\be_{u-1}|}{4}$, 
+For the inductive step, apply Lemma~\ref{lem:rip-step2-2} on $\be_{u-1}$ with $t=2r-u+4$ to get $\si_u\subeq \tau_u\subeq \be_{u-1}$ such that $|\tau_u|\ge \pa{1-\rc{2^{2r-u+4}}}|\be_{u-1}|$, 
+$
+|\tau_u\bs \si_u|\le \fc{|\be_{u-1}|}{4}
+$
 %use lemma
 %add omre and more pieces.
 %set up so can get what want, ...
 %\te decreasing
-$\ve{\Proj_{\R^{\si_n}}(AJ_{\te_u})^{-1}}\le 
-2^{c-u/2}M$.
+\beq{eq:rip-s2-1}
+\ve{\Proj_{\R^{\si_u}}(AJ_{\te_u})^{-1}}\lesssim 
+2^{r-u/2}M.
+\eeq
 
 We know $|\be_{u-1}|\le \fc{m}{4^{u-1}}$, 
 \begin{align*}
 \be_{u-1}&=\be_u \sqcup \si_u \sqcup (\be_{u-1}\bs \tau_u)\\
 |\be_{u-1}|&=|\be_u| + |\si_u|  +(|\be_{u-1}| - |\tau_u|)\\
-|\si_u|&=|\be_{u-1}|-|\be_u| + |\be_{u-1}\bs \tau_u|\\
+|\si_u|&=|\be_{u-1}|-|\be_u| -(|\be_{u-1}| - |\tau_u|)\\
 &\ge |\be_{u-1}|-|\be_u|-\fc{|\be_{u-1}|}{2^{2r-u+4}}\\
-&\ge |\be_{u-1}|-|\be_u| - \fc{m}{2r+u+2}.
+&\ge |\be_{u-1}|-|\be_u| - \fc{m}{2^{2r+u+2}}.
 \end{align*}
 Our choice for the invertible subset is
 \[
@@ -110,19 +123,21 @@ Our choice for the invertible subset is
 Telescoping gives
 \bal
 |\si|&=\sumo u{r+1} |\si_u| \ge |\be_0|-|\be_{r+1}| - \fc{m}{2^{2r+2}}\sumo u{\iy} \rc{2^u} \\
-&=m-\fc{m}{4^{r+1}}-\fc{m}{2^{2r+2}}\\
+&\ge m-\fc{m}{4^{r+1}}-\fc{m}{2^{2r+2}}\\
 &=m\pa{1-\rc{2^{2r+1}}}\ge m\fc{k}m=k.
 \end{align*}
 %bookkeeping
 %new universe in $\tau_u$. Next bit is inside
-Observe that  $\si\subeq \bigcap_{u=1}^{r+1} \te_u$ for every $\si_u,\ldots, \si_{r+1}\subeq \tau_u$, 
-\[
-\si_1,\ldots, \si_{u-1} \subeq \{1,\ldots, m\} \bs \be_{u-1}
-\]
+Observe that  $\si\subeq \bigcap_{u=1}^{r+1} \te_u$ and  for every $u$, 
+%??? Where do we use this?
+\bal
+\si_u,\ldots, \si_{r+1}&\subeq \tau_u\\ 
+\si_1,\ldots, \si_{u-1} &\subeq \{1,\ldots, m\} \bs \be_{u-1}
+\end{align*}
 %union is $\te_u$.
 %more confusing on the board.
 
-This allows me to use the conclusion for all the $\si_u$'s at once. 
+This allows us to use the conclusion for all the $\si_u$'s at once. 
 
 For $a\in \R^{\si}$, $J_{\si}a\subeq J_{\te_u} \R^{\te_u}$, 
 \[
@@ -130,21 +145,25 @@ For $a\in \R^{\si}$, $J_{\si}a\subeq J_{\te_u} \R^{\te_u}$,
 \] 
 %a sucset of $J_\si$. Apply $A$ to it.
 %R^\si$ inside $\R^{\si_u}$, so honest inverse. 
-Then
+Then, breaking $J_\si a$ into orthogonal components,
 \bal
-\ve{J_\si a}_2^2 &=\sumo  1{r+1} \ve{\Proj_{\R^{\si_u}}J_{\si}a}_2^2\\
+\ve{J_\si a}_2^2 &=\sumo  u{r+1} \ve{\Proj_{\R^{\si_u}}J_{\si}a}_2^2\\
 %blocks. l^2 norm is sum over blocks
 &=\sum_{u=1}^{r+1}\ve{\Proj_{\R^{\si_u}}(AJ_{\si_u})^{-1}(AJ_\si)a}_2^2 \\
-&\lesssim \sum_{u=1}^{r+1} 2^{2r-u} M^2 \ve{AJ_0 a}_2^2\\
+%??? Where did this line come from?
+&\lesssim \sum_{u=1}^{r+1} 2^{2r-u} M^2 \ve{AJ_\si a}_2^2&\text{by~\eqref{eq:rip-s2-1}}\\
 &\lesssim 2^{2r} M^2 \ve{AJ_\si a}_2^2\\
-&\le \fc{M^2}{1-\fc Km}\ve{AJ_\si a}_2^2\\
-\ve{J_\si a}_2 &\le \sfc{m}{m-k} M \ve{AJ_\si a}_2^2\\
+&\le \fc{M^2}{1-\fc km}\ve{AJ_\si a}_2^2\\
+\ve{J_\si a}_2 &\le \sfc{m}{m-k} M \ve{AJ_\si a}_2
+\end{align*}
+Since this is true for all $a\in \R^{\si}$,
+\bal
 \implies \ve{(AJ_\si)^{-1}}_{S_{\iy}} &\lesssim \sfc{m}{m-k} M.
 %use lemma as black box.
 \end{align*}
 %in the end it's combinatorics.
 \end{proof}
-If remains to prove Lemma~\ref{lem:rip-step2-1}.
+It remains to prove Lemma~\ref{lem:rip-step2-1}.
 
 %greedily instead of inductively?
 %improve over original
@@ -170,13 +189,26 @@ If remains to prove Lemma~\ref{lem:rip-step2-1}.
 %good chance for the particular sets we use, there is poly time algorithm.
 %intersection of cube with ellipsoid. In this case make algorithmic.
 
+How can we make this theorem algorithmic?
+
+The way the Pietsch Domination Theorem~\ref{thm:pdt} worked was by duality. 
 %pitch.
-%In P, I'm not worried. It worked by duality. Look at explicitly defined convex set... probabilistic construction (RECORDING)
+%I'm not worried. It worked by duality. 
+We look at a certain explicitly defined convex set. We found a separating hyperplane which must be a probability measure. Then we had a probabilistic construction. This part is fine.
+
+There was another place where we chose a subset, the subset that maximizes the volume out of all subsets of a given size (Lemma~\ref{lem:step1}). Specifically, we want the set of columns of a matrix that maximizes the volume of the convex hull.
+Computing the volume of the convex hull requires some thought.
 %subset max vol among all subsets of various size. look at one which maximizes volume. 
-%If $\binom nr$. If $r=n/2$ also exponentially many. Find subsets with maximum volume fast. Might be a replacement, approximately maximizes volume.
+Also, there are $\binom nr$ subsets of size $r$; if $r=n/2$ there are exponentially many. We need a way to find subsets with maximum volume fast. There might be a replacement algorithm which approximately maximizes this volume.
+
+The bottleneck for making this an algorithm (I do believe this will become an algorithm) is going through Sauer-Shelah, formulating the algorithmic question tailored to our sets (if the intersection of an ellipsoid (or other convex bodies) with the boolean cube has $>2^{n-1}$ points, find a large shattering set in polynomial time; this would have other applications). (There could be an algorithm out there, but I couldn't find one in the literature.)
+
+The second part is finding a subset with maximal volume. 
 %Bottleneck for making this algorithm. 
 %tailored for our proof... intersection of cubes with ellipsoids, $>2^{n-1}$, polytime find subset. 
 %cubes intersected with other convex bodies?
 %I don't know the algorithmic literature.
 %I searched and looked at the literature.= and asked 
 %If you think about it, look at it.
+
+%??? Where should figure 6-4 be?

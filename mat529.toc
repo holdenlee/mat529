@@ -16,4 +16,6 @@
 \contentsline {subsection}{\numberline {3.3}A projection bound}{32}{subsection.2.3.3}
 \contentsline {subsection}{\numberline {3.4}Sauer-Shelah Lemma}{33}{subsection.2.3.4}
 \contentsline {section}{\numberline {4}Proof of RIP}{34}{section.2.4}
+\contentsline {subsection}{\numberline {4.1}Step 1}{34}{subsection.2.4.1}
+\contentsline {subsection}{\numberline {4.2}Step 2}{36}{subsection.2.4.2}
 \contentsfinish 
