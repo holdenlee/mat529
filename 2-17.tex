@@ -19,6 +19,10 @@ such that denoting $\te = \tau\cup (\{1,\ldots, m\}\bs \si)$, $M=\max_{j \in \om
 \ig{images/6-1}{.25}
 
 This is proved by a nice inductive argument.
+\begin{proof}
+\fixme{TODO next time}
+
+\end{proof}
 %This sets us up for the second iteration in the proof.
 \begin{lem}\llabel{lem:rip-step2-2}
 Let $m,n,t\in \N$ and $\be\subeq \{1,\ldots, m\}$. Let $A:\R^m\to \R^n$ be a linear operator such that $\{Ae_j\}_{j=1}^m$ are linearly independent. Then there exist two subsets
@@ -39,7 +43,9 @@ and if we denote $\te=\tau\cup (\{1,\ldots, m\}\bs \be)$, $M=\max_{j \in \omega}
 \ig{images/6-2}{.25}
 
 \begin{proof}[Proof of Lemma~\ref{lem:rip-step2-2} from Lemma~\ref{lem:rip-step2-1}]
-Apply Lemma~\ref{lem:rip-step2-1} with $\si=\be$. We find $\tau\subeq \be$ with $|\tau|\ge \pa{1-\rc{2^t}}|\be|$ such that 
+Apply Lemma~\ref{lem:rip-step2-1} with $\si=\be$. Basically, we're going to inductively construct a subset $\sigma = \beta$ of $\{1, \cdots, m\}$ onto which to project, so that we can control the $l_1$ norm of the subset $\tau$ by the $l_2$ norm on a slightly greater set $\theta$ via Lemma~\ref{lem:rip-step2-1}. 
+
+We find $\tau\subeq \be$ with $|\tau|\ge \pa{1-\rc{2^t}}|\be|$ such that 
 \[
 \sum_{i\in \tau} |a_i|\le 2^{\fc t2} M\sqrt{|\be|}\ve{\sum_{i\in \te} a_iAe_i}_2.
 \]
@@ -52,7 +58,7 @@ Rewriting gives that %for all $a\in \R^{\si}$,
 %projection times b... is exactly operator norm.
 %extctly what came up in LGI in PDT. 
 %applied to vector at most $L^2$ of vector
-Denote $\ep=\fc{|\be|}{4|\tau|}$. By Lemma \fixme{which?}, there exists $\si\subeq \tau$, $|\si|\ge (1-\ep)|\tau|$ such that 
+Denote $\ep=\fc{|\be|}{4|\tau|}$. By Lemma~\ref{lem:projbound}, there exists $\si\subeq \tau$, $|\si|\ge (1-\ep)|\tau|$ such that 
 \bal
 \ve{\Proj_{\R^{\si}} (AJ_{\te})^{-1}}_{S^{\iy}}=
 \ve{\Proj_{\R^{\si}}\Proj_{\R^{\tau}} (AJ_\te)^{-1}}_{S^{\iy}}
@@ -64,6 +70,8 @@ Denote $\ep=\fc{|\be|}{4|\tau|}$. By Lemma \fixme{which?}, there exists $\si\sub
 %pass to signs? get second lemma.
 %Show lemma 2 and finish, or lemma 1.
 \end{proof}
+
+Now, we have basically finished making use of Lemma~\ref{lem:rip-step2-1} in the proof of Lemma~\ref{lem:rip-step2-2}. It remains to use Lemma~\ref{lem:rip-step2-2} to prove the full second step in our proof of the Restricted Invertibility Principle. 
 
 \begin{proof}[Proof of Lemma \ref{lem:step2} (Step 2)]
 %volume, grothendieck
@@ -100,9 +108,11 @@ $
 |\tau_u\bs \si_u|\le \fc{|\be_{u-1}|}{4}
 $
 %use lemma
-%add omre and more pieces.
+%add more and more pieces.
 %set up so can get what want, ...
 %\te decreasing
+As we induct, we are essentially building up more $\sigma_u$ to eventually produce the invertible subset over which we will project. 
+Note that the size of the $\theta$ set is decreasing as we proceed inductively. 
 \beq{eq:rip-s2-1}
 \ve{\Proj_{\R^{\si_u}}(AJ_{\te_u})^{-1}}\lesssim 
 2^{r-u/2}M.
@@ -139,11 +149,12 @@ Observe that  $\si\subeq \bigcap_{u=1}^{r+1} \te_u$ and  for every $u$,
 
 This allows us to use the conclusion for all the $\si_u$'s at once. 
 
-For $a\in \R^{\si}$, $J_{\si}a\subeq J_{\te_u} \R^{\te_u}$, 
+For $a\in \R^{\si}$, $J_{\si}a\subeq J_{\te_u} \R^{\te_u}$,
 \[
 \Proj_{\R^{\si_u}}(AJ_{\te_u})^{-1} (AJ_\si) a = \Proj_{\R^{\si_u}}J_\si a.
 \] 
-%a sucset of $J_\si$. Apply $A$ to it.
+since $A^{-1}A = I$ and projecting a subset onto its containing set is just the subset itself. 
+%a subset of $J_\si$. Apply $A$ to it.
 %R^\si$ inside $\R^{\si_u}$, so honest inverse. 
 Then, breaking $J_\si a$ into orthogonal components,
 \bal
@@ -163,11 +174,16 @@ Since this is true for all $a\in \R^{\si}$,
 \end{align*}
 %in the end it's combinatorics.
 \end{proof}
-It remains to prove Lemma~\ref{lem:rip-step2-1}.
+%It remains to prove Lemma~\ref{lem:rip-step2-1}. Kiran: (see above)
+
+An important aspect of this whole proof to realize is the way we took a first subset to give one bound, and then took another subset in order to apply the Little Grothendieck inequality. In other words, we first took a subset where we could control $l_1$ to $l_2$, and then took a further subset to get the operator norm bounds. 
+
+Also, notice that in this approach, we construct our ``optimal subset'' of the space inductively: However, doing this in general is inefficient. It would be nice to construct the set greedily instead for algorithmic reasons, if we wanted to come up with a constructive proof. 
+I have a feeling that if we were to avoid this kind of induction, it would involve not using Sauer-Shelah at all. 
 
 %greedily instead of inductively?
 %improve over original
-%subset of proportional size, first bite gets the constrant fraction. To get to $1-\ep$. Each time, get half of what remains. it would be nice. get very close to rank. 
+%subset of proportional size, first bite gets the constrant fraction. To get to $1-\ep$. Each time, get half of what remains. it would be nice. get very close to rank.  % kiran: i think he said this was naive?
 %aggressive
 %initial proof they do it once.
 
@@ -175,6 +191,8 @@ It remains to prove Lemma~\ref{lem:rip-step2-1}.
 %to get more, look at half of what remains. Hopefully we can continue. My hunch  a different way: skip over use of SS.
 
 %not true that SS take half of what remains
+
+
 %give bound from $L^1$ to $L^2$. Signs 
 %grothendieck further subset
 %correct wrong norms to operator norms.
@@ -201,7 +219,7 @@ We look at a certain explicitly defined convex set. We found a separating hyperp
 The bottleneck for making this an algorithm (I do believe this will become an algorithm) consists of 2 parts:
 \begin{enumerate}
 \item
-Sauer-Shelah lemma~\ref{lem:saushel}: We have some cloud of points in the boolean cube, and we know there is some large subset of coordinates (half of them) such that when you project to it you see the full cube.  I'm quite certain that it's NP-hard in general. (Work is necessary to formulate the correct algorithmic Sauer-Shelah lemma. How is the set given to you?) 
+Sauer-Shelah lemma~\ref{lem:saushel}: We have some cloud of points in the boolean cube, and we know there is some large subset of coordinates (half of them) such that when you project to it you see the full cube. I'm quite certain that it's NP-hard in general. (Work is necessary to formulate the correct algorithmic Sauer-Shelah lemma. How is the set given to you?). In fact, formulating the right question for an algorithmi Sauer-Shelah is the biggest difficulty. 
 
 We only need to answer the algorithmic question tailored to our sets, which have a simple description: the intersection of an ellipsoid with a cube. There is a good chance that there is a polynomial time algorithm in this case. This question has other applications as well (perhaps one could generalize to the intersection of the cube with other convex bodies).
 %question tailored to our sets (if the intersection of an ellipsoid (or other convex bodies) with the boolean cube has $>2^{n-1}$ points, find a large shattering set in polynomial time; this would have other applications). 
