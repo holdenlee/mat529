@@ -1,0 +1,175 @@
+\blu{2-22}
+
+Let me just remind you were we were. We were at the final lemma in the Restricted Invertiblity Theorem. We have a linear map $A: \R^m \to \R^n$, and have $\{Ae_j\}_{j = 1}^m$ linearly independent, and denote 
+\[
+F_j = \left(\txtn{span}(\{Ae_j\}_{i \neq j})\right)^{\perp}
+\]
+and then denote $M = \max_{i \leq j \leq m} \frac{1}{\|\txtn{Proj}_{F_1}Ae_j\|}$. 
+
+We have reduced everything to the following lemma: 
+
+\begin{lem} \llabel{lem:SS-induct} (Final lemma). \\
+Suppose $\sigma \subseteq \{1, \cdots, m\}$ with $t \geq 0$ an integer. Then there exists $\tau \subseteq \sigma$ with $|\tau| \geq (1 - \frac{1}{2^t})|\sigma|$ such that if we denote $\theta = \tau \cup \left(\{1, \cdots, m\} \setminus \sigma\right)$, then 
+\[
+\sum_{i \in \tau} |a_i| \le 2^{t/2} M \sqrt{|\sigma|} \|\sum_{i \in \theta}a_iAe_i\|_2 
+\]
+\end{lem}
+
+The proof of this will be an inductive application of the Sauer-Shelah lemma. A very important idea comes from Giannopoulos. If you naively try to use Sauer-Shelah, it won't work out. We will give a stronger statement of the previous lemma which we can prove by induction. 
+
+\begin{lem} \llabel{lem:SS-induct-stronger} (Stronger version of Final lemma). \\
+Take $m, n \in \mathbb{N}$, $A: \R^m \to \R^n$ a linear operator such that $\{Ae_j\}_{j = 1}^m$ are linearly independent. Suppose that $k \geq 0$ is an integer and $\sigma \subseteq \{1, \cdots, m\}$. Then there exists $\tau \subseteq \sigma$ with $|\tau| \geq (1 - \frac{1}{2^k})|\sigma|$ such that for every $\theta \supseteq \tau$ for all $a \in \R^m$ we have
+\[
+ \sum_{i \in \tau} |a_i| \leq M\sqrt{|\sigma|}\left(\sum_{r = 1}^k 2^{r/2}\right)\left\|\sum_{i \in \theta} a_i Ae_i\right\|_2 + (2^k - 1)\sum_{i \in \theta \cap (\sigma \setminus \tau)} |a_i|       (*)
+\]
+\end{lem}
+
+Our first lemma (all we need to complete Restricted Invertibility Principle) is the case where $\theta = \tau \cup \{1, \cdots, m\}\setminus \sigma$, $t = k$. 
+
+We prove the stronger version via induction on $k$. 
+\begin{proof}
+As $k$ becomes bigger, we're eating more and more out from the set $\sigma$. So we're going to use Sauer-Shelah, taking half of $\sigma$, and then a bit more and a bit more. 
+For $k = 0$, this is vacuous, since we take $\tau$ to be an empty set. Now via induction assume for $k$ that we found already $\tau \subseteq \sigma$, with $|\tau| \geq (1 - \frac{1}{2^k})|\sigma|$ and satisfies $(*)$ for every $\tau \subseteq \theta$. If $\sigma = \tau$ already, then $\tau$ satisfies for $k + 1$ as well, since WLOG $|\sigma \setminus \tau| > 0$. Now define $v_j$ is the projection 
+\[
+v_j = \frac{\Proj_{F_j} Ae_j}{\left\|\Proj_{F_j} Ae_j\right\|_2^2}
+\]
+Then $\langle v_i, Ae_j \rangle = \delta_{ij}$, by definition since we're looking at a dual basis for the $Ae_j$s. 
+
+Now we want to user Sauer-Shelah so we're going to define a certain subset of the cube. Define 
+\[
+\Omega = \{\epsilon \in \{\pm 1\}^{\sigma \setminus \tau}: \left\|\sum_{i \in \sigma \setminus \tau} \epsilon_i v_i \right\|_2 \leq M\sqrt{2|\sigma \setminus \tau|}\}\]
+
+So this is really an ellipsoid intersected with the cube, since the $v_i$s are not orthogonal.  Then we have 
+\[
+M^2 |\sigma \setminus \tau| \geq \sum_{i \in \sigma \setminus \tau} \frac{1}{\|\txtn{Proj}_{F_j}Ae_j\|^2} = \sum_{j \in \sigma \setminus \tau} \|v_j\|_2^2
+\]
+\[
+= \frac{1}{2^{|\sigma \setminus \tau|}} \sum_{\epsilon \in \{\pm 1\}^{\sigma \setminus \tau}} \| \sum_{j \in \sigma \setminus \tau} \epsilon_j v_j \|_2^2
+\]
+where the last step is true for any vectors (sum the squares and the pairwise correlations disappear). 
+
+Now we're using Markov's inequality to get 
+\[
+\geq \frac{1}{2^{|\sigma \setminus \tau|}} \left(2^{|\sigma \setminus \tau|} - |\Omega| \right)M^2 2|\sigma \setminus \tau|
+\]
+which gives 
+\[
+|\Omega| > 2^{|\sigma \setminus \tau| - 1}
+\]
+
+Then by Sauer-Shelah lemma, there exists $\beta \subseteq \sigma \setminus \tau$ such that 
+\[
+\Proj_{\R^{\beta}} \Omega = \{\pm 1 \}^{\beta}
+\]
+and 
+\[
+|\beta| \geq \frac{1}{2}|\sigma \setminus \tau|
+\]
+
+Now define $\tau^* = \tau \cup \beta$. We will show that $\tau^*$ satisfies the inductive hypothesis with $k + 1$. Each time we find a certain set of coordinates to add to what we have before. $|\tau^*|$ is the correct size because 
+\[
+|\tau^*| = |\tau| + |\beta| \geq |\tau| + \frac{|\sigma| - |\tau|}{2} = \frac{|\tau| + |\sigma|}{2} \geq \left(1 - \frac{1}{2^{k + 1}}\right)|\sigma|
+\]
+where we used that $|\tau| \geq \left(1 - \frac{1}{2^{k}}\right)|\sigma|$. So at least $\tau^*$ is the right size. 
+
+Now, suppose $\theta \supseteq \tau^*$. For every $a \in \R^m$, we claim there exists some $\epsilon \in \Omega$ such that $\forall j \in \beta$ such that $\epsilon_j = \txtn{sign}(a_j)$. For any $\beta$, we can find some vector in the cube that has the sign pattern of our given vector $a$. What does being in $\Omega$ mean? It means that at least the dual basis is small there. $\epsilon \in \Omega$ says that 
+\[
+\|\sum_{i \in \sigma \setminus \tau} \epsilon_i v_i\|_2 \leq M \sqrt{2|\sigma \setminus \tau|} \leq \frac{M\sqrt{2|\sigma|}}{2^{k/2}}
+\]
+That was how we chose our ellipsoid. So we know a bound for just $\tau$ already, now let's do it with the addition of $\beta$. Well, 
+\[
+\sum_{i \in \beta} |a_i| = \langle \sum_{i \in \beta} a_iAe_i, \sum_{i \in \sigma \setminus \tau} \epsilon v_i \rangle
+\]
+which is precisely because the $v_i$'s were a dual basis and the dot products will be one. We only know the $\epsilon_i$ are the signs when you're inside $\beta$.  This equals 
+\[
+= \langle \sum_{i \in \theta} a_iAe_i, \sum_{i \in \sigma \setminus \tau} \epsilon v_i \rangle - \sum_{i \in (\theta \setminus \beta)\cap (\sigma \setminus \tau)} \epsilon_ia_i
+\]
+Note that $(\theta \setminus \beta)\cap (\sigma \setminus \tau) = \theta \cap (\sigma \setminus \tau^*)$. We can't control the signs $\epsilon_i$ any more. Then, we get applying Sauer-Shelah
+\[
+\leq \left\| \sum_{i \in \theta} a_i Ae_i\right\|_2 \cdot \left\| \sum_{i \in \sigma \setminus \tau} \epsilon v_i \right\|_2 + \sum_{i \in \theta \cap (\sigma \setminus \tau^*)} |a_i|
+\]
+\[
+\leq \left\| \sum_{i \in \theta} a_iAe_i \right\|_2 \cdot \frac{M\sqrt{2|\sigma|}}{2^{k/2}} + \sum_{i \in \theta \cap (\sigma \setminus \tau^*)} |a_i|
+\]
+since Sauer-Shelah told us nothing about the signs of $\epsilon_i$, so we just take the worst possible thing. 
+
+Then 
+\[
+\sum_{i \in \beta} |a_i| \leq \frac{M\sqrt{2|\sigma|}}{2^{k/2}}\left\|\sum_{i \in \theta} a_iAe_i\right\|_2 + \sum_{i \in \theta \setminus (\sigma \setminus \tau^*)} |a_i|
+\]
+Using the inductive step, 
+\bal
+\sum_{i \in \tau^*} |a_i| &= \sum_{i \in \tau} |a_i| + \sum_{i \in \beta} |a_i| 
+\\
+&\leq M\sqrt{|\sigma|} \alpha_k \left\| \sum_{i \in \theta} a_iAe_i\right\|_2 + \left(2^k - 1\right)\sum_{i \in \theta \cap (\sigma \setminus \tau)}|a_i| + \sum_{i \in \beta} |a_i|
+\\
+&= \alpha_k \sqrt{|\sigma|}\left\| \sum_{i \in \theta} a_iAe_i\right\|_2 + \left(2^k - 1\right)\sum_{i \in \theta \cap (\sigma \setminus \tau^*)} |a_i| + 2^k \sum_{i \in \beta} |a_i|
+\end{align*}
+In the last step, we throw $\beta$ away, but with weight $2^k - 1$. 
+And now use what we got before for the bound on $\sum_{i \in \beta}|a_i|$ and plug it in to get
+\[
+\leq \left(\alpha_k + 2^{(k + 1)/2}\right)\sqrt{|\sigma|}\left\|\sum_{i \in \theta} a_iAe_i\right\|_2 + \left(2^{k + 1} - 1\right) \sum_{i \in \theta \cap (\sigma \setminus \tau^*)} |a_i|
+\]
+which is exactly the inductive hypothesis. I looked through the original Gianpopoulous paper, and it was clear he tried out many many things to find which inductive hypothesis makes everything go through cleanly. You want to bound an $l_1$ sum from above, so you want to use duality, and then use Sauer-Shelah to get signs such that the norm of the dual-basis is small. 
+\end{proof}
+
+\begin{rem} Algorithmic Sauer-Shelah. \\
+Now regarding the use of Sauer-Shelah, we can see that we are only using it for intersecting cubes with ellipsoid. So regarding what I said last time, what we need is an algorithm for finding these intersections. The reason these ellipsoids are big is because we are actually multiplying by $\sqrt{2}$ times the expectation. So this algorithm is probably do-able. Maybe afterwards, you could ask for higher dimensional shapes. I've seen some references that worked for Sauer-Shelah when sets were of a special form, namely of size $o(n)$. This is something more geometric. I don't think there's literature about Sauer-Shelah for intersection of surfaces with small degree. This is a tiny motivation to do it, but it's still interesting independently. 
+\end{rem}
+
+
+\section{Bourgain's Discretization Theorem}
+
+We will prove Bourgain's Discretization Theorem. This will take maybe two weeks, and has many interesting ingredients along the way. By doing this, we will also prove Ribe's theorem, which is what we stated at the beginning. 
+
+Let's remind ourselves of the definition: 
+
+\begin{df} Discretization Modulus. \\
+$(X, \|\cdot\|_X), (Y, \|\cdot\|_Y)$ are Banach spaces. Let $\epsilon \in (0, 1)$. Then $\delta_{X \hookrightarrow Y}(\epsilon)$ is the supremum over $\delta > 0$ such that for every $\delta$-net $N_{\delta}$ of the unit ball of $X$, the distortion 
+\[
+C_Y(X) \leq \frac{C_Y(N_{\delta})}{1 - \epsilon}
+\]
+$C_Y$ is smallest bi-Lipschitz distortion by which you can embed $X$ into $Y$. There are ideas required to get $1 - \epsilon$. I'll decide by next time if I want to do the full thing or just do a constant. Think of $\epsilon = 1/2$. What we're saying is that if we succeed in embedding a $\delta$-net into $Y$, then we succeeded in the full space with a distortion twice as much. A priori it's not even clear that there exists such a $\delta$. There's a nontrivial compactness argument to prove you can (Lesbegue density points). But we will just prove bounds on it assuming it exists. 
+\end{df}
+
+Now, Bourgain's discretization theorem says 
+\begin{thm} Bourgain's discretization theorem. \\
+If dim$(X) = n$, dim$(Y) = \infty$, then 
+\[
+\delta_{X \hra Y}(\epsilon) \geq e^{-\left(\frac{n}{\epsilon}\right)^{C*n}}
+\]
+for $C$ a universal constant. 
+\end{thm}
+The way to read this is: If $\delta$ is bigger than this number which is only dependent on $n$, then given any Banach spaces with dimension $n$, there are mappings with this granularity for any such spaces. 
+
+\begin{rem}
+It doesn't matter what mapping you're actually using, the proof will give a linear mapping and we won't end up needing them. Assuming linear map in the definition is not necessary. 
+Rademacher's theorem says that for any mapping from $\R^n \to \R^n$ is differentiable almost everywhere for bi-Lipschitz derivative, and you can extend this to $n = \infty$, but you need some additional properties: You need to be embedding into the dual space, and the limit needs to be in the weak$-*$ topology. That derivative is almost everywhere, but you can definitely have a sequence of norm$-1$ vectors that tend to $0$. A weak $*$ limit of a function can degenerately become $0$, the upper bound is not the issue. But you can prove that this doesn't happen almost everywhere. You can look at the Principle of Local Reflexivity, which says $Y^{**}$ and $Y$ are not the same for infinite dimensions. The double dual of all sequences which tend to $0$ is $L_{\infty}$, a bigger space, but the difference between these is never appearing in finite dimensional phenomena. 
+\end{rem}
+
+From now on, $B_X = \left\{x \in X: \|X\|_X \leq 1 \right\}$, the ball. $S_X = \partial B = \left\{x \in X: \|X\|_X = 1\right\}$, the boundary. 
+
+Later on we will be differentiating things without thinking about it, so I just want to prove to you first that $X \to \|X\|_X$ is smooth on $X \setminus \{0\}$. 
+
+\begin{lem} For all $\delta \in (0, 1)$ there exists some $\delta$-net of $S_X$ with $|N_{\delta}| \leq \left(1 + \frac{2}{\delta}\right)^n$. 
+\end{lem}
+\begin{proof}
+Let $N_{\delta} \subseteq S_X$ be maximal with respect to inclusion such that $\|x - y\|_X > \delta$ for every distinct $x, y \in N_{\delta}$. We want it to be both separated and $\delta$-dense. For every $z \in S_{X}$, if $z \in N_{\delta}$, $\{z\} \cup N_{\delta}$ implies there exists $x \in N_{\delta}$, $\|x - y\|_X \leq \delta$. The balls $\{x + \frac{\delta}{2}B_X\}_{x \in M_{\delta}}$ are pairwise disjoint. Moreover, the balls are all contained in $1 + \frac{\delta}{2}B_X$. And then we get volume $(\frac{\delta}{2})^n\txtn{vol}(B_X)$, and we can get
+\[
+\txtn{vol}((1 + \frac{\delta}{2})B_X) \geq \sum_{X \in M_{\delta}} \txtn{vol}(x + \frac{\delta}{2}B_X)
+\]
+\[
+\left(1 + \frac{\delta}{2}\right)^n\txtn{vol}(B_X) = |N_{\delta}|\left(\frac{\delta}{2}\right)^n\txtn{vol}(B_X)
+\]
+If you ask what the smallest size of a $\delta$-net is, there are bounds, but they are not sharp. There is a lot of literature about the relations between these things, we just need an upper bound. 
+
+Now say you have your convex body, and you find your $\delta$-net $N_{\delta}$  of $S_X$ with $|N_{\delta}| = N \leq (1 + \frac{2}{\delta})^n$ which is finite. Then for every $x \in N_{\delta}$, choose any $z^* \in X^*$ unit vector on the sphere ($\langle z^*, z \rangle = 1$) and $\|z^*\|_{X^*} = 1$ by Hahn-Banach. It normalizes the net-point. What would be a good approximation? Let $k$ be an integer such that $N^{1/(2k)} \leq 1 + \delta$. Then define 
+\[
+\|x\| := \left(\sum_{z \in N_{\delta}} \langle z^*, x \rangle^{2k}\right)^{1/(2k)}
+\]
+Each term, separately $|\langle z^*, x \rangle| \leq \|x\|_X$, thus we know $(1 - \delta)\|x\|_X \leq \|x\| \leq N^{1/2k}\|x\|_X \leq (1 + \delta)\|x\|_X$. If $x \in S_X$, then choose $z \in N_{\delta}$ such that $\|x - z\|_X \leq \delta$, and thus $1 - \langle z^*, x \rangle = \langle z^*, z - x \rangle \leq \|z - x\| \leq \delta$, and $\langle z^*, x \rangle \geq 1 - \delta$. Thus any norm is up to $1 + \delta$ some really nice smooth norm. $\delta$ was arbitrary, if you prove for Bourgain, you prove it for any norm, and now without loss of generality I can differentiate. 
+\end{proof}
+
+Let me just explain the strategy of how we will prove Bourgain's discretization theorem. We're given a $\delta$-net $N_{\delta} \subseteq B_X$ with $\delta \leq e^{-(n/\epsilon)^{Cn}}$, and we know $\exists $ $f: N_{\delta} \to Y$ such that $\frac{1}{D}\|x - y\|_X \leq \|f(x) - f(y)\|_Y \leq \|x - y\|_X$, which means you can embed with distortion $D$. Our goal: If $\delta < e^{-(D/\epsilon)^{Cn}}$, then there exists a linear operator $T: X \to Y$ such that $\|T\|\cdot\|T^{-1}\| \leq 1 + 20\epsilon$. 
+
+We will need a little background in convex geometry. We're going to find the correct coorindate system (John ellipsoid), which will give us a dot product structure and a natural Laplacian. A priori $f$ is defined on the net. We're going to find that it extends to the whole space in a nice way (Bourgain's extension theorem) which doesn't coincide with the function on the net, but is not too far away from it. Then we will solve the Laplace equation. We will start at initial condition, and then evolve $f$ according to the Poisson semigroup. This extended function is going to be smooth the minute you flow a little bit away from your discrete function. And you can differentiate it! We will prove that there's a point where the derivative satisfies what we want: The point cannot not exist (pigeonhole style argument), but we won't be able to pinpoint where the derivative behaves nicely. And this will come from estimates of the Poisson kernel, and we will jump into the Fourier analysis. 
