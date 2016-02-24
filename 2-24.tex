@@ -1,0 +1,166 @@
+
+\blu{2-24}
+
+Let $\de\in (0,\rc2)$, $X$ an $n$-dimensional normed space, $\cal N_\de$ a $\de$-net, $B_X$ the unit ball, $\dim X=n$. Let $Y$ be another Banach space with $\dim Y=\iy$. Suppose that there exists $f:\cal N_\de\to Y$ such that 
+\[
+\rc{D} \ve{x-y}_X\le \ve{f(x)-f(y)}_Y \le \ve{x-y}_X.
+\]
+Our goal is to show that if $\de\le e^{-D^{Cn}}$ then this implies that there exists $T:X\to Y$ linear operator invertible $\ve{T}\ve{T^{-1}}\lesssim D$. 
+
+Without loss of generality we can assume $D\le n$. 
+\begin{thm}[Bourgain's almost extension theorem] Let $X$ be a $n$-dimensional normed space, $Y$ a Banach space, $\cal N_\de\subeq S_X$ a $\de$-net of $S_X$, $\tau\supeq C\de$. Suppose $f:\cal N_\de\to Y$ is $L$-Lipschitz. Then there exists $F:X\to Y$ such that 
+\begin{enumerate}
+\item $\ve{f(x)-f(y)}_Y\le \tau L$ for all $x\in \cal N_\de$. 
+\item $\ve{F}_{Lip} \lesssim (1+\fc{\de n}{\tau}) L$.
+\end{enumerate}
+%if $\de$ small, intuitively close. 
+%biLip on net small, not biLip but separates points far apart, Lip when choose parameters. Smooth out, can differentiate. Derivative is a linear operator.
+%The deriv is linear operator, norm will be bounded.
+%That will be our $T$. Choose parameter so that universal constant. 
+%inverse of $T$ bounded
+%only think know separate far 
+%definitely not invertible
+%there is an existence statement.
+%nice geometric fact
+%if you nail values on the net and extend even thogh there may be flat regions they can not not flat everywhere.
+%insist that take exactly the values. In that setting there is a huge amount of literature. If you insist on keeping value, the Lipshitz consant must grow. 
+\end{thm}
+\subsection{Lipschitz extension problem}
+
+\begin{thm}[Johnson-Lindenstrauss-Schechtman, 1986]
+Let $X$ be a $n$-dimensional normed space $A\subeq X$. $Y$ is a Banach space $f:A\to Y$ that is $L$-Lipschitz. There exists $F:X\to Y$ such that $F|_A=f$ and $\ve{F}_{\text{Lip}}\lesssim nL$.
+\end{thm}
+We know a lower bound of $\sqrt n$; losing $\sqrt n$ is sometimes needed. A big open problem is what the true bound is. (The bound for nets on the whole space is $\sqrt[4]{n}$.)
+
+This was done a year before Bourgain.Why didn't he use this theorem? We want to extend it so the norm of the derivative is free, and we only fight against hte inverse. If we lose anything in the Lipschitz constant going to $\iy$, the only thing we can say about the derivative is that it is at most that. Anything going to $\iy$ destroys the argument. %$\ve{T^{-1}}$ 
+Maybe I can relax the . What's important is the new function... %RECORDING
+
+We need $\ve{F}_{\text{Lip}}\lesssim L$. 
+%lower bounds show go to $\iy$.
+Let's normalize so $L=1$. Our parameter is $\tau=n\de$.  We want $\ve{f(x)-F(x)}\lesssim n\de$. Note $\de$ is small, so losing $n$ is nothing. $\de$ is going to be so small that we'll still succeed. If people get $\de$ to be polynomial, then we'll have to start caring.
+%change substantial
+%strategy extend and work with derivatives.
+%huge slopes, areas where derivative huge.
+
+Suppose you have a function dependening on a $\de$-net, 1-Lipschitz, and want to lose nothing (a constant), how close must it be to the original function.
+\begin{thm}
+There exists a $n$-dimensional normed space $X$, Banach space $Y$, $\de>0$, $\cal N_\de\subeq S_X$ a $\de$-net, 1-Lipschitz function $f:\cal N_\de\to Y$ such that if $f:X\to Y$, $\ve{F}_{\text{Lip}}\lesssim 1$ implies there exists $x\in \cal N_\de$ such that 
+\[
+\ve{F(x)-f(x)}\gtrsim \fc{n}{e^{c\sqrt{\ln n}}}.
+\]
+\end{thm}
+What Bourgain proved is essentially sharp.
+
+This is a fun construction with Grothendieck's inequality.
+
+%strategy, choose coordinate system
+
+The strategy is as follows. Consider $P_t*F$, where 
+\[
+P_t(x)=\fc{C_nt}{(t^2+\ve{x}_2^2)^{\fc{n+1}2}}, \quad C_n=\fc{\Ga\pf{n+1}2}{\pi^{\fc{n+1}2}}.
+\]
+%diffble
+where $P_t$ is the \ivocab{Poisson kernel}. 
+%if start with Lip, average out is still Lip
+Let $T=(P_t*F)'(x)$; $T$ is linear and $\ve{T}\lesssim 1$. As $t\to 0$, this becomes closer to $F$. We hope when $t\to 0$ that it is invertible. This is true. We give a proof by contradiction (we won't actually find what $t$ is) using the pigeonhole principle. %it will be a smoothing argument, but with the nice twist. 2 things: extension which can hve flat regions. Poisson semigroup is morally averaging over ball of radius $t$. Suppose $F'=0$. If $>N\de$, then have many pairs which are different. Averaging feels like it's correct this. But it could have cancellations. Argue that things cannot cancel, remain invertible. Always an argument required.
+
+The idea of averaging with the Poisson kernel had the Euclidean norm in it. The whole thing will work if you choose the Euclidean norm coorectly. %, an orthonormal 
+
+\begin{thm}[John's theorem]
+Let $X$ be a $n$-dimensional normed space, identified with $\R^n$. Then there exists a linear operator $T:\R^n\to \R^n$ such that $\rc{\sqrt{n}}\ve{Tx}_2\le \ve{x}_X \le \ve{Tx}_2$ for all $x\in X$.
+\end{thm}
+We can always find $T$ which sandwiches the $X$-norm up to a factor of $\sqrt n$. We will choose  the coordinates such that $\ve{Tx}_2=\ve{x}_2$. %$T^*T$. 
+%A different way to write the theorem is
+Consider $\cal E=\set{x}{\ve{Tx}_2\le 1}$. If you are in the ellipsoid, then you are in the unit ball. If $\ve{Tx}_2\le 1$, then $\ve{x}\le 1$. 
+
+Everything is a Hilbert space up to a $\sqrt n$ factor.
+
+%Can always 
+%This shows why we can always assume $D\le \sqrt n$.
+$n$-dimensional subspaces really Euclidean. %REC
+\begin{proof}
+\Wog{} $D\le n$. 
+%Need $Y$ to be dimension at least $n$. Otherwise $X$ doesn't embed into $Y$. In any infinite-de
+%REC, Goretski. 
+Let $\cal E$ be an ellipsoid of maximal volume contained in $B_X$. 
+\[
+\max\set{\vol(SB_{\ell_2^n})}{S\in M_n(\R), SB_{\ell_2^n} \subeq B_X}.
+%maximizer is uniquely defined canonical shape. 
+\]
+$\cal E$ exists by compactness. 
+Take $T=S^{-1}$. 
+
+The goal is to show that $\sqrt n \cal E\supeq B_X$. We can choose the coordinate system such that $\cal E=B_{\ell_2^n}=B_2^n$.
+
+Suppose by way of contradiction that $\sqrt nB_2^n\nsupeq B_X$. Then there exists $x\in B_X$ such that $x\nin \sqrt{n}B_2^n$ iff $\ve{x}_X\le 1$ yet $\ve{x}_2>\sqrt n$. Denote $d=\ve{x}_2, y=\fc xd$. Then $\ve{y}_2=1$ and $dy \in B_X$. 
+
+%by apply rotation, fix structure
+By applying a rotation, we can assume WLOG $y=e_1$. 
+
+Claim: Define for $a>1,b<1$ %mult first by $a$.
+\[
+\cal E_{a,b} :=\set{\sumo in t_ie_i}{\pf{t_1}{a}^2 + \sum_{i=2}^n \pf{t_i}b^2 \le 1}
+\]
+%come up with a,b
+Stretch by $a$ and squeeze by $b$ can make volume grow and stay inside the body, contradicting that it is the minimizer.
+%times det
+We show that there exists $a>1$ and $b<1$ such that $\cal E_{a,b}\subeq B_X$ and $\Vol(\cal E_{a,b}) > \Vol(B_2^n)$. This is equivalent to $ab^{n-1}>1$.
+
+We need a lemma with some trigonometry.
+\begin{lem}[2-dimensional lemma]
+Suppose $a>1$, $b\in (0,1)$, and $\fc{a^2}{d^2}+b^2\pa{1-\rc{d^2}} \le 1$. Then $\cal E_{a,b}\subeq B_X$.
+\end{lem}
+%de_1,-de_1.
+\begin{proof}
+Let $b=\sfc{d^2-a^2}{d^2-1}$. Then $\psi(a)=ab^{n-1}=a\pf{d^2-a^2}{d^2-1}^{\fc{n-1}2}$, $\psi(1) = 1$. It is enough to show $\psi'(1)>0$. Now 
+\[
+\psi'(a) =\pf{d^2-a^2}{d^2-1}^{\fc{n-1}2-1} \fc{d^2-na^2}{d^2-1}.
+\]
+Note this is really a 2-dimensional argument; there is 1 special direction. We shrunk the $y$ direction and expanded the $x$ direction. 
+
+Now we have a rhombus. %ellipse is in rhombas. 
+In $\R^2$ map the ellipse $\pf{t_1}{a}^2+\pf{t_2}{b}^2\le 1$ 
+%not the whole rhombus is in the body
+%if ellipse in rhombus, then also in body. 
+It's enough to show the new ellipse is in the rhombus because $d<1$.
+%just remember the picture. 
+%map the ellipse $\le 1$ to ...
+
+\fixme{PICTURE}.
+\end{proof}
+
+\Wog for all $x\in \cal N_\de$, $\ve{f(x)}_Y\le 2L$. 
+
+\step{1} Rough (i.e., noncontinuous) extension to $S_X$. This is a partition of unity argument. %Consider the open cover 
+Write $\cal N_{\de}=\{X_1,\ldots, X_N\}$. Consider
+\[
+\{(x_p+2\de B_X)\cap S_X\}_{p=1}^N,
+\]
+which is an open cover of $S_X$.
+
+Let $\{\phi_p\}_{p=1}^N$ be a partition of unity subordinted to this open cover subordinated to this open cover $\phi_p:S_X\to [0,1]$, with 
+\begin{enumerate}
+\item
+$\Supp \phi_p\subeq x_p + 2\de B_X$,
+\item
+$\sum_{p=1}^{N}\phi_p(x)=1$ for all $x\in S_X$.
+\end{enumerate}
+For all $x\in S_X$, define $F_1(x) = \sum_{p=1}^N\phi_p(x) f(x_p)\in Y$. Then $\ve{F_1}_{\iy}\le 2L$. 
+%convex combination moves along with $x$.
+If $x\in  \cal N_\de$, 
+\[
+\ve{F_1(x)-f(x)}_Y = \ve{\sum_{p:\ve{x-x_p}_X\le 2\de} \phi_p(x) (f(x_p) - f(x))} \le \sum_{\ve{x-x_p}\le 2\de} \phi_p(x)L\ve{x-x_p}_X\le 2L \de.
+\]
+For $x,y\in S_X$,
+\bal
+\ve{F_1(x)-F_1(y)}&=\ve{\sumr{\ve{x-x_p}\le 2\de}{\ve{y-x_q}\le 2\de} (f(x_p)-f(x_q))\phi_p(x)\phi_q(x)}\\
+& \le
+\sumr{\ve{x-x_p}\le 2\de}{\ve{y-x_q}\le 2\de} L\ve{x_p-x_q} \phi_p(x)\phi_p(y)\\
+%init fun defined on sphere, 2\de.
+%lost contin, alm lip + additive term how to fix
+%homog
+%extend, conv
+&\le L(\ve{x-y}+4\de).
+%\ve{x_p-x_q} \le \ve{x_p-x}+\ve{x-y}+\ve{y-x_q}.
+\end{align*}
+\end{proof}
