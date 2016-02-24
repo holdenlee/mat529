@@ -1,6 +1,7 @@
 # Complied source #
 ###################
 
+*.pdf
 *.exe
 *.hi
 *.o
@@ -9,6 +10,7 @@
 #########################
 
 *.aux
+*.blg
 *.idx
 *.ilg
 *.ind
@@ -19,6 +21,7 @@
 *.ptc
 *.ptx
 *.gz
+*.toc
 
 # Miscellaneous files #
 #######################
