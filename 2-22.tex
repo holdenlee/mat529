@@ -1,19 +1,19 @@
-\blu{2-22}
+\blu{2-22: We are at the final lemma, Lemma~\ref{lem:rip-step2-1} in the Restricted Invertiblity Theorem.}
 
-Let me just remind you were we were. We were at the final lemma in the Restricted Invertiblity Theorem. We have a linear map $A: \R^m \to \R^n$, and have $\{Ae_j\}_{j = 1}^m$ linearly independent, and denote 
-\[
-F_j = \left(\txtn{span}(\{Ae_j\}_{i \neq j})\right)^{\perp}
-\]
-and then denote $M = \max_{i \leq j \leq m} \frac{1}{\|\txtn{Proj}_{F_1}Ae_j\|}$. 
-
-We have reduced everything to the following lemma: 
-
-\begin{lem} \llabel{lem:SS-induct} (Final lemma). \\
-Suppose $\sigma \subseteq \{1, \cdots, m\}$ with $t \geq 0$ an integer. Then there exists $\tau \subseteq \sigma$ with $|\tau| \geq (1 - \frac{1}{2^t})|\sigma|$ such that if we denote $\theta = \tau \cup \left(\{1, \cdots, m\} \setminus \sigma\right)$, then 
-\[
-\sum_{i \in \tau} |a_i| \le 2^{t/2} M \sqrt{|\sigma|} \|\sum_{i \in \theta}a_iAe_i\|_2 
-\]
-\end{lem}
+%Let me just remind you were we were. We were at the final lemma in the Restricted Invertiblity Theorem. We have a linear map $A: \R^m \to \R^n$, and have $\{Ae_j\}_{j = 1}^m$ linearly independent, and denote 
+%\[
+%F_j = \left(\txtn{span}(\{Ae_j\}_{i \neq j})\right)^{\perp}
+%\]
+%and then denote $M = \max_{i \leq j \leq m} \frac{1}{\|\txtn{Proj}_{F_1}Ae_j\|}$. 
+%
+%We have reduced everything to the following lemma: 
+%
+%\begin{lem} \llabel{lem:SS-induct} (Final lemma). \\
+%Suppose $\sigma \subseteq \{1, \cdots, m\}$ with $t \geq 0$ an integer. Then there exists $\tau \subseteq \sigma$ with $|\tau| \geq (1 - \frac{1}{2^t})|\sigma|$ such that if we denote $\theta = \tau \cup \left(\{1, \cdots, m\} \setminus \sigma\right)$, then 
+%\[
+%\sum_{i \in \tau} |a_i| \le 2^{t/2} M \sqrt{|\sigma|} \|\sum_{i \in \theta}a_iAe_i\|_2 
+%\]
+%\end{lem}
 
 The proof of this will be an inductive application of the Sauer-Shelah lemma. A very important idea comes from Giannopoulos. If you naively try to use Sauer-Shelah, it won't work out. We will give a stronger statement of the previous lemma which we can prove by induction. 
 

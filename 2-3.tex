@@ -47,8 +47,10 @@ Bourgain uses the Discretization Theorem~\ref{thm:bdt}. There is an amazing open
 
 Saying $\delta$ is big says there is a not-too-fine net, which is enough. Therefore we are interested in lower bounds on $\delta$. 
 
-\begin{df} Discretization modulus. \\
-Let $X$ be a finite-dimensional normed space $\dim(X)=n<\iy$. Let target space $Y$ be an arbitrary Banach space.  Consider the unit ball $B_X$ in $X$. Take an $\de$-net (the distance between points is at most $\de$) $\cal N_\de$ in $B_X$ (a maximal $\de$-separated subset). Suppose we can embed $\cal N_\de$ into $Y$ via $f:\cal N_\de\to Y$. Suppose we know in $Y$ that
+\begin{df}[Discretization modulus]\index{discretization modulus}
+Let $X$ be a finite-dimensional normed space $\dim(X)=n<\iy$. Let the target space $Y$ be an arbitrary Banach space.  Consider the unit ball $B_X$ in $X$. Take %an $\de$-net (the distance between points is at most $\de$) 
+a maximal $\de$-net $\cal N_\de$ in $B_X$. %(a maximal $\de$-separated subset). 
+Suppose we can embed $\cal N_\de$ into $Y$ via $f:\cal N_\de\to Y$. Suppose we know in $Y$ that
 \[
 \ve{x-y}\le \ve{f(x)-f(y)}\le D\ve{x-y}.
 \]
@@ -64,7 +66,7 @@ Bourgain's discretization theorem~\ref{thm:bdt} says that you can choose $\de=\d
 
 I often use this theorem in this way: I use continuous methods to show embedding $X$ into $Y$ requires big distortion; immediately I get an example with a finite object. Let us now make the notion of distortion more precise. 
 
-\begin{df} Distortion. \\
+\begin{df}[Distortion]
 Suppose $(X,d_X),(Y,d_Y)$ are metric spaces $D\ge 1$. We say that $X$ embeds into $Y$ with \ivocab{distortion} $D$ if there exists $f:X\to Y$ and $s>0$ such that for all $x,y\in X$,
 \[
 Sd_X(x,y) \le d_Y(f(x),f(y)) \le DSd_X(x,y).
@@ -74,7 +76,7 @@ The infimum over those $D\ge 1$ such that $X$ embeds into $Y$ with distortion is
 %how far from being subgeometry.
 \end{df}
 
-\begin{df}
+\begin{df}[\vocab{Discretization modulus}] \index{discretization modulus}\label{df:disc-mod}
 \nomenclature{$\de_{X\hra Y}(\ep)$}{supremum over all those $\de>0$ such that for every $\de$-net $\cal N_\de$ in $B_X$, $C_Y(\cal N_\de)\ge (1-\ep)C_Y(X)$}
 Let be a $n$-dimensional normed space and $Y$ be any Banach space, $\ep\in (0,1)$. Let $\de_{X\hra Y}(\ep)$ be the supremum over all those $\de>0$ such that for every $\de$-net $\cal N_\de$ in $B_X$, 
 \[C_Y(\cal N_\de)\ge (1-\ep)C_Y(X).\]
@@ -88,9 +90,11 @@ For every $n$, $\ep\in (0,1)$, for every $X,Y$, $\dim X=n$,
 \[
 \de_{X\hra Y}(\ep)\ge  e^{-\pf{n}{\ep}^{Cn}}.
 \]
-Thus there is a delta which is just dependent on the dimension such that in any $n$-dim norm space if you look at the unit ball it encodes all the information of embedding $X$ into \textbf{anything else}. It's only a function of the dimension, not of any of the relevant geometry. 
-Moreover for $\de=e^{-(2n)^{Cn}}$, we have $C_Y(X)\le 2C_Y(\cal N_\de)$ via a linear operator. 
+Moreover for $\de=e^{-(2n)^{Cn}}$, we have $C_Y(X)\le 2C_Y(\cal N_\de)$. %via a linear operator. 
 \end{thm}
+Thus there is a $\de$ dependending on the dimension such that in any $n$-dimensional norm space, the unit ball it encodes all the information of embedding $X$ into \emph{anything else}. It's only a function of the dimension, not of any of the relevant geometry. 
+
+
 
 %lower bound
 %$\de$ dependent on dimension, 

@@ -3,12 +3,12 @@
 Now we prove Step 2 (Lemma~\ref{lem:step2}). Note we can assume $\om=\{1,\ldots, m\}$ and that the rank is $m$.
 
 First we need some lemmas.
-\begin{lem}\llabel{lem:rip-step2-1}
+\begin{lem}\llabel{lem:rip-step2-1}\label{lem:SS-induct}
 Let $A:\R^m\to \R^n$ be such that $\{Ae_j\}_{j=1}^m$ are linearly independent, and $\si\subeq \{1,\ldots, m\}$, $t\in \N$. Then there exists $\tau\subeq \si$ with 
 \[
 |\tau|\ge \pa{1-\rc{2^t}}|\si|,
 \]
-such that denoting $\te = \tau\cup (\{1,\ldots, m\}\bs \si)$, $M=\max_{j \in \omega} \rc{{\|\txtn{Proj}_{F_j} Ae_j\|}}$, for all $\si\in \R^{\te}$,
+such that denoting $\te = \tau\cup (\{1,\ldots, m\}\bs \si)$, $F_j = \left(\txtn{span}(\{Ae_j\}_{i \neq j})\right)^{\perp}$, and $M=\max_{j \in \omega} \rc{{\|\txtn{Proj}_{F_j} Ae_j\|}}$, we have that for all $\si\in \R^{\te}$,
 \[
 \sum_{i\in \tau}|a_i|\le 2^{\fc t2} M \sqrt{|\si|} \ve{\sum_{i\in \te} a_iAe_i}_2.
 \]
