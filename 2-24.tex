@@ -1,7 +1,7 @@
 
 \blu{2-24}
 
-\section{Bougain's almost extension theorem}
+\section{Bourgain's almost extension theorem}
 %Let $\de\in (0,\rc2)$, $X$ an $n$-dimensional normed space, $\cal N_\de$ a $\de$-net, $B_X$ the unit ball, $\dim X=n$. Let $Y$ be another Banach space with $\dim Y=\iy$. Suppose that there exists $f:\cal N_\de\to Y$ such that 
 %\[
 %\rc{D} \ve{x-y}_X\le \ve{f(x)-f(y)}_Y \le \ve{x-y}_X.
@@ -14,9 +14,13 @@
 \label{thm:baet}
 Let $X$ be a $n$-dimensional normed space, $Y$ a Banach space, $\cal N_\de\subeq S_X$ a $\de$-net of $S_X$, $\tau\ge C\de$. Suppose $f:\cal N_\de\to Y$ is $L$-Lipschitz. Then there exists $F:X\to Y$ such that 
 \begin{enumerate}
-\item $\ve{F(x)-f(x)}_Y\le \tau L$ for all $x\in \cal N_\de$. 
 \item $\ve{F}_{\text{Lip}} \lesssim (1+\fc{\de n}{\tau}) L$.
-\end{enumerate}
+\item $\ve{F(x)-f(x)}_Y\le \tau L$ for all $x\in \cal N_\de$. 
+\item $\Supp(F) \subeq (2+\tau)B_X$.
+\item $F$ is smooth.
+%3, 4 added: 2-29 (useful to have compact support)
+\end{enumerate} % all these constants are small.
+Parts 3 and 4 will come ``for free."
 %if $\de$ small, intuitively close. 
 %biLip on net small, not biLip but separates points far apart, Lip when choose parameters. Smooth out, can differentiate. Derivative is a linear operator.
 %The deriv is linear operator, norm will be bounded.
@@ -151,10 +155,21 @@ It's enough to show the new ellipse $\cal E_{a,b}$ is in the rhombus in the pict
 \end{proof}
 \end{proof}
 
-\begin{proof}[Proof of Theorem~\ref{thm:baet}]
-By translating $f$, \wog we can assume that for all $x\in \cal N_\de$, $\ve{f(x)}_Y\le 2L$. 
+\subsection{Proof}
 
-\step{1} Rough (i.e., noncontinuous) extension $F_1$ on $S_X$. This is a partition of unity argument. %Consider the open cover 
+\begin{proof}[Proof of Theorem~\ref{thm:baet}]
+By translating $f$ (so that it is 0 at some point), \wog we can assume that for all $x\in \cal N_\de$, $\ve{f(x)}_Y\le 2L$. 
+
+\step{1} (Rough (i.e., noncontinuous) extension $F_1$ on $S_X$.) We show that there exists $F_1:S_X\to Y$ such that for all $x\in \cal N_\de\to Y$ such that for all $x\in \cal N_\de$,
+\begin{enumerate}
+\item
+$\ve{F_1(x)-f(x)}_Y\le 2L\de$.
+\item
+$\forall x,y\in S_X$, $\ve{F_1(x)-F_1(y)}\le L(\ve{x-y}_X+4\de)$.
+\end{enumerate}•
+
+
+This is a partition of unity argument. %Consider the open cover 
 Write $\cal N_{\de}=\{X_1,\ldots, X_N\}$. Consider
 \[
 \{(x_p+2\de B_X)\cap S_X\}_{p=1}^N,
@@ -186,4 +201,3 @@ For $x,y\in S_X$,
 &\le L(\ve{x-y}+4\de).
 %\ve{x_p-x_q} \le \ve{x_p-x}+\ve{x-y}+\ve{y-x_q}.
 \end{align*}
-\end{proof}

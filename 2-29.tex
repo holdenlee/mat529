@@ -1,0 +1,194 @@
+\blu{2-29: We continue proving Bourgain's almost extension theorem.}
+
+\step{2} Extend $F_1$ to the whole space to $F_2$ such that 
+\begin{enumerate}
+\item
+$\forall x\in \cal N_\de$, $\ve{F_2(x)-f(x)}_Y \lesssim L\de$.
+\item
+$\ve{F_2(x)-F_2(y)}_Y\lesssim L(\ve{x-y}_X + \de)$.
+%not smooth yet. 
+\item
+$\Supp(F_2)\subeq 2B_X$.
+\item
+$F_2$ is smooth.
+%F_1 had no bounded continuity, but is a sum against a partition of unity. 
+%just smooth without any bounds fine.
+%spiky.
+%when I say not smooth, I mean no bounds.
+%I need the norm to be smooth for this.
+\end{enumerate}•
+
+Denote $\al(t)=\max\{1-|1-t|,0\}$. 
+
+\ig{images/9-1}{.25}
+
+Let
+\[
+F_2(x)=\al(\ve{x}_X) F_1\pa{x}{\ve{x}_X}.
+\]
+%0 the moment it passes 2.
+$F_2$ still satisfies condition 1. As for condition 2, 
+\bal
+\ve{F_2(x)-F_2(y)}_Y &= \ve{\al (\ve{x}_X)F_1\pf{x}{\ve{x}_X} - \al(\ve{y}_X) F_1\pf{y}{\ve{y}_X}} \\
+&\le |\al(\ve{x})-\al(\ve{y})|\ub{\ve{F_1\pf{x}{\ve{x}_X}}}{\le 2L}+\al(\ve{y})\ve{F_1\pf{x}{\ve{x}_X} - F_1\pf{y}{\ve{y}_X} }\\
+&\le (\ve{x}-\ve{y})2L + \al(\ve{y}) L\pa{
+\ve{\nv{x}-\nv{y}}+4\de 
+} \\
+&\le 2L\ve{x-y}+L\al(\ve{y}) \pa{\ve{x}\ab{\rc{\ve{x}}-\rc{\ve{y}}} + \fc{\ve{x-y}}{\ve{y}} + 4\de}\\
+&\le 2L\ve{x-y} +L\al(\ve{y}) \pa{\fc{\ve{x-y}}{\ve{y}} + \fc{\ve{x-y}}{\ve y}  + 4\de}\\
+&\lesssim L(\ve{x-y}+\de),
+%mult by 4de, use bounded by 1
+\end{align*}
+where in the last step we used $\al(\ve{y})\le \ve{y}$ and $\al(\ve{y})\le 1$. 
+
+Note $F_2$ is smooth because the sum for $F_1$ was against a partition of unity and $\ved_X$ is smooth, although we don't have uniform bounds on smoothness for $F_2$.
+%F_1 had no bounded continuity, but is a sum against a partition of unity. 
+%just smooth without any bounds fine.
+%spiky.
+%when I say not smooth, I mean no bounds.
+%I need the norm to be smooth for this.
+
+%For the next step we need the following. 
+
+\step{3} We make $F$ smoother by convolving.
+\begin{lem}[Begun, 1999]
+Let $F_2:X\to Y$ satisfy $\ve{F_2(x)-F_2(y)}_Y\le L(\ve{x-y}_X+\de)$. Let $\tau \ge c\de$. Define 
+\[
+F(x) = \rc{\Vol(\tau B_X)}\int_{\tau B_X} F_2(x+y)\,dy.
+\]
+Then 
+\[
+\ve{F}_{\text{Lip}} \le L\pa{1+\fc{\de n}{2\tau}}.
+\]
+\end{lem}
+The lemma proves the almost extension theorem as follows. We passed from $f:\cal N_\de\to Y$ to $F_1$ to $F_2$ to $F$. 
+If $x\in \cal N_\de$, 
+\bal
+\ve{F(x)-f(x)}_Y &=\ve{
+\rc{\Vol(\tau B_X)} \int_{B_X} (F_2(x+y) - f(x))\,dy
+}\\
+&\le \rc{\Vol(\tau B_X)}\int_{\tau B_X}\ve{F_2(x+y)-F_2(x)}_Y + \ub{\ve{F_2(x)-f(x)}_Y}{\de L} \dy\\
+&\le \rc{\Vol(\tau B_X)}\int_{\tau B_X}(L(\ub{\ve{y}_X}{\le\tau}+\de L)) \dy\lesssim L\tau.
+\end{align*}
+Now we prove the lemma. 
+\begin{proof}
+We need to show
+\[
+\ve{F(x)-F(y)}_Y \le L\pa{1+\fc{\de n}{2\tau}} \ve{x-y}_X.
+\]
+\Wog $y=0$, $\Vol(\tau B_X)=1$. Denote 
+\bal
+M&=\tau B_{X}\bs (x+\tau B_X)\\
+M'&=(x+\tau B_X) \bs \tau B_X.
+\end{align*}
+
+\ig{images/9-2}{.25}
+
+We have
+\bal
+F(0)-F(x) &= \int_M F_z(y)\,dy - \int_{M'} F_z(y)\,dy.
+\end{align*}
+Define $\om(z)$ to be the Euclidean length of the interval $(z+\R x)\cap (\tau B_X)$. By Fubini,
+\[
+\int_{\Proj_{X^{\perp}} (\tau B_X)} \om(z) \,dz = \Vol_n(\tau B_X)=1.
+%intersection of projection.
+\]
+Denote
+\bal
+W&= \set{z\in \tau B_X}{(z+\R x)\cap (\tau B_X)\cap (x+\tau B_X)\ne \phi}\\
+N&= \tau B_X\bs W.
+\end{align*}
+Define $C:M\to M'$ a shift in direction $X$ on every fiber that maps the interval $(z+\R x)\cap M\to (z+\R x)\cap M'$. 
+
+\ig{images/9-3}{.25}
+
+$C$ is a measure preserving transformation with
+\[
+\ve{z-C(z)}_X =\begin{cases}
+\ve{x}_X , &z\le N\\
+\om(z) \fc{\ve{x}_X}{\ve{x}_2},& z\in W\cap M.
+\end{cases}
+\]
+(In the second case we translate by an extra factor $\fc{\om(z)}{\ve{x}_2}$.)
+%(In the second case we add the total length $
+%C maps $M'$ to $M$.
+%do a clever change of variable differently in each fiber.
+Then 
+\bal
+\ve{F(0)-F(x)}_Y &=\ve{\int_M F_2(y)\dy - \int_{M'}F_2(y)\dy}_Y\\
+&= \ve{\int_M(F_2(y) - F_2(C(y)))\dy}_Y\\
+&\le \int_M L(\ve{y-C(y)}_X+\de)\dy\\
+&\le \int_M L (\ve{y-C(y)}_X + \de)\dy\\
+&=L\de \Vol(M) + L \int_M \ve{y-C(y)}_X\dy\\
+\int_M \ve{y-C(y)}_X\dy 
+%orth decomp but not unit vector, integrate the length multiply by norm of direction. jacobian.
+&=\int_{N}\ve{x}_X\dy + \int_{W\cap M}\fc{\om(y)\ve{x}_X}{\ve{x}_2}\dy\\
+&=\ve{x}_X \Vol(N) + \int_{\Proj(W\cap M)} \fc{\om(z) \ve{x}_X}{\ve{x}_2} \ve{x}_2\,dz&\text{orthogonal decomposition}\\
+&=\ve{x}_X \Vol(N) + \Vol(\tau B_X\bs N) \\
+&=\ve{x}_X \Vol(\tau B_X)=\ve{x}_X.
+\end{align*}
+%w as the entire length. What I get is the entire volume. 
+We show $M=\tau B_X\bs (x+\tau B_X) \subeq \tau B_X\bs (1-\fc{\ve{x}}{\tau}) \tau B_X$. Indeed, for $y\in M$,
+\bal
+\ve{y-x}_X&\ge \tau\\
+\ve{y} & \ge \tau - \ve{x} = \pa{1-\fc{\ve{x}}{\tau}}\tau.
+\end{align*}
+\end{proof}
+Then 
+\[
+\Vol(M) \le \Vol(\tau B_X)-\Vol\pa{\pa{1-\fc{\ve{x}}{\tau}}\tau B_X}=1-\pa{1-\fc{\ve{x}}{\tau}} \lesssim \fc{n\ve{x}}{\tau}
+\]
+\end{proof}
+Bourgain did it in a more complicated, analytic way avoiding geometry. Begun notices that careful geometry is sufficient.
+
+
+Later we will show this theorem is sharp.
+
+%iteration!
+
+\section{Proof of Bourgain's discretization theorem}
+
+At small distances there is no guarantee on the function $f$. Just taking derivatives is dangerous. It might be true that we can work with the initial function. But the only way Bourgain figured out how to prove the theorem was to make a 1-parameter family of functions.
+
+\subsection{The Poisson semigroup}
+\begin{df}
+The \ivocab{Poisson kernel} is $P_t(x):\R^n\to \R$ given by
+\[
+P_t(x)=\fc{C_nt}{(t^2+\ve{x}_2^2)^{\fc{n+1}2}}, \quad C_n=\fc{\Ga\pf{n+1}2}{\pi^{\fc{n+1}2}}.
+\]
+%Convolution becomes product under FT
+\end{df}
+
+\begin{pr}[Properties of Poisson kernel]
+\begin{enumerate}
+\item
+For all $t>0$, $\int_{\R^n} P_t(x)\,dx=1$.
+\item
+(Semigroup property) $P_t*P_s=P_{t+s}$. 
+\item
+$\wh{P_t}(x) = e^{-2\pi\ve{x}_2t}$.
+\end{enumerate}•
+\end{pr}
+
+\begin{lem}
+Let $F$ be the function obtained from Bourgain's almost extension theorem~\ref{thm:baet}.
+For all $t>0$, $\ve{P_t*F}_{\text{Lip}}\lesssim 1$.
+%P_t is prob measure.
+%Average values of $F$.
+%poU, geometr y of ball, average with decaying weights.
+%all averaging of Lipschitz things.
+
+%1+\ep subtlety, ceases to be true, need restriction on $T$. Not relevant. $1+\ep$ version do more carefully.
+\end{lem}
+%Note to get $P_t*F$ we had three averaging arguments: partition of unity, averaging with respect to a ball, and then averaging with decaying weights.
+We have 
+\bal
+P_t*F(x)-P_t*F(y) &= \int_{\R^n} P_t(z)(F(x-z) - F(x-y))\,dz.
+\end{align*}
+Our goal is to show there exists $t_0>0$, $x\in B\in \rc B_X$ such that if we define
+\[
+T=(P_{t_0}*F)'(x):X\to Y,
+\]
+we have $\ve{T}\lesssim 1$. Moreover $\ve{T^{-1}}\lesssim D$.
+$T_y=\lim_{h\to \iy} \fc{P_{t_0}*F(x+hy) - P_{t_0}*F(x)}{h}$.
+%pigeonhole, must exist
