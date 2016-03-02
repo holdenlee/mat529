@@ -1,0 +1,339 @@
+\blu{3-2: Today we are continuing with Bourgain's Theorem.}
+
+
+Initially we had a function $f: N_{\delta} \to Y$ and a $\delta$-net $N_{\delta}$ of $B_X$. We got from it a new function $F: X \to Y$, and we have $\txtn{supp}(F) \subseteq 3 B_X$ (none of these constants matter). We know that $\|F\|_{L_p} \le 1$ for some constant. Also, for every $x \in N_{\delta}$, $\|F(x) - f(x)\|_Y \leq n\delta$. 
+
+Now, let $P_t: \R^n \to \R$ be the Poisson kernel, and we are investigating what can be said about the convolution $P_t * F$. We know that for all $t$ and for all $x$, $\|(P_t * F)(x)\|_{X \to Y} \le 1$. The goal is to make this guy invertible. 
+
+We're going to do this by s What does it mean that it's invertible? It means that the norm is not too small when you take the norm of the inverted operator. We're going to start by doing this one direction at a time by investigating the directional derivatives. Take $g: \R^n \to Y$. Then for $a \in S_X$, $partial_a g(x) = \lim_{t \to 0} \frac{g(x + ta) - g(x)}{t}$. 
+
+There isn't any particular reason why we need to use the Poisson kernel; there are many other kernels which satisfy this. We \textbf{definitely} need the semigroup property, in addition to all sorts of decay conditions. 
+
+There will be many lemmas we need to go through. 
+
+\begin{lem} Key lemma $1$. \\
+Let $c, c', c''$ be universal constants which arise from the proof. 
+Suppose $t \in (0, \frac{1}{2}]$, $R \in (0, \infty)$. 
+Then $\delta \in (0, \frac{1}{100n})$ satisfy: 
+\begin{enumerate}
+
+\item $ \delta \leq C \frac{t\log(1/t)}{\sqrt{n}} \leq c' \frac{1}{n^{5/2}D^2}$
+
+\item $ c''n^{3/2}D^2\log(1/t) \leq R \leq \frac{c''}{t\sqrt{n}}$
+
+\end{enumerate}
+
+Then for all $x \in \frac{1}{2} B_X, a \in S_X$, then 
+\[
+\|partial_a(P_t*F)\|_Y * P_{Rt}(x) \ge \frac{1}{D}
+\]
+
+This result says that if you give me a direction and look at how long this vector is, it is not only large, it's large on average. How large on average? You let the Poisson semigroup fight itself (flow in times $t$), you'll be at $Rt$. We want this to be long for every direction, but the average is also a function of $t$ (the measure with respect to averaging). So we have a directional derivative result with weird averaging: We flow an exponetially small amount of time, from this information you want to deduce the situation where we are invertible. 
+
+All the first condition says is that $t$ is not too small, but the lower bound is really really small. The upper bound says here we're at $(1/n)^{\txtn{some power}}$ whereas the lower bound is ridiculously small at $(e^n)^n$. So there's a huge gap.
+
+The second condition says that $\log(1/t)$ is going to still be exponential. 
+\end{lem}
+
+This lemma will come up later on and it will be clear. 
+
+From now on, let us assume this key lemma and I will show you how to finish. We will go back and prove it later. 
+
+\begin{lem} Key lemma $2$. \\
+Let $\mu$ be any Borel probability measure on $S_X$. For every $R, A \in (0, \infty)$, there exists $ \frac{A}{(R + 1)^{m + 1}} \leq t \leq A$ such that 
+\[
+\int_{S_X} \int_{\R^n} \|partial_a (P_t * F)(x)\|_Y dx d\mu(a) \leq \int_{S_X} \int_{\R^n} \|partial_a(P_{(R + 1)t} * F)\|_Y dx d\mu(a) + \frac{8\txtn{vol}(3B_X)}{m}
+\]
+\end{lem}
+Basically, under convolution, we can take the derivative under the integral sign. What we wrote on the right is an average of what we wrote on the left. An average only makes things smaller for norms, which are convex. So the right integral is trivially less than the left integral, from Jensen's inequality. But we have the opposite direction! It turns out that adding that small factor reverses the direction. If it's strongly convex, we would actually get that our average is a constant. So we're going to argue that there must be a point where Jensen's inequality stabilizes, and at some scale, the $\|\partial_a(P_t*F)\|_Y*P_{Rt}(x)$ will stabilize to a constant at some scale. 
+
+Note this is really the pidegonhole argument, geometrically.
+
+\begin{proof}
+Bourgain does this a lot in his papers. He finds some point where the inequality held is equality, and then we will leverage that. 
+
+If the result does not hold, then for every $t$ in the range $\frac{t}{(R + 1)^{m + 1}} \leq t \leq A$, the reverse holds. Therefore, we'll just use it in jumps which are in a geometric series. We have that 
+\[
+\int_{S_X} \int_{\R^n} \|\partial_a(P_{A(R + 1)^{k - m - 1}}*F)(x)\|_Ydxd\mu(a) > \int_{S_X} \int_{\R^n} \|\partial_a(P_{A(R + 1)^{k - m}}*F)(x)\|_Y dxd\mu(a) + \frac{8\txtn{vol}(3B_X)}{m}
+\]
+for all $k \in 0, \cdots, m + 1$. We basically are iterating this inequality many times, starting from the lower bound condition stated in the lemma. Iterating, it telescopes, and we get 
+\[
+\int_{S_X} \int_{\R^n} \|\partial_a(P_{A(R + 1)^{-m - 1}}*F)(x)\|_Y dxd\mu(a) > \int_{S_X} \int_{\R^n} \|\partial_a(P_{A(R + 1)}*F)(x)\|_Y dxd\mu(a) + \frac{8(m + 1)\txtn{vol}(3B_X)}{m}
+\]
+since it's going to cancel things out until we get to the end, which is $A(R + 1)$ (recall that we've been using the semigroup properties of the Poisson kernel this whole time). Now why is this conclusion absurd? $8$ is the bound on the Lipschitz constant of $F$. It's some universal constant at any rate. $F$ is differentiable and $8$-Lipschitz. We have that $\|\partial_aF\|_Y \leq 8$, $\partial_a(P_{A(R+1)^{-m - 1}}*F)(x)$. Since partial derivatives commute with the integral sign, we get 
+\[
+\int_{\R^n} \|\partial_a(P_{A(R+1)^{-m - 1}}*F)(x)\|_Y dx = \int_{\R^n} \|(P_{A(R+1)^{-m - 1}}*\partial_aF)(x)\|_Y dx
+\]
+and 
+\[
+\leq \int_{\R^n} \int_{\R^n} \cdots \fixme{HERE} \leq 8\txtn{vol}(B_X)
+\]
+which is a contradiction.
+We're just using that $F$ is Lipschitz and the fact that the Poisson semigroup integrates to unity. 
+\end{proof}
+
+Now assuming the Key lemma $1$, let's complete the proof of Bourgain's discretization theorem. Assume from now on $\delta < \left(\frac{1}{cD}\right)^{(CD)^{2n}}$ where $C$ is a large enough constant that we will choose $(C = 500$ or something). 
+
+Let $\mathcal{F} \subseteq S_X$ be a $\frac{1}{10D}$-net in $S_X$. Then there are $|\mathcal{F}| \leq (30D)^n$. We will apply the lemma with $\mu$ the uniform measure on $\mathcal{F}$. 
+
+Apply the lemma with $A = (1/CD)^{5n}$, $R + 1 = (cD)^{4n}$, $m = \lceil (CD)^{n + 1} \rceil$. By lemma, there exists $(1/(CD))^{(CD)^{2n}} \leq t \leq (1/(CD))^{5n}$. Then we can find the $t$ such that this holds. 
+\[
+\sum_{a \in \mathcal{F}} \int_{\R^n} \|\partial_a(P_t *F)(x)\|_Y dx \leq \sum_{a \in \mathcal{F}} \int_{\R^n} \|\partial_a(P_{(R + 1)t}*F)(x)\|_Y dx + \frac{8\txtn{vol}(3B_X)}{m} |\mathcal{F}|
+\] 
+
+Check if $\delta$ satisfies $\delta < (1/CD)^{(CD)^{2n}}$. Then the conditions of the Key Lemma $1$ hold. The first condition must be bigger than $t$, and the upper bound on $t$ is exponential even. So we're fine. Now we check the bound on $\log(1/t)$, which is at most exponential in $D$. What is $R$? We made that exponential too, so there is room to spare. Finally, $1/t$ exceeds $R$ as well since $1/t$ is $(CD)^{5n}$ while $R$ was $(CD)^{4n}$. So we're good. 
+
+In the paper (I have a link), I wrote what the exact constants are. They're written in the paper, and are not that important. We're choosing our constants big enough so that our inequalities hold true with room to spare. 
+
+So now we're allowed to use the Key Lemma $1$. Look at the norm of the derivative in direction $a$ $\|\partial_a(P_{(R + 1)t}*F)(x)\|_Y$. Note that $P_{(R + 1)t} = P_{Rt} * P_t$. Since everything commutes, we can rewrite $\|\partial_a(P_{(R + 1)t}*F)(x)\|_Y = \|\left(\partial_a(P_t*F)\right)*P_{Rt}(x)\|_Y \leq \left(\|\partial_a(P_t*F)\|_Y * P_{Rt}\right)(x)$. Since the norm is a convex function, by Jensen's we get our inequality. Note that we are using semigroup properties liberally. 
+
+So we know that pointwise
+\[
+\left(\|\partial_a(P_t*F)\|_Y * P_{Rt}\right)(x) - \|\partial_a\left(P_{(R + 1)t}*F\right)(x)\|_Y \geq 0
+\]
+Think of this experssion above as a random variable. It's positive on half the ball. So we can use Markov's inequality. So you get that the volume over all the $x \in \frac{1}{2}B_X$ is 
+\[
+\txt{vol}\left(x \in \frac{1}{2}B_X : \left(\|\partial_a(P_t*F)\|_Y * P_{Rt}\right)(x) - \|\partial_a\left(P_{(R + 1)t}*F\right)(x)\|_Y  > 1/D\right)
+\]
+So for every $x$, the points such that the measure is bigger than $1/D$ is bounded by 
+\[
+\leq D\int_{R^n} \left(\|\partial_a(P_t*F)\|_Y * P_{Rt}\right)(x) - \|\partial_a\left(P_{(R + 1)t}*F\right)(x)\|_Y ) dx
+\]
+since we can upper bound the integral over the ball by an integral over $\R^n$. 
+So we're really using the probabilistic method, since we are proving there must be such a point. 
+
+We want to use the union bound. Previously we were doing things for fixed $a$, now we want to do things for every $a$. Let's call
+\[
+\psi(x) = \left(\|\partial_a(P_t*F)\|_Y * P_{Rt}\right)(x) - \|\partial_a\left(P_{(R + 1)t}*F\right)(x)\|_Y 
+\]
+Then rewriting
+\[
+\txtn{vol}\left(x \in \frac{1}{2}B_X: \exists a \in \mathcal{F}, \psi_a(x) > 1/D\right) \leq \sum_{a \in \mathcal{F}} \txtn{vol}(x \in \frac{1}{2}B_X: \psi_a(x) > 1/D)
+\]
+
+\[
+\leq D\sum_{a \in \mathcal{F}} \int_{\R^n}\left(\|\partial_a(P_t*F)\|_Y * P_{Rt})(x) - \|\partial_a(P_{(R + 1)t} * F)(x)\|_Y\right) dx
+\]
+We know that when you average pointwise, the first term in the subtraction is bigger than $1/D$. 
+
+When you convolve something with a probability measure, the integral over $\R^n$ does not change. Convoling with a probability measure does not change anything, so we can get rid of $P_{Rt}$. Then, 
+\[
+= D\sum_{a \in \mathcal{F}} \int_{\R^n}\left(\|\partial_a(P_t*F)\|_Y)(x) - \|\partial_a(P_{(R + 1)t} * F)(x)\|_Y\right) dx \leq \frac{8\txtn{vol}(3B_X)}{m}(10D)^n < \txtn{vol}(\frac{1}{2}B_X)
+\]
+by our choice of $m$ and since stabilization made this less than one. 
+
+This is very technical, but we proved there must exist a point in half the ball such that for every $a \in \mathcal{F}$, our net, we have
+\[
+\frac{1}{D} \geq \|\partial_a(P_t *F)\|_{Y} * P_{Rt}(x) - \|\partial_a(P_{(R + 1)t}*F)(x)\|_Y
+\]
+So we got that the for the \textbf{average}, the $P_{Rt}$ goes away. So from this we can conclude 
+\[
+\|\partial_a(P_{(R + 1)t} * F)(x)\|_Y \ge 1/D
+\]
+You should just look at what the exact constants are in the paper. 
+
+The crucial point was that we got something to stabilize using the pidgeonhole argument, and you got a difference where one of the terms is pointwise big, which causes the term you're subtracting from it to also be pointwise big. So now we choose $T$ a linear mapping to be
+\[
+T := (P_{(R + 1)t} * F)'(x)
+\]
+where $x$ is the special point from the probabilistic argument. Now we can check what happens. Now we know $\|T\| \leq 8$, and for every $a \in \mathcal{F}$ in the net, $\|Ta\| \ge b/D$ for some constant $b$. 
+The main key here is that we need to show for \textbf{every} point in the net that $\|\partial_a (P_t * F)\|_Y$ is good. You already get that this is big for one particular direction just from $\|\partial_a (P_t * F)\|_Y * P_{Rt}(x) \ge 1/D$. But there are exponentially many points in the net which we need to show this for. 
+
+Take any $z \in S_X$, find $a \in \mathcal{F}$ s.t. $\|a - z\| < \frac{1}{100D}$. Then $\|Tz\| \geq \|Ta\| - \|T(a - z)\| \geq \|Ta\| - \|T\|\cdot\|az\| > \frac{b}{D} - 8\|a - t\| \geq 1/D$.  Then $\|T^{-1}\| \leq D$. \fixme{Fix this explanation a bit more? A bit confusing}
+
+There is a probaiblistic existence statement or result. Now you write down what it means. Suppose for contradiction that the probability is not small enough. The reason you succeeded to bound the probability is a proof by contradiction. Usually we estimate by hand the random variable we want to care about. Here we want to prove an existential bound, and we assume that it doesn't work, so estimating probability here is also by contradiction! 
+
+What's remaining now is just estimating integrals. 
+
+%\step{2} Extend $F_1$ to the whole space to $F_2$ such that 
+%\begin{enumerate}
+%\item
+%$\forall x\in \cal N_\de$, $\ve{F_2(x)-f(x)}_Y \lesssim L\de$.
+%\item
+%$\ve{F_2(x)-F_2(y)}_Y\lesssim L(\ve{x-y}_X + \de)$.
+%%not smooth yet. 
+%\item
+%$\Supp(F_2)\subeq 2B_X$.
+%\item
+%$F_2$ is smooth.
+%%F_1 had no bounded continuity, but is a sum against a partition of unity. 
+%%just smooth without any bounds fine.
+%%spiky.
+%%when I say not smooth, I mean no bounds.
+%%I need the norm to be smooth for this.
+%\end{enumerate}•%
+
+%Denote $\al(t)=\max\{1-|1-t|,0\}$. %
+
+%\ig{images/9-1}{.25}%
+
+%Let
+%\[
+%F_2(x)=\al(\ve{x}_X) F_1\pa{x}{\ve{x}_X}.
+%\]
+%%0 the moment it passes 2.
+%$F_2$ still satisfies condition 1. As for condition 2, 
+%\bal
+%\ve{F_2(x)-F_2(y)}_Y &= \ve{\al (\ve{x}_X)F_1\pf{x}{\ve{x}_X} - \al(\ve{y}_X) F_1\pf{y}{\ve{y}_X}} \\
+%&\le |\al(\ve{x})-\al(\ve{y})|\ub{\ve{F_1\pf{x}{\ve{x}_X}}}{\le 2L}+\al(\ve{y})\ve{F_1\pf{x}{\ve{x}_X} - F_1\pf{y}{\ve{y}_X} }\\
+%&\le (\ve{x}-\ve{y})2L + \al(\ve{y}) L\pa{
+%\ve{\nv{x}-\nv{y}}+4\de 
+%} \\
+%&\le 2L\ve{x-y}+L\al(\ve{y}) \pa{\ve{x}\ab{\rc{\ve{x}}-\rc{\ve{y}}} + \fc{\ve{x-y}}{\ve{y}} + 4\de}\\
+%&\le 2L\ve{x-y} +L\al(\ve{y}) \pa{\fc{\ve{x-y}}{\ve{y}} + \fc{\ve{x-y}}{\ve y}  + 4\de}\\
+%&\lesssim L(\ve{x-y}+\de),
+%%mult by 4de, use bounded by 1
+%\end{align*}
+%where in the last step we used $\al(\ve{y})\le \ve{y}$ and $\al(\ve{y})\le 1$. %
+
+%Note $F_2$ is smooth because the sum for $F_1$ was against a partition of unity and $\ved_X$ is smooth, although we don't have uniform bounds on smoothness for $F_2$.
+%%F_1 had no bounded continuity, but is a sum against a partition of unity. 
+%%just smooth without any bounds fine.
+%%spiky.
+%%when I say not smooth, I mean no bounds.
+%%I need the norm to be smooth for this.%
+
+%%For the next step we need the following. %
+
+%\step{3} We make $F$ smoother by convolving.
+%\begin{lem}[Begun, 1999]
+%Let $F_2:X\to Y$ satisfy $\ve{F_2(x)-F_2(y)}_Y\le L(\ve{x-y}_X+\de)$. Let $\tau \ge c\de$. Define 
+%\[
+%F(x) = \rc{\Vol(\tau B_X)}\int_{\tau B_X} F_2(x+y)\,dy.
+%\]
+%Then 
+%\[
+%\ve{F}_{\text{Lip}} \le L\pa{1+\fc{\de n}{2\tau}}.
+%\]
+%\end{lem}
+%The lemma proves the almost extension theorem as follows. We passed from $f:\cal N_\de\to Y$ to $F_1$ to $F_2$ to $F$. 
+%If $x\in \cal N_\de$, 
+%\bal
+%\ve{F(x)-f(x)}_Y &=\ve{
+%\rc{\Vol(\tau B_X)} \int_{B_X} (F_2(x+y) - f(x))\,dy
+%}\\
+%&\le \rc{\Vol(\tau B_X)}\int_{\tau B_X}\ve{F_2(x+y)-F_2(x)}_Y + \ub{\ve{F_2(x)-f(x)}_Y}{\de L} \dy\\
+%&\le \rc{\Vol(\tau B_X)}\int_{\tau B_X}(L(\ub{\ve{y}_X}{\le\tau}+\de L)) \dy\lesssim L\tau.
+%\end{align*}
+%Now we prove the lemma. 
+%\begin{proof}
+%We need to show
+%\[
+%\ve{F(x)-F(y)}_Y \le L\pa{1+\fc{\de n}{2\tau}} \ve{x-y}_X.
+%\]
+%\Wog $y=0$, $\Vol(\tau B_X)=1$. Denote 
+%\bal
+%M&=\tau B_{X}\bs (x+\tau B_X)\\
+%M'&=(x+\tau B_X) \bs \tau B_X.
+%\end{align*}%
+
+%\ig{images/9-2}{.25}%
+
+%We have
+%\bal
+%F(0)-F(x) &= \int_M F_z(y)\,dy - \int_{M'} F_z(y)\,dy.
+%\end{align*}
+%Define $\om(z)$ to be the Euclidean length of the interval $(z+\R x)\cap (\tau B_X)$. By Fubini,
+%\[
+%\int_{\Proj_{X^{\perp}} (\tau B_X)} \om(z) \,dz = \Vol_n(\tau B_X)=1.
+%%intersection of projection.
+%\]
+%Denote
+%\bal
+%W&= \set{z\in \tau B_X}{(z+\R x)\cap (\tau B_X)\cap (x+\tau B_X)\ne \phi}\\
+%N&= \tau B_X\bs W.
+%\end{align*}
+%Define $C:M\to M'$ a shift in direction $X$ on every fiber that maps the interval $(z+\R x)\cap M\to (z+\R x)\cap M'$. %
+
+%\ig{images/9-3}{.25}%
+
+%$C$ is a measure preserving transformation with
+%\[
+%\ve{z-C(z)}_X =\begin{cases}
+%\ve{x}_X , &z\le N\\
+%\om(z) \fc{\ve{x}_X}{\ve{x}_2},& z\in W\cap M.
+%\end{cases}
+%\]
+%(In the second case we translate by an extra factor $\fc{\om(z)}{\ve{x}_2}$.)
+%%(In the second case we add the total length $
+%%C maps $M'$ to $M$.
+%%do a clever change of variable differently in each fiber.
+%Then 
+%\bal
+%\ve{F(0)-F(x)}_Y &=\ve{\int_M F_2(y)\dy - \int_{M'}F_2(y)\dy}_Y\\
+%&= \ve{\int_M(F_2(y) - F_2(C(y)))\dy}_Y\\
+%&\le \int_M L(\ve{y-C(y)}_X+\de)\dy\\
+%&\le \int_M L (\ve{y-C(y)}_X + \de)\dy\\
+%&=L\de \Vol(M) + L \int_M \ve{y-C(y)}_X\dy\\
+%\int_M \ve{y-C(y)}_X\dy 
+%%orth decomp but not unit vector, integrate the length multiply by norm of direction. jacobian.
+%&=\int_{N}\ve{x}_X\dy + \int_{W\cap M}\fc{\om(y)\ve{x}_X}{\ve{x}_2}\dy\\
+%&=\ve{x}_X \Vol(N) + \int_{\Proj(W\cap M)} \fc{\om(z) \ve{x}_X}{\ve{x}_2} \ve{x}_2\,dz&\text{orthogonal decomposition}\\
+%&=\ve{x}_X \Vol(N) + \Vol(\tau B_X\bs N) \\
+%&=\ve{x}_X \Vol(\tau B_X)=\ve{x}_X.
+%\end{align*}
+%%w as the entire length. What I get is the entire volume. 
+%We show $M=\tau B_X\bs (x+\tau B_X) \subeq \tau B_X\bs (1-\fc{\ve{x}}{\tau}) \tau B_X$. Indeed, for $y\in M$,
+%\bal
+%\ve{y-x}_X&\ge \tau\\
+%\ve{y} & \ge \tau - \ve{x} = \pa{1-\fc{\ve{x}}{\tau}}\tau.
+%\end{align*}
+%\end{proof}
+%Then 
+%\[
+%\Vol(M) \le \Vol(\tau B_X)-\Vol\pa{\pa{1-\fc{\ve{x}}{\tau}}\tau B_X}=1-\pa{1-\fc{\ve{x}}{\tau}} \lesssim \fc{n\ve{x}}{\tau}
+%\]
+%\end{proof}
+%Bourgain did it in a more complicated, analytic way avoiding geometry. Begun notices that careful geometry is sufficient.%
+%
+
+%Later we will show this theorem is sharp.%
+
+%%iteration!%
+
+%\section{Proof of Bourgain's discretization theorem}%
+
+%At small distances there is no guarantee on the function $f$. Just taking derivatives is dangerous. It might be true that we can work with the initial function. But the only way Bourgain figured out how to prove the theorem was to make a 1-parameter family of functions.%
+
+%\subsection{The Poisson semigroup}
+%\begin{df}
+%The \ivocab{Poisson kernel} is $P_t(x):\R^n\to \R$ given by
+%\[
+%P_t(x)=\fc{C_nt}{(t^2+\ve{x}_2^2)^{\fc{n+1}2}}, \quad C_n=\fc{\Ga\pf{n+1}2}{\pi^{\fc{n+1}2}}.
+%\]
+%%Convolution becomes product under FT
+%\end{df}%
+
+%\begin{pr}[Properties of Poisson kernel]
+%\begin{enumerate}
+%\item
+%For all $t>0$, $\int_{\R^n} P_t(x)\,dx=1$.
+%\item
+%(Semigroup property) $P_t*P_s=P_{t+s}$. 
+%\item
+%$\wh{P_t}(x) = e^{-2\pi\ve{x}_2t}$.
+%\end{enumerate}•
+%\end{pr}%
+
+%\begin{lem}
+%Let $F$ be the function obtained from Bourgain's almost extension theorem~\ref{thm:baet}.
+%For all $t>0$, $\ve{P_t*F}_{\text{Lip}}\lesssim 1$.
+%%P_t is prob measure.
+%%Average values of $F$.
+%%poU, geometr y of ball, average with decaying weights.
+%%all averaging of Lipschitz things.%
+
+%%1+\ep subtlety, ceases to be true, need restriction on $T$. Not relevant. $1+\ep$ version do more carefully.
+%\end{lem}
+%%Note to get $P_t*F$ we had three averaging arguments: partition of unity, averaging with respect to a ball, and then averaging with decaying weights.
+%We have 
+%\bal
+%P_t*F(x)-P_t*F(y) &= \int_{\R^n} P_t(z)(F(x-z) - F(x-y))\,dz.
+%\end{align*}
+%Our goal is to show there exists $t_0>0$, $x\in B\in \rc B_X$ such that if we define
+%\[
+%T=(P_{t_0}*F)'(x):X\to Y,
+%\]
+%we have $\ve{T}\lesssim 1$. Moreover $\ve{T^{-1}}\lesssim D$.
+%$T_y=\lim_{h\to \iy} \fc{P_{t_0}*F(x+hy) - P_{t_0}*F(x)}{h}$.
+%%pigeonhole, must exist
