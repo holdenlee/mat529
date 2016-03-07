@@ -1,0 +1,341 @@
+\blu{3-7: Finishing Bourgain and }
+
+There's a remaining lemma about the Poisson semigroup that we're going to do today; it's nice, but it's not as nice as what came before. 
+
+Let me try to paraphrase the high level strategy before. What we did last time: We had a $\delta$-net in $X$, a function $f$ going into $Y$. Then we almost extended $f$ to $F$. The idea was to take the derivative of $(P_t * F)(x)$ and hope this is big. It's already bounded by the Lipschitz constant. What does it mean that this derivative is big? It means that the norm in $Y$ is at least a constant times the norm of $x$, for every $x$. 
+\[
+\left\|(P_t * F)'(x)\right\|_Y \ge \|x\|_X
+\]
+If you're invertible; if you have this inequality for a net in the sphere, you have the inequality everywhere. If you know the inequality on the net, you know it globally only if the $\delta$ of the net is smaller than the norm of the operators. So you fix this net: $\mc{F} \subseteq S_X$, a $c/D$-net in $S_X$.  
+Then for all $a \in \mc{F}$
+\[
+\left\|(P_t * F)'(x)(a)\right\|_Y = \left\| \partial_a(P_t * F)(x)\right\|_Y
+\]
+Let $\nu$ be the normalized volume on $\frac{1}{2}B_X$. It's enough to show that the measure 
+\[
+\nu\left(x \in (1/2)B_X: \forall a \in \mc{F}, \|\partial_a(P_t*F)(x)\|_Y \ge \frac{c}{\|x\|_X}\right)
+\]
+This is the sum in the net of this measure. 
+And you can directly write down 
+\[
+1 - \sum_{a \in \mc{F}} \nu(x \in (1/2)B_X: \|\partial_a(P_t*F)(x)\|_Y < \frac{c}{\|x\|_X})
+\]
+Then you want to see how you can make this probability zero. 
+
+Bourgain wants to make a probabilistic argument; he says investigate the evolution of the probability over the semigroup: It depends on time $t$. And there must exist a time for which this is $< 1$. This is a semigroup argument combined with probability, and what you are analyzing as things flow forward in time is how the probability changes. We bound this probability using Markov. Then there's all kinds of lemmas which need to come in (and there's one more which I need to finish today), but then this is essentially Bourgain's theorem. We don't know of another way to prove this today. 
+
+Our last lemma is just an inequality. 
+
+\begin{lem} Inequality lemma. \\
+Suppose $t, R, \delta > 0$ satisfy: 
+\begin{enumerate}
+
+\item $\delta \leq c \frac{t\log(3/t)}{\sqrt{n}} \leq c' \frac{1}{n^{5/2}D^2}$
+
+\item $c'' n^{3/2}D^2 \log(3/t) \leq R \leq \frac{c''}{t\sqrt{n}}$
+
+\end{enumerate}
+Then for every $x \in \frac{1}{2}B_X$ and $a \in \delta x$ a direction, (note $\partial_a$ is a directional derivative) 
+\[
+\left(\left\|\partial_a(P_t*F)\right\|_Y * P_{Rt}\right)(x) \ge c''''/D
+\]
+\end{lem}
+\begin{proof}
+
+Remember that $\frac{1}{\sqrt{n}}\|x\|_2 \leq \|x\|_X \leq \|x\|_2$ for all $x \in X$. 
+Let's recall some facts. Our first fact is that 
+\[
+\int_{\R^n \setminus (rB_X)} P_t(x)dx \leq \frac{t\sqrt{n}}{r}
+\]
+this is just because the Poisson semigroup has the property that $P_t(x) = \frac{1}{t^n}P_1(x/t)$. $P_t$ is just a rescaling. So it's enough to prove this for $t = 1$. We know 
+\[
+\int_{\|x\|_X \geq r} P_t(x)dx \leq \int_{\|x\|_2 \geq r} P_t(x) dx
+\]
+This is the same by change of variables and using polar coordinates as  
+\[
+\int_{\|x\|_2 \geq r/t} P_1(x)dx = C_n S_{n - 1} \int_{r/t}^{\infty} \frac{S^{n - 1}}{(1 + S^2)^{(n + 1)/2}} dS \leq C_nS_{n - 1} \int_{r/t}^{\infty} \frac{1}{S^2} dS \approx \frac{t}{r}C_nS_{n - 1}
+\]
+where you can do it out and get the gamma function; looking at Stirling's we get $C_n S_{n -1} \approx \sqrt{n}$. 
+
+Our second fact is that for all $y \in \R^n$, $\int_{\R^n} |P_t(x) - P_t(x + y)| dx \le \frac{\sqrt{n}\|y\|_2}{t}$. It's again enough to prove it when $t = 1$. 
+Then 
+\[
+\int_{\R^n} |P_t(x) - P_t(x + y)| dx = \int_{\R^n} \left| \int_{0}^1 \langle \nabla P_t(x + sy), y \rangle ds\right| dx \leq \|y\|_2 \int_{\R^n} \|\nabla P_t(x)\|_2 dx
+\]
+using Cauchy Schwarz at the end, and then computing the gradient we get 
+\[
+\|y\|_2(n + 1)C_n\int_{\R^n} \frac{\|x\|_2}{(1 + \|x\|_2^2)^{\frac{n + 3}{2}}} dx = \|y\|_2 (n + 1)C_n S_{n - 1} \int_{0}^{\infty} \frac{r^n}{(1 + r^2)^{\frac{n + 3}{2}}} dr 
+\]
+which actually perfectly cancels out the $n + 1$ and ends up integrating the rest to a multiplicative factor of $1$, giving us what we want. 
+
+Our third fact is that for all $0 < t < \frac{1}{2}$ and $x \in B_X$, we have 
+\[
+\left\|P_t * F(x) - F(x) \right\|_Y \le \sqrt{n} t\log(3/t)
+\]
+We prove it by saying the left-hand side is equvalent to 
+\[
+\left\|\int_{\R^n} \left(F(x - y) - F(x)\right)P_t(y) dy \right\|_Y \leq \int_{x + 3B_X} \left\| F(x - y) - F(x)\right\|_Y P_t(y) dy + c*\int_{\R^n \setminus (x + 3B_X)} P_t(y) dy
+\]
+The first term you can bound by the Lipschitz constant $\left\|F(x - y) - F(x)\right\|_Y \leq \|F\|_L\frac{c}{\rho}\cdot \|y\|_X$. Thus, we can write up to constants that our previous expression is bounded above by 
+\[
+\le \int_{x + 3B_X} \|y\|_XP_t(y)dy + \int_{\R^n \setminus (x + 3B_X)} P_t(y) dy
+\]
+Let's bound the first term in this new expression. Since $x \in B_X$, then in the first term, $x \in 4\sqrt{n}B_{l_2}$, so we write the first term is 
+\[
+\leq \int_{4\sqrt{n}B_{l_2^n}} \|y\|_2 P_t(y) dy
+\]
+This is bounded by $\sqrt{n}t\log(3/t)$: You do integration by parts, maximize one of the parts, and you get the result. 
+Let's do the calculation: 
+\[
+\int_{4\sqrt{n}B_{l_2^n}} \|y\|_2 P_t(y)dy =_{\txtn{polar}} tC_nS_{n - 1} \int_{0}^{\frac{4\sqrt{n}}{t}} \frac{S^n}{(1 + S^2)^{(n + 1)/2}}
+\]
+which is maximized when $S = \sqrt{n}$, and is always $\leq 1/S$ since you can't get rid of the $1$ in the denominator. Therefore this is $\leq \int_0^{\sqrt{n}} \frac{1}{\sqrt{n}} + \int_{\sqrt{n}}^{4\sqrt{n}/t} dS/S = 1 + \log(4/t)$. 
+The second term is \fixme{Insert how it gets bounded away?}
+
+Now we have these three facts, we can finish the proof of the lemma. 
+
+Let $\theta = cD\sqrt{n} t\log(3/t)$. All of this is about directional derivatives which are big. So let's see how $P_t$ separates points. Suppose I take points $w, y \in \frac{1}{2}B_X$ and we claim that  
+\[
+\left\|P_t * F(w) - P_t*F(y)\right\|_Y \geq 1/D
+\]
+Suppose $\|w - y\|_X \geq \theta$. Why is this? We can find a point $p$ which is $\delta$ away from $w$, $p \in N_{\delta}$ and likewise find a similar $q \in N_{\delta}$ $\delta$ away from $y$. We also know that $F$ is close to $f$. We can use fact $3$ to bound the error of convolving, and then also the error from gonig from $F$ to $f$. We have 
+\[
+\left\|P_t * F(w) - P_t*F(y)\right\|_Y \geq \|f(p) - f(q)\| - \|F(p) - f(p)\| - \|F(q) - f(q)\| - \|F(w) - F(p)\| - \|F(y) - F(p)\| - \|P_t*F(w) - F(w)\| - \|P_t*F(y) - F(y)\|
+\]
+by the triangle inequality, basically. This is all the error-passing we care about. Then, let's write out what these values are:
+\[
+\geq \frac{\|p - q\|}{D} - 2n\delta - c\delta - \sqrt{n}t\log(3/t) \geq \frac{\|y - w\| - 2\delta}{D} - 2n\delta - c\delta - \sqrt{n}t\log(3/t) 
+\]
+If we want this to be at least a constant of $\|y - w\|/D$, we need $\theta = cD\sqrt{n}t\log(3/t)$, as we stated before. This is clear since $\sqrt{n}t\log(3/t)$ is the painful term, since it's larger than $2n\delta$, given our two assumptions from the start of the lemma. We do not claim at all that these numbers are sharp. 
+
+Then, we can look at 
+\[
+\left\|P_t * F(z + \theta a) - P_t * F(z)\right\|
+\]
+So if $z \in \frac{1}{4}B_X$, then we know $\theta/D \leq \left\|P_t * F(z + \theta a) - P_t* F(z)\right\|$. And now we can just integrate and say 
+\[
+\theta/D \leq \int_{0}^{\theta} \left\|\partial_a(P_t*F)(z + sa)\right\|_Y 
+\]
+We're looking at $\frac{1}{\theta} \int_{\R^n} \left\| \partial_a(P_t * F)(x + sa - y)\right\|_Y P_{Rt}(y) dy$. This is the convolution we care about in the statement of our lemma. We want $\|x - y\| \leq 1/4$ (we will be taking $x - y = z$. This is at least, by throwing away part of the integral, 
+\[
+\frac{1}{\theta} \int_0^{\theta} \int_{(1/8)B_X} \left\|\partial_a(P_t * F)(x - y + sa)\right\|_Y P_{Rt}(y) ds dy
+\]
+So if $x$ is in half of the ball and $y$ is $1/8$ of the ball, thi sis fine. Now you can use Fubini to switch the order of integrals: 
+\[
+\geq \int_{(1/8)B_X} \left(\frac{1}{\theta}\int_0^{\theta} \left\|\partial_a(P_t * F)(x - y + sa)\right\|_Y ds \right) P_{Rt}(y) dy
+\]
+But remember before we bounded $\theta/ D$ above: 
+\[
+\geq \frac{1}{D} \int_{(1/8)B_X} P_{Rt}(y)dy \cdot P_{Rt}(y) dy
+\]
+which is bounded below. 
+So our statement amounts to saying the average length in every direction is big, and if you average the average length again, an average of big things is big.
+How do we get rid of the additional averaging? We care about 
+\[
+\|\partial_a(P_t * F)\| * P_{Rt}(x) = \int_{\R^n} \|\partial_a(P_t *F)(x - y)\|_Y P_{Rt}(y) dy
+\] 
+Then shifting, we can add $ + sa$ for every $s$, then add a correction term, and now we can integrate over $s \in [0, \theta]$ and average: 
+\[
+\frac{1}{\theta} \int_0^{\theta} \left(\int_{\R^n} \|\partial_a(P_t *F)(x - y + sa)\|_Y P_{Rt}(y) dy \right) - \frac{1}{\theta} \int_0^{\theta} \int_{\R^n} \|\partial_a(P_t *F)(x - y)\|_Y (P_{Rt}(y + sa) - P_{Rt}(y)) dy > \frac{c}{D} - \frac{c'}{\theta} \int_0^{\theta} \int_{\R^n} | P_{Rt}(y + sa) - P_{Rt}(y)| ds dy \geq \frac{c}{D} - \frac{c'}{\theta} \int_0^{\theta} \frac{\sqrt{n}s\|a\|_2}{Rt} ds
+\]
+Then this error term will just be $\frac{\theta n}{Rt}$, and $\frac{\theta n}{Rt} < \frac{c}{D}$ so we are fine. 
+
+To summarize: You compute the error such that you have distance $\theta$. Then you look at the average derivative on each line like this. Then, the average derivative is roughly $\|\partial_a(P_t * F)\| * P_{Rt}(x)$. So averaging the derivative in a bigger ball is the same up to constants as taking a random starting point and averaging over the ball. What's written in the lemma is that the derivative of a given point in this direction, averaged over a little bit bigger ball, it's not unreasonable to see that at first take starting point and going in direction $\theta$ and averaging in the bigger ball is equivalent to randomizing over starting points. 
+\end{proof}
+
+We can prove an easy fact next time: If you look at $L_1$, and change the metric to $\sqrt{\|x - y\|_1}$, this is isometric to a subset of $L_2$. This is what is called $L_1$ is a squared $L_2$ metric. If you take this embedding into $L_2$, let's think how Lipschitz the square-root mapping is. You didn't make distances bigger by more than $1/\sqrt{\delta}$ on a net, even though on the whole space it's bigger. This is just a sketch. 
+
+To get better results, you need more exotic spaces. 
+
+%\step{2} Extend $F_1$ to the whole space to $F_2$ such that 
+%\begin{enumerate}
+%\item
+%$\forall x\in \cal N_\de$, $\ve{F_2(x)-f(x)}_Y \lesssim L\de$.
+%\item
+%$\ve{F_2(x)-F_2(y)}_Y\lesssim L(\ve{x-y}_X + \de)$.
+%%not smooth yet. 
+%\item
+%$\Supp(F_2)\subeq 2B_X$.
+%\item
+%$F_2$ is smooth.
+%%F_1 had no bounded continuity, but is a sum against a partition of unity. 
+%%just smooth without any bounds fine.
+%%spiky.
+%%when I say not smooth, I mean no bounds.
+%%I need the norm to be smooth for this.
+%\end{enumerate}•%
+
+%Denote $\al(t)=\max\{1-|1-t|,0\}$. %
+
+%\ig{images/9-1}{.25}%
+
+%Let
+%\[
+%F_2(x)=\al(\ve{x}_X) F_1\pa{x}{\ve{x}_X}.
+%\]
+%%0 the moment it passes 2.
+%$F_2$ still satisfies condition 1. As for condition 2, 
+%\bal
+%\ve{F_2(x)-F_2(y)}_Y &= \ve{\al (\ve{x}_X)F_1\pf{x}{\ve{x}_X} - \al(\ve{y}_X) F_1\pf{y}{\ve{y}_X}} \\
+%&\le |\al(\ve{x})-\al(\ve{y})|\ub{\ve{F_1\pf{x}{\ve{x}_X}}}{\le 2L}+\al(\ve{y})\ve{F_1\pf{x}{\ve{x}_X} - F_1\pf{y}{\ve{y}_X} }\\
+%&\le (\ve{x}-\ve{y})2L + \al(\ve{y}) L\pa{
+%\ve{\nv{x}-\nv{y}}+4\de 
+%} \\
+%&\le 2L\ve{x-y}+L\al(\ve{y}) \pa{\ve{x}\ab{\rc{\ve{x}}-\rc{\ve{y}}} + \fc{\ve{x-y}}{\ve{y}} + 4\de}\\
+%&\le 2L\ve{x-y} +L\al(\ve{y}) \pa{\fc{\ve{x-y}}{\ve{y}} + \fc{\ve{x-y}}{\ve y}  + 4\de}\\
+%&\lesssim L(\ve{x-y}+\de),
+%%mult by 4de, use bounded by 1
+%\end{align*}
+%where in the last step we used $\al(\ve{y})\le \ve{y}$ and $\al(\ve{y})\le 1$. %
+
+%Note $F_2$ is smooth because the sum for $F_1$ was against a partition of unity and $\ved_X$ is smooth, although we don't have uniform bounds on smoothness for $F_2$.
+%%F_1 had no bounded continuity, but is a sum against a partition of unity. 
+%%just smooth without any bounds fine.
+%%spiky.
+%%when I say not smooth, I mean no bounds.
+%%I need the norm to be smooth for this.%
+
+%%For the next step we need the following. %
+
+%\step{3} We make $F$ smoother by convolving.
+%\begin{lem}[Begun, 1999]
+%Let $F_2:X\to Y$ satisfy $\ve{F_2(x)-F_2(y)}_Y\le L(\ve{x-y}_X+\de)$. Let $\tau \ge c\de$. Define 
+%\[
+%F(x) = \rc{\Vol(\tau B_X)}\int_{\tau B_X} F_2(x+y)\,dy.
+%\]
+%Then 
+%\[
+%\ve{F}_{\text{Lip}} \le L\pa{1+\fc{\de n}{2\tau}}.
+%\]
+%\end{lem}
+%The lemma proves the almost extension theorem as follows. We passed from $f:\cal N_\de\to Y$ to $F_1$ to $F_2$ to $F$. 
+%If $x\in \cal N_\de$, 
+%\bal
+%\ve{F(x)-f(x)}_Y &=\ve{
+%\rc{\Vol(\tau B_X)} \int_{B_X} (F_2(x+y) - f(x))\,dy
+%}\\
+%&\le \rc{\Vol(\tau B_X)}\int_{\tau B_X}\ve{F_2(x+y)-F_2(x)}_Y + \ub{\ve{F_2(x)-f(x)}_Y}{\de L} \dy\\
+%&\le \rc{\Vol(\tau B_X)}\int_{\tau B_X}(L(\ub{\ve{y}_X}{\le\tau}+\de L)) \dy\lesssim L\tau.
+%\end{align*}
+%Now we prove the lemma. 
+%\begin{proof}
+%We need to show
+%\[
+%\ve{F(x)-F(y)}_Y \le L\pa{1+\fc{\de n}{2\tau}} \ve{x-y}_X.
+%\]
+%\Wog $y=0$, $\Vol(\tau B_X)=1$. Denote 
+%\bal
+%M&=\tau B_{X}\bs (x+\tau B_X)\\
+%M'&=(x+\tau B_X) \bs \tau B_X.
+%\end{align*}%
+
+%\ig{images/9-2}{.25}%
+
+%We have
+%\bal
+%F(0)-F(x) &= \int_M F_z(y)\,dy - \int_{M'} F_z(y)\,dy.
+%\end{align*}
+%Define $\om(z)$ to be the Euclidean length of the interval $(z+\R x)\cap (\tau B_X)$. By Fubini,
+%\[
+%\int_{\Proj_{X^{\perp}} (\tau B_X)} \om(z) \,dz = \Vol_n(\tau B_X)=1.
+%%intersection of projection.
+%\]
+%Denote
+%\bal
+%W&= \set{z\in \tau B_X}{(z+\R x)\cap (\tau B_X)\cap (x+\tau B_X)\ne \phi}\\
+%N&= \tau B_X\bs W.
+%\end{align*}
+%Define $C:M\to M'$ a shift in direction $X$ on every fiber that maps the interval $(z+\R x)\cap M\to (z+\R x)\cap M'$. %
+
+%\ig{images/9-3}{.25}%
+
+%$C$ is a measure preserving transformation with
+%\[
+%\ve{z-C(z)}_X =\begin{cases}
+%\ve{x}_X , &z\le N\\
+%\om(z) \fc{\ve{x}_X}{\ve{x}_2},& z\in W\cap M.
+%\end{cases}
+%\]
+%(In the second case we translate by an extra factor $\fc{\om(z)}{\ve{x}_2}$.)
+%%(In the second case we add the total length $
+%%C maps $M'$ to $M$.
+%%do a clever change of variable differently in each fiber.
+%Then 
+%\bal
+%\ve{F(0)-F(x)}_Y &=\ve{\int_M F_2(y)\dy - \int_{M'}F_2(y)\dy}_Y\\
+%&= \ve{\int_M(F_2(y) - F_2(C(y)))\dy}_Y\\
+%&\le \int_M L(\ve{y-C(y)}_X+\de)\dy\\
+%&\le \int_M L (\ve{y-C(y)}_X + \de)\dy\\
+%&=L\de \Vol(M) + L \int_M \ve{y-C(y)}_X\dy\\
+%\int_M \ve{y-C(y)}_X\dy 
+%%orth decomp but not unit vector, integrate the length multiply by norm of direction. jacobian.
+%&=\int_{N}\ve{x}_X\dy + \int_{W\cap M}\fc{\om(y)\ve{x}_X}{\ve{x}_2}\dy\\
+%&=\ve{x}_X \Vol(N) + \int_{\Proj(W\cap M)} \fc{\om(z) \ve{x}_X}{\ve{x}_2} \ve{x}_2\,dz&\text{orthogonal decomposition}\\
+%&=\ve{x}_X \Vol(N) + \Vol(\tau B_X\bs N) \\
+%&=\ve{x}_X \Vol(\tau B_X)=\ve{x}_X.
+%\end{align*}
+%%w as the entire length. What I get is the entire volume. 
+%We show $M=\tau B_X\bs (x+\tau B_X) \subeq \tau B_X\bs (1-\fc{\ve{x}}{\tau}) \tau B_X$. Indeed, for $y\in M$,
+%\bal
+%\ve{y-x}_X&\ge \tau\\
+%\ve{y} & \ge \tau - \ve{x} = \pa{1-\fc{\ve{x}}{\tau}}\tau.
+%\end{align*}
+%\end{proof}
+%Then 
+%\[
+%\Vol(M) \le \Vol(\tau B_X)-\Vol\pa{\pa{1-\fc{\ve{x}}{\tau}}\tau B_X}=1-\pa{1-\fc{\ve{x}}{\tau}} \lesssim \fc{n\ve{x}}{\tau}
+%\]
+%\end{proof}
+%Bourgain did it in a more complicated, analytic way avoiding geometry. Begun notices that careful geometry is sufficient.%
+%
+
+%Later we will show this theorem is sharp.%
+
+%%iteration!%
+
+%\section{Proof of Bourgain's discretization theorem}%
+
+%At small distances there is no guarantee on the function $f$. Just taking derivatives is dangerous. It might be true that we can work with the initial function. But the only way Bourgain figured out how to prove the theorem was to make a 1-parameter family of functions.%
+
+%\subsection{The Poisson semigroup}
+%\begin{df}
+%The \ivocab{Poisson kernel} is $P_t(x):\R^n\to \R$ given by
+%\[
+%P_t(x)=\fc{C_nt}{(t^2+\ve{x}_2^2)^{\fc{n+1}2}}, \quad C_n=\fc{\Ga\pf{n+1}2}{\pi^{\fc{n+1}2}}.
+%\]
+%%Convolution becomes product under FT
+%\end{df}%
+
+%\begin{pr}[Properties of Poisson kernel]
+%\begin{enumerate}
+%\item
+%For all $t>0$, $\int_{\R^n} P_t(x)\,dx=1$.
+%\item
+%(Semigroup property) $P_t*P_s=P_{t+s}$. 
+%\item
+%$\wh{P_t}(x) = e^{-2\pi\ve{x}_2t}$.
+%\end{enumerate}•
+%\end{pr}%
+
+%\begin{lem}
+%Let $F$ be the function obtained from Bourgain's almost extension theorem~\ref{thm:baet}.
+%For all $t>0$, $\ve{P_t*F}_{\text{Lip}}\lesssim 1$.
+%%P_t is prob measure.
+%%Average values of $F$.
+%%poU, geometr y of ball, average with decaying weights.
+%%all averaging of Lipschitz things.%
+
+%%1+\ep subtlety, ceases to be true, need restriction on $T$. Not relevant. $1+\ep$ version do more carefully.
+%\end{lem}
+%%Note to get $P_t*F$ we had three averaging arguments: partition of unity, averaging with respect to a ball, and then averaging with decaying weights.
+%We have 
+%\bal
+%P_t*F(x)-P_t*F(y) &= \int_{\R^n} P_t(z)(F(x-z) - F(x-y))\,dz.
+%\end{align*}
+%Our goal is to show there exists $t_0>0$, $x\in B\in \rc B_X$ such that if we define
+%\[
+%T=(P_{t_0}*F)'(x):X\to Y,
+%\]
+%we have $\ve{T}\lesssim 1$. Moreover $\ve{T^{-1}}\lesssim D$.
+%$T_y=\lim_{h\to \iy} \fc{P_{t_0}*F(x+hy) - P_{t_0}*F(x)}{h}$.
+%%pigeonhole, must exist
