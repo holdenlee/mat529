@@ -141,17 +141,17 @@ Now, Bourgain's discretization theorem says
 \begin{thm*}[Bourgain's discretization theorem~\ref{thm:bdt}]
 If dim$(X) = n$, dim$(Y) = \infty$, then 
 \[
-\delta_{X \hra Y}(\epsilon) \geq e^{-\left(\frac{n}{\epsilon}\right)^{C*n}}
+\delta_{X \hra Y}(\epsilon) \geq e^{-\left(\frac{n}{\epsilon}\right)^{Cn}}
 \]
 for $C$ a universal constant. 
 \end{thm*}
 %The way to read this is: If $\delta$ is bigger than this number which is only dependent on $n$, then given any Banach spaces with dimension $n$, there are mappings with this granularity for any such spaces. 
 
 \begin{rem}
-It doesn't matter what the maps are for the $\cal N_\de$, the proof will give a linear mapping and we won't end up needing them. Assuming linearityp in the definition is not necessary. 
+It doesn't matter what the maps are for the $\cal N_\de$, the proof will give a linear mapping and we won't end up needing them. Assuming linearity in the definition is not necessary. 
 
 
-Rademacher's theorem says that any mapping $\R^n \to \R^n$ is differentiable almost everywhere with bi-Lipschitz derivative. Yu can extend this to $n = \infty$, but you need some additional properties: $Y$ must be thedual space, and the limit needs to be in the weak-$*$ topology. In this topology there exists a sequence of norm-$1$ vectors that tend to $0$. 
+Rademacher's theorem says that any mapping $\R^n \to \R^n$ is differentiable almost everywhere with bi-Lipschitz derivative. Yu can extend this to $n = \infty$, but you need some additional properties: $Y$ must be the dual space, and the limit needs to be in the weak-$*$ topology. In this topology there exists a sequence of norm-$1$ vectors that tend to $0$. 
 %A weak $*$ limit of a function can degenerately become $0$, the upper bound is not the issue. But you can prove that this doesn't happen almost everywhere.
 Almost everywhere, this doesn't happen. The Principle of Local Reflexivity  says $Y^{**}$ and $Y$ are not the same for infinite dimensional $Y$. The double dual of all sequences which tend to $0$ is $L_{\infty}$, a bigger space, but the difference between these never appears in finite dimensional phenomena. 
 \end{rem}
@@ -198,7 +198,7 @@ $\de$ was arbitrary, so without loss of generality we can assume in the proof of
 \end{proof}
 
 
-The strategy of to prove Bourgain's discretization theorem is as follows. Given a $\delta$-net $\cal N_{\de} \subseteq B_X$ with $\delta \leq e^{-(n/\epsilon)^{Cn}}$, and we know $\exists $ $f: \cal N_{\de} \to Y$ such that $\frac{1}{D}\|x - y\|_X \leq \|f(x) - f(y)\|_Y \leq \|x - y\|_X$, i.e., we can embed with distortion $D$. 
+The strategy to prove Bourgain's discretization theorem is as follows. Given a $\delta$-net $\cal N_{\de} \subseteq B_X$ with $\delta \leq e^{-(n/\epsilon)^{Cn}}$, and we know $\exists $ $f: \cal N_{\de} \to Y$ such that $\frac{1}{D}\|x - y\|_X \leq \|f(x) - f(y)\|_Y \leq \|x - y\|_X$, i.e., we can embed with distortion $D$. 
 %Our goal is to show that if $\delta < e^{-(D/\epsilon)^{Cn}}$, then there exists a linear operator $T: X \to Y$ such that $\|T\|\cdot\|T^{-1}\| \leq 1 + 20\epsilon$. 
 %he switches to $D$ later---which notation is better.
 Our goal is to show that if $\de\le e^{-D^{Cn}}$ then this implies that there exists $T:X\to Y$ linear operator invertible $\ve{T}\ve{T^{-1}}\lesssim D$. 

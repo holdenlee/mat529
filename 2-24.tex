@@ -20,7 +20,6 @@ Let $X$ be a $n$-dimensional normed space, $Y$ a Banach space, $\cal N_\de\subeq
 \item $F$ is smooth.
 %3, 4 added: 2-29 (useful to have compact support)
 \end{enumerate} % all these constants are small.
-Parts 3 and 4 will come ``for free."
 %if $\de$ small, intuitively close. 
 %biLip on net small, not biLip but separates points far apart, Lip when choose parameters. Smooth out, can differentiate. Derivative is a linear operator.
 %The deriv is linear operator, norm will be bounded.
@@ -33,6 +32,7 @@ Parts 3 and 4 will come ``for free."
 %if you nail values on the net and extend even thogh there may be flat regions they can not not flat everywhere.
 %insist that take exactly the values. In that setting there is a huge amount of literature. If you insist on keeping value, the Lipshitz consant must grow. 
 \end{thm}
+Parts 3 and 4 will come ``for free."
 \subsection{Lipschitz extension problem}
 
 \begin{thm}[Johnson-Lindenstrauss-Schechtman, 1986]
@@ -40,7 +40,7 @@ Let $X$ be a $n$-dimensional normed space $A\subeq X$, $Y$ be a Banach space, an
 \end{thm}
 We know a lower bound of $\sqrt n$; losing $\sqrt n$ is sometimes needed. (The lower bound for nets on the whole space is $\sqrt[4]{n}$.) A big open problem is what the true bound is. 
 
-This was done a year before Bourgain.Why didn't he use this theorem? This theorem is not sufficient because the Lipschitz constant grows with $n$.
+This was done a year before Bourgain. Why didn't he use this theorem? This theorem is not sufficient because the Lipschitz constant grows with $n$.
 
 %We want to extend it so the norm of the derivative is free, and we only fight against hte inverse. 
 We want to show that $\ve{T}\ve{T^{-1}}\lesssim D$. We can't bound the norm of $T^{-1}$ with anything less than the distortion $D$, so to prove Bourgain embedding we can't lose anything in the Lipschitz constant of $T$; the Lipschitz constant can't go to $\iy$ as $n\to \iy$. 
@@ -160,7 +160,8 @@ It's enough to show the new ellipse $\cal E_{a,b}$ is in the rhombus in the pict
 \begin{proof}[Proof of Theorem~\ref{thm:baet}]
 By translating $f$ (so that it is 0 at some point), \wog we can assume that for all $x\in \cal N_\de$, $\ve{f(x)}_Y\le 2L$. 
 
-\step{1} (Rough (i.e., noncontinuous) extension $F_1$ on $S_X$.) We show that there exists $F_1:S_X\to Y$ such that for all $x\in \cal N_\de\to Y$ such that for all $x\in \cal N_\de$,
+\step{1} (Rough %(i.e., noncontinuous) 
+extension $F_1$ on $S_X$.) We show that there exists $F_1:S_X\to Y$ such that for all $x\in \cal N_\de\to Y$ such that for all $x\in \cal N_\de$,
 \begin{enumerate}
 \item
 $\ve{F_1(x)-f(x)}_Y\le 2L\de$.

@@ -1,149 +1,213 @@
-\blu{3-2: Today we are continuing with Bourgain's Theorem.}
 
-
-Initially we had a function $f: N_{\delta} \to Y$ and a $\delta$-net $N_{\delta}$ of $B_X$. We got from it a new function $F: X \to Y$, and we have $\txtn{supp}(F) \subseteq 3 B_X$ (none of these constants matter). We know that $\|F\|_{L_p} \le 1$ for some constant. Also, for every $x \in N_{\delta}$, $\|F(x) - f(x)\|_Y \leq n\delta$. 
-
-Now, let $P_t: \R^n \to \R$ be the Poisson kernel, and we are investigating what can be said about the convolution $P_t * F$. We know that for all $t$ and for all $x$, $\|(P_t * F)(x)\|_{X \to Y} \le 1$. The goal is to make this guy invertible. 
-
-We're going to do this by s What does it mean that it's invertible? It means that the norm is not too small when you take the norm of the inverted operator. We're going to start by doing this one direction at a time by investigating the directional derivatives. Take $g: \R^n \to Y$. Then for $a \in S_X$, $partial_a g(x) = \lim_{t \to 0} \frac{g(x + ta) - g(x)}{t}$. 
-
-There isn't any particular reason why we need to use the Poisson kernel; there are many other kernels which satisfy this. We \textbf{definitely} need the semigroup property, in addition to all sorts of decay conditions. 
-
-There will be many lemmas we need to go through. 
-
-\begin{lem} Key lemma $1$. \\
-Let $c, c', c''$ be universal constants which arise from the proof. 
-Suppose $t \in (0, \frac{1}{2}]$, $R \in (0, \infty)$. 
-Then $\delta \in (0, \frac{1}{100n})$ satisfy: 
+\blu{3-2: Today we continue with Bourgain's Theorem. Summarizing our progress so far:
 \begin{enumerate}
-
-\item $ \delta \leq C \frac{t\log(1/t)}{\sqrt{n}} \leq c' \frac{1}{n^{5/2}D^2}$
-
-\item $ c''n^{3/2}D^2\log(1/t) \leq R \leq \frac{c''}{t\sqrt{n}}$
-
+\item
+Initially we had a function $f: N_{\delta} \to Y$ and a $\delta$-net $N_{\delta}$ of $B_X$.
+\item
+From $f$ we got a new function $F: X \to Y$ with $\txtn{supp}(F) \subseteq 3 B_X$, satisfying the following. (None of the constants matter.) 
+\begin{enumerate}
+\item
+$\|F\|_{L_p} \le C$ for some constant.
+\item 
+For all $x \in N_{\delta}$, $\|F(x) - f(x)\|_Y \leq n\delta$. 
 \end{enumerate}
+\end{enumerate}
+}
 
-Then for all $x \in \frac{1}{2} B_X, a \in S_X$, then 
+Let $P_t: \R^n \to \R$ be the Poisson kernel. What can be said about the convolution $P_t * F$? We know that for all $t$ and for all $x$, $\|(P_t * F)(x)\|_{X \to Y} \le 1$. The goal is to make this function invertible. More precisely, the norm of the inverted operator is not too small. 
+
+We'll ensure this one direction at a time by investigating the directional derivatives. For $g: \R^n \to Y$, the directional derivative is defined by: for all $a \in S_X$, \[\partial_a g(x) = \lim_{t \to 0} \frac{g(x + ta) - g(x)}{t}.\]
+
+There isn't any particular reason why we need to use the Poisson kernel; there are many other kernels which satisfy this. We \emph{definitely} need the semigroup property, in addition to all sorts of decay conditions. 
+
+%There will be many lemmas we need to go through. 
+We need a lot of lemmas.
+
+\begin{lem}[Key lemma 1]\llabel{lem:bdt-1}
+%Let $c, c', c''$ be universal constants which arise from the proof. 
+There are universal constants $C,C',C''$ such that the following hold.
+Suppose $t \in (0, \frac{1}{2}]$, $R \in (0, \infty)$. 
+Let $\delta \in (0, \frac{1}{100n})$ satisfy 
+\begin{align}
+\delta &\leq C \frac{t\log(1/t)}{\sqrt{n}} \leq C' \frac{1}{n^{5/2}D^2}
+\label{eq:bdt1-1}
+\\
+\label{eq:bdt1-2}
+ C''n^{3/2}D^2\log(1/t) &\leq R \leq \frac{C''}{t\sqrt{n}}.
+\end{align}
+%
+%
+%\begin{enumerate}
+%
+%\item $ \delta \leq C \frac{t\log(1/t)}{\sqrt{n}} \leq c' \frac{1}{n^{5/2}D^2}$
+%
+%\item $ c''n^{3/2}D^2\log(1/t) \leq R \leq \frac{c''}{t\sqrt{n}}$
+%
+%\end{enumerate}
+
+Then for all $x \in \frac{1}{2} B_X, a \in S_X$, we have
 \[
-\|partial_a(P_t*F)\|_Y * P_{Rt}(x) \ge \frac{1}{D}
+\|\partial_a(P_t*F)\|_Y * P_{Rt}(x) \ge \frac{1}{D}
 \]
-
-This result says that if you give me a direction and look at how long this vector is, it is not only large, it's large on average. How large on average? You let the Poisson semigroup fight itself (flow in times $t$), you'll be at $Rt$. We want this to be long for every direction, but the average is also a function of $t$ (the measure with respect to averaging). So we have a directional derivative result with weird averaging: We flow an exponetially small amount of time, from this information you want to deduce the situation where we are invertible. 
-
-All the first condition says is that $t$ is not too small, but the lower bound is really really small. The upper bound says here we're at $(1/n)^{\txtn{some power}}$ whereas the lower bound is ridiculously small at $(e^n)^n$. So there's a huge gap.
-
-The second condition says that $\log(1/t)$ is going to still be exponential. 
 \end{lem}
+This result says that given a direction $a$ and look at how long the vector $\pl_a (P_t*F)$ is, it is not only large, but large on average. Here the average is over the time period $Rt$. 
+%How large on average? 
+%?
+%You let the Poisson semigroup fight itself (flow in times $t$), you'll be at $Rt$. We want this to be long for every direction, but the average is also a function of $t$ (the measure with respect to averaging). So we have a directional derivative result with weird averaging: We flow an exponetially small amount of time, from this information you want to deduce the situation where we are invertible. 
+
+The first condition says is that $t$ is not too small, but the lower bound is extremely small. The upper bound is $\prc{n}^{k}$ for some $k$ whereas the lower bound is something like $e^{-e^{n}}$, so there's a huge gap. %ridiculously small at $(e^n)^n$. So there's a huge gap.
+
+The second condition says that $\log\prc{t}$ is still exponential. 
+
 
 This lemma will come up later on and it will be clear. 
 
 From now on, let us assume this key lemma and I will show you how to finish. We will go back and prove it later. 
 
-\begin{lem} Key lemma $2$. \\
+\begin{lem}[Key lemma $2$]\llabel{lem:bdt-2}
+There's a constant $C_1$ such that the following holds (we can take $C_1=8$). 
 Let $\mu$ be any Borel probability measure on $S_X$. For every $R, A \in (0, \infty)$, there exists $ \frac{A}{(R + 1)^{m + 1}} \leq t \leq A$ such that 
 \[
-\int_{S_X} \int_{\R^n} \|partial_a (P_t * F)(x)\|_Y dx d\mu(a) \leq \int_{S_X} \int_{\R^n} \|partial_a(P_{(R + 1)t} * F)\|_Y dx d\mu(a) + \frac{8\txtn{vol}(3B_X)}{m}
+\int_{S_X} \int_{\R^n} \|\partial_a (P_t * F)(x)\|_Y dx d\mu(a) \leq \int_{S_X} \ub{\int_{\R^n} \|\partial_a(P_{(R + 1)t} * F)\|_Y dx}{(*)} d\mu(a) + \frac{C_1\txtn{vol}(3B_X)}{m}
 \]
 \end{lem}
-Basically, under convolution, we can take the derivative under the integral sign. What we wrote on the right is an average of what we wrote on the left. An average only makes things smaller for norms, which are convex. So the right integral is trivially less than the left integral, from Jensen's inequality. But we have the opposite direction! It turns out that adding that small factor reverses the direction. If it's strongly convex, we would actually get that our average is a constant. So we're going to argue that there must be a point where Jensen's inequality stabilizes, and at some scale, the $\|\partial_a(P_t*F)\|_Y*P_{Rt}(x)$ will stabilize to a constant at some scale. 
+Basically, under convolution, we can take the derivative under the integral sign. 
+Thus (*) is an average of what we wrote on the left. Averaging only makes things smaller for norms, because norms are convex. Thus the  right integral is less than the left integral, from Jensen's inequality. 
 
-Note this is really the pidegonhole argument, geometrically.
+The lemma says that  adding that small factor, we get a bound in the opposite direction. %If the norm is strongly convex, we would actually get that our average is a constant. %?
+We will argue that there must be a scale at which Jensen's inequality stabilizes, i.e., $\|\partial_a(P_t*F)\|_Y*P_{Rt}(x)$ stabilizes to a constant.
+
+Note this is really the pigeonhole argument, geometrically.
 
 \begin{proof}
-Bourgain does this a lot in his papers. He finds some point where the inequality held is equality, and then we will leverage that. 
+Bourgain uses this technique a lot in his papers: find some point where the inequality is equality, and then leverage that. 
 
-If the result does not hold, then for every $t$ in the range $\frac{t}{(R + 1)^{m + 1}} \leq t \leq A$, the reverse holds. Therefore, we'll just use it in jumps which are in a geometric series. We have that 
+If the result does not hold, then for every $t$ in the range $\frac{t}{(R + 1)^{m + 1}} \leq t \leq A$, the reverse holds. We'll use the inequality at eveyr point in a geometric series. For  all $k \in\{ 0, \ldots, m + 1\}$, 
 \[
-\int_{S_X} \int_{\R^n} \|\partial_a(P_{A(R + 1)^{k - m - 1}}*F)(x)\|_Ydxd\mu(a) > \int_{S_X} \int_{\R^n} \|\partial_a(P_{A(R + 1)^{k - m}}*F)(x)\|_Y dxd\mu(a) + \frac{8\txtn{vol}(3B_X)}{m}
+\int_{S_X} \int_{\R^n} \|\partial_a(P_{A(R + 1)^{k - m - 1}}*F)(x)\|_Ydxd\mu(a) > \int_{S_X} \int_{\R^n} \|\partial_a(P_{A(R + 1)^{k - m}}*F)(x)\|_Y dxd\mu(a) + \frac{C_1\txtn{vol}(3B_X)}{m}.
 \]
-for all $k \in 0, \cdots, m + 1$. We basically are iterating this inequality many times, starting from the lower bound condition stated in the lemma. Iterating, it telescopes, and we get 
-\[
+%We basically are iterating this inequality many times, starting from the lower bound condition stated in the lemma. 
+Summing up these inequalities and telescoping
+\begin{equation}\label{eq:bdt-poisson1}
 \int_{S_X} \int_{\R^n} \|\partial_a(P_{A(R + 1)^{-m - 1}}*F)(x)\|_Y dxd\mu(a) > \int_{S_X} \int_{\R^n} \|\partial_a(P_{A(R + 1)}*F)(x)\|_Y dxd\mu(a) + \frac{8(m + 1)\txtn{vol}(3B_X)}{m}
-\]
-since it's going to cancel things out until we get to the end, which is $A(R + 1)$ (recall that we've been using the semigroup properties of the Poisson kernel this whole time). Now why is this conclusion absurd? $8$ is the bound on the Lipschitz constant of $F$. It's some universal constant at any rate. $F$ is differentiable and $8$-Lipschitz. We have that $\|\partial_aF\|_Y \leq 8$, $\partial_a(P_{A(R+1)^{-m - 1}}*F)(x)$. Since partial derivatives commute with the integral sign, we get 
-\[
-\int_{\R^n} \|\partial_a(P_{A(R+1)^{-m - 1}}*F)(x)\|_Y dx = \int_{\R^n} \|(P_{A(R+1)^{-m - 1}}*\partial_aF)(x)\|_Y dx
-\]
-and 
-\[
-\leq \int_{\R^n} \int_{\R^n} \cdots \fixme{HERE} \leq 8\txtn{vol}(B_X)
-\]
-which is a contradiction.
-We're just using that $F$ is Lipschitz and the fact that the Poisson semigroup integrates to unity. 
+\eeq
+(recall that we've been using the semigroup properties of the Poisson kernel this whole time). Now why is this conclusion absurd? 
+Take $C_1$ to be the bound on the Lipschitz constant of $F$. Because $\|\partial_aF\|_Y \leq 8$, we have$\partial_a(P_{A(R+1)^{-m - 1}}*F)(x)\le C_1$. Since partial derivatives commute with the integral sign, we get 
+\begin{align}
+\int_{S_X}
+\int_{\R^n} \|\partial_a(P_{A(R+1)^{-m - 1}}*F)(x)\|_Y \dx\,d\mu(a) &= \int_{S_X}\int_{\R^n} \|(P_{A(R+1)^{-m - 1}}*\partial_aF)(x)\|_Y \dx\,d\mu(a)\\
+&\le \int_{S_X}\int_{\R^n} C_1\le C_1\vol(B_X)\label{eq:bdt-poisson2}
+\end{align}
+because  $F$ is Lipschitz and the Poisson semigroup integrates to unity. 
+Together~\eqref{eq:bdt-poisson1} and~\eqref{eq:bdt-poisson2} give a contradiction.
 \end{proof}
 
-Now assuming the Key lemma $1$, let's complete the proof of Bourgain's discretization theorem. Assume from now on $\delta < \left(\frac{1}{cD}\right)^{(CD)^{2n}}$ where $C$ is a large enough constant that we will choose $(C = 500$ or something). 
+Now assuming Lemma~\ref{lem:bdt-1} (Key Lemma $1$), let's complete the proof of Bourgain's discretization theorem. Assume from now on $\delta < \left(\frac{1}{cD}\right)^{(CD)^{2n}}$ where $C$ is a large enough constant that we will choose $(C = 500$ or something). 
 
-Let $\mathcal{F} \subseteq S_X$ be a $\frac{1}{10D}$-net in $S_X$. Then there are $|\mathcal{F}| \leq (30D)^n$. We will apply the lemma with $\mu$ the uniform measure on $\mathcal{F}$. 
-
-Apply the lemma with $A = (1/CD)^{5n}$, $R + 1 = (cD)^{4n}$, $m = \lceil (CD)^{n + 1} \rceil$. By lemma, there exists $(1/(CD))^{(CD)^{2n}} \leq t \leq (1/(CD))^{5n}$. Then we can find the $t$ such that this holds. 
-\[
+Let $\mathcal{F} \subseteq S_X$ be a $\frac{1}{C_2D}$-net in $S_X$. Then $|\mathcal{F}| \leq (C_3D)^n$ for some $C_3$. We will apply the Lemma~\ref{lem:bdt-2} (Key Lemma 2) with $\mu$ the uniform measure on $\mathcal{F}$, 
+\begin{align*}A &= (1/CD)^{5n}\\
+R + 1 &= (CD)^{4n}\\
+m &= \lceil (CD)^{n + 1} \rceil.
+\end{align*}
+ Then there exists $(1/(CD))^{(CD)^{2n}} \leq t \leq (1/(CD))^{5n}$ such that  %Then we can find the $t$ such that this holds. 
+\beq{eq:bdt-pf-lem2}
 \sum_{a \in \mathcal{F}} \int_{\R^n} \|\partial_a(P_t *F)(x)\|_Y dx \leq \sum_{a \in \mathcal{F}} \int_{\R^n} \|\partial_a(P_{(R + 1)t}*F)(x)\|_Y dx + \frac{8\txtn{vol}(3B_X)}{m} |\mathcal{F}|
-\] 
+\eeq
+We check the conditions of Lemma~\ref{lem:bdt-1} (Key Lemma $1$).
+\begin{enumerate}
+\item
+For~\eqref{eq:bdt1-1}, note $t$ is exponentially small, so the RHS inequality is satisfied.
+For the LHS inequality, note $\de \le t$ and $\fc{C\ln \prc{t}}{\sqrt n}\le 1$. To see the second inequality, note $\fc{C\ln \prc{t}}{\sqrt n} \ge \fc{C5n \ln (CD)}{\sqrt n}\ge 1$ (for $n$ large enough).
+\item 
+For~\eqref{eq:bdt1-1}, note the LHS is dominated by $\ln \prc{t} \le (CD)^{2n} \ln(CD)$ which is much less than $R=(CD)^{4n}-1$, and $\rc t$, the dominating term on the RHS, is $\ge (CD)^{5n}$.
+%the RHS is doubly exponential.
+\end{enumerate}•
+%If $\delta$ satisfies $\delta <\prc{CD}^{(CD)^{2n}}=t$, then the conditions of Lemma~\ref{lem:bdt-1} (Key Lemma $1$) hold. The first condition must be bigger than $t$, and the upper bound on $t$ is exponential even. So we're fine. Now we check the bound on $\log(1/t)$, which is at most exponential in $D$. What is $R$? We made that exponential too, so there is room to spare. Finally, $1/t$ exceeds $R$ as well since $1/t$ is $(CD)^{5n}$ while $R$ was $(CD)^{4n}$. So we're good. 
 
-Check if $\delta$ satisfies $\delta < (1/CD)^{(CD)^{2n}}$. Then the conditions of the Key Lemma $1$ hold. The first condition must be bigger than $t$, and the upper bound on $t$ is exponential even. So we're fine. Now we check the bound on $\log(1/t)$, which is at most exponential in $D$. What is $R$? We made that exponential too, so there is room to spare. Finally, $1/t$ exceeds $R$ as well since $1/t$ is $(CD)^{5n}$ while $R$ was $(CD)^{4n}$. So we're good. 
+In my paper \fixme{(reference?)}, I wrote what the exact constants are. They're written in the paper, and are not that important. We're choosing our constants big enough so that our inequalities hold true with room to spare. 
 
-In the paper (I have a link), I wrote what the exact constants are. They're written in the paper, and are not that important. We're choosing our constants big enough so that our inequalities hold true with room to spare. 
+Now we can use Key Lemma $1$, which says
+\beq{eq:bdt-pf-lem1}
+\left(\|\partial_a(P_t*F)\|_Y * P_{Rt}\right)(x)\ge \rc{D}
+\eeq
+ %Look at the norm of the derivative in direction $a$ $\|\partial_a(P_{(R + 1)t}*F)(x)\|_Y$. Note that 
+Using $P_{(R + 1)t} = P_{Rt} * P_t$ (semigroup property) and Jensen's inequality on the norm, which is a convex function, we have 
+\beq{eq:bdt-conv}
+\|\partial_a(P_{(R + 1)t}*F)(x)\|_Y = \|\left(\partial_a(P_t*F)\right)*P_{Rt}(x)\|_Y \leq \left(\|\partial_a(P_t*F)\|_Y * P_{Rt}\right)(x).
+\eeq
+Since the norm is a convex function, by Jensen's we get our inequality. %Note that we are using semigroup properties liberally. 
 
-So now we're allowed to use the Key Lemma $1$. Look at the norm of the derivative in direction $a$ $\|\partial_a(P_{(R + 1)t}*F)(x)\|_Y$. Note that $P_{(R + 1)t} = P_{Rt} * P_t$. Since everything commutes, we can rewrite $\|\partial_a(P_{(R + 1)t}*F)(x)\|_Y = \|\left(\partial_a(P_t*F)\right)*P_{Rt}(x)\|_Y \leq \left(\|\partial_a(P_t*F)\|_Y * P_{Rt}\right)(x)$. Since the norm is a convex function, by Jensen's we get our inequality. Note that we are using semigroup properties liberally. 
-
-So we know that pointwise
+Let 
 \[
-\left(\|\partial_a(P_t*F)\|_Y * P_{Rt}\right)(x) - \|\partial_a\left(P_{(R + 1)t}*F\right)(x)\|_Y \geq 0
+\psi(x):=\left(\|\partial_a(P_t*F)\|_Y * P_{Rt}\right)(x) - \|\partial_a\left(P_{(R + 1)t}*F\right)(x)\|_Y
 \]
-Think of this experssion above as a random variable. It's positive on half the ball. So we can use Markov's inequality. So you get that the volume over all the $x \in \frac{1}{2}B_X$ is 
+From~\eqref{eq:bdt-conv}, $\psi(x)\ge 0$ pointwise. 
+%Think of this experssion above as a random variable. It's positive on half the ball. So we can use Markov's inequality. So you get that the volume over all the $x \in \frac{1}{2}B_X$ is 
+Using Markov's inequality,
 \[
-\txt{vol}\left(x \in \frac{1}{2}B_X : \left(\|\partial_a(P_t*F)\|_Y * P_{Rt}\right)(x) - \|\partial_a\left(P_{(R + 1)t}*F\right)(x)\|_Y  > 1/D\right)
+\vol\set{x\in \rc{2}B_X}{\psi(x)>\rc D}\leq D\int_{\R^n} \left(\|\partial_a(P_t*F)\|_Y * P_{Rt}\right)(x) - \|\partial_a\left(P_{(R + 1)t}*F\right)(x)\|_Y ) dx.
+%\txt{vol}\left(x \in \frac{1}{2}B_X : \left(\|\partial_a(P_t*F)\|_Y * P_{Rt}\right)(x) - \|\partial_a\left(P_{(R + 1)t}*F\right)(x)\|_Y  > 1/D\right)
 \]
-So for every $x$, the points such that the measure is bigger than $1/D$ is bounded by 
-\[
-\leq D\int_{R^n} \left(\|\partial_a(P_t*F)\|_Y * P_{Rt}\right)(x) - \|\partial_a\left(P_{(R + 1)t}*F\right)(x)\|_Y ) dx
-\]
-since we can upper bound the integral over the ball by an integral over $\R^n$. 
-So we're really using the probabilistic method, since we are proving there must be such a point. 
+%So for every $x$, the points such that the measure is bigger than $1/D$ is bounded by 
+%\[
+%\leq D\int_{R^n} \left(\|\partial_a(P_t*F)\|_Y * P_{Rt}\right)(x) - \|\partial_a\left(P_{(R + 1)t}*F\right)(x)\|_Y ) dx
+%\]
+because we can upper bound the integral over the ball by an integral over $\R^n$. 
+Note we are using the probabilistic method. %, since we are only proving the existence of such a point.
 
-We want to use the union bound. Previously we were doing things for fixed $a$, now we want to do things for every $a$. Let's call
-\[
-\psi(x) = \left(\|\partial_a(P_t*F)\|_Y * P_{Rt}\right)(x) - \|\partial_a\left(P_{(R + 1)t}*F\right)(x)\|_Y 
-\]
-Then rewriting
-\[
-\txtn{vol}\left(x \in \frac{1}{2}B_X: \exists a \in \mathcal{F}, \psi_a(x) > 1/D\right) \leq \sum_{a \in \mathcal{F}} \txtn{vol}(x \in \frac{1}{2}B_X: \psi_a(x) > 1/D)
-\]
+This inequality was for a fixed $a$. We now use the union bound over $\cal F$, a $\de$-net of $a$'s to get
+%We want to use the union bound. Previously we were doing things for fixed $a$, now we want to do things for every $a$. Let's call
+%\[
+%\psi(x) = \left(\|\partial_a(P_t*F)\|_Y * P_{Rt}\right)(x) - \|\partial_a\left(P_{(R + 1)t}*F\right)(x)\|_Y 
+%\]
+%Then rewriting
+\begin{align}
+&\quad \txtn{vol}\set{x \in \frac{1}{2}B_X}{\exists a \in \mathcal{F}, \psi_a(x) > 1/D}\\ &\leq \sum_{a \in \mathcal{F}} \txtn{vol}(x \in \frac{1}{2}B_X: \psi_a(x) > 1/D)\\
+&\leq D\sum_{a \in \mathcal{F}} \int_{\R^n}\left(\|\partial_a(P_t*F)\|_Y * P_{Rt})(x) - \|\partial_a(P_{(R + 1)t} * F)(x)\|_Y\right) dx\\
+&=D\sum_{a \in \mathcal{F}} \int_{\R^n}\left(\|\partial_a(P_t*F)\|_Y)(x) - \|\partial_a(P_{(R + 1)t} * F)(x)\|_Y\right) dx \label{eq:bdt-convo}\\
+&\le \fc{C_1\vol(3B_X)}{m} (C_3D)^n < \vol\pa{\rc2B_X}.\label{eq:bdt-vol}
+\end{align}
+where~\eqref{eq:bdt-convo} follows because when you convolve something with a probability measure, the integral over $\R^n$ does not change, and~\eqref{eq:bdt-vol} follows from~\eqref{eq:bdt-pf-lem2} and our choice of $m$.
 
-\[
-\leq D\sum_{a \in \mathcal{F}} \int_{\R^n}\left(\|\partial_a(P_t*F)\|_Y * P_{Rt})(x) - \|\partial_a(P_{(R + 1)t} * F)(x)\|_Y\right) dx
-\]
-We know that when you average pointwise, the first term in the subtraction is bigger than $1/D$. 
+%We know that when you average pointwise, the first term in the subtraction is bigger than $1/D$. 
 
-When you convolve something with a probability measure, the integral over $\R^n$ does not change. Convoling with a probability measure does not change anything, so we can get rid of $P_{Rt}$. Then, 
-\[
-= D\sum_{a \in \mathcal{F}} \int_{\R^n}\left(\|\partial_a(P_t*F)\|_Y)(x) - \|\partial_a(P_{(R + 1)t} * F)(x)\|_Y\right) dx \leq \frac{8\txtn{vol}(3B_X)}{m}(10D)^n < \txtn{vol}(\frac{1}{2}B_X)
-\]
-by our choice of $m$ and since stabilization made this less than one. 
+%Convoling with a probability measure does not change anything, so we can get rid of $P_{Rt}$. Then, 
+%\[
+%= D\sum_{a \in \mathcal{F}} \int_{\R^n}\left(\|\partial_a(P_t*F)\|_Y)(x) - \|\partial_a(P_{(R + 1)t} * F)(x)\|_Y\right) dx \leq \frac{8\txtn{vol}(3B_X)}{m}(10D)^n < \txtn{vol}(\frac{1}{2}B_X)
+%\]
+%by our choice of $m$ and since stabilization made this less than one. 
 
-This is very technical, but we proved there must exist a point in half the ball such that for every $a \in \mathcal{F}$, our net, we have
+%This is very technical, but we 
+We've proved that there must exist a point in half the ball such that for every $a \in \mathcal{F}$, our net, we have
 \[
 \frac{1}{D} \geq \|\partial_a(P_t *F)\|_{Y} * P_{Rt}(x) - \|\partial_a(P_{(R + 1)t}*F)(x)\|_Y
 \]
-So we got that the for the \textbf{average}, the $P_{Rt}$ goes away. So from this we can conclude 
+\fixme{I think we want either this to be $\rc{2D}$, or~\eqref{eq:bdt-pf-lem1} to be $\rc{D/2}$, in order to get the following bound (with $\rc{2D}$ or $\rc{D}$). This involves changing some constants in the proof.}
+
+%So we got that the for the \emph{average}, the $P_{Rt}$ goes away. 
+From this we can conclude that for this $x$,
 \[
 \|\partial_a(P_{(R + 1)t} * F)(x)\|_Y \ge 1/D
 \]
 You should just look at what the exact constants are in the paper. 
 
-The crucial point was that we got something to stabilize using the pidgeonhole argument, and you got a difference where one of the terms is pointwise big, which causes the term you're subtracting from it to also be pointwise big. So now we choose $T$ a linear mapping to be
-\[
-T := (P_{(R + 1)t} * F)'(x)
-\]
-where $x$ is the special point from the probabilistic argument. Now we can check what happens. Now we know $\|T\| \leq 8$, and for every $a \in \mathcal{F}$ in the net, $\|Ta\| \ge b/D$ for some constant $b$. 
-The main key here is that we need to show for \textbf{every} point in the net that $\|\partial_a (P_t * F)\|_Y$ is good. You already get that this is big for one particular direction just from $\|\partial_a (P_t * F)\|_Y * P_{Rt}(x) \ge 1/D$. But there are exponentially many points in the net which we need to show this for. 
+%%NOTE: can include the following once it's fixed
 
-Take any $z \in S_X$, find $a \in \mathcal{F}$ s.t. $\|a - z\| < \frac{1}{100D}$. Then $\|Tz\| \geq \|Ta\| - \|T(a - z)\| \geq \|Ta\| - \|T\|\cdot\|az\| > \frac{b}{D} - 8\|a - t\| \geq 1/D$.  Then $\|T^{-1}\| \leq D$. \fixme{Fix this explanation a bit more? A bit confusing}
+%The crucial point was that we got something to stabilize using the pidgeonhole argument, and you got a difference where one of the terms is pointwise big, which causes the term you're subtracting from it to also be pointwise big. So now we choose $T$ a linear mapping to be
+%\[
+%T := (P_{(R + 1)t} * F)'(x)
+%\]
+%where $x$ is the special point from the probabilistic argument. Now we can check what happens. Now we know $\|T\| \leq 8$, and for every $a \in \mathcal{F}$ in the net, $\|Ta\| \ge b/D$ for some constant $b$. 
+%The main key here is that we need to show for \textbf{every} point in the net that $\|\partial_a (P_t * F)\|_Y$ is good. You already get that this is big for one particular direction just from $\|\partial_a (P_t * F)\|_Y * P_{Rt}(x) \ge 1/D$. But there are exponentially many points in the net which we need to show this for. 
+%
+%Take any $z \in S_X$, find $a \in \mathcal{F}$ s.t. $\|a - z\| < \frac{1}{100D}$. Then $\|Tz\| \geq \|Ta\| - \|T(a - z)\| \geq \|Ta\| - \|T\|\cdot\|az\| > \frac{b}{D} - 8\|a - t\| \geq 1/D$.  Then $\|T^{-1}\| \leq D$. \fixme{Fix this explanation a bit more? A bit confusing}
 
-There is a probaiblistic existence statement or result. Now you write down what it means. Suppose for contradiction that the probability is not small enough. The reason you succeeded to bound the probability is a proof by contradiction. Usually we estimate by hand the random variable we want to care about. Here we want to prove an existential bound, and we assume that it doesn't work, so estimating probability here is also by contradiction! 
+Note this is very much a probabiblistic existence statement or result. %Now you write down what it means. Suppose for contradiction that the probability is not small enough. The reason you succeeded to 
+%We bounded the probability using a proof by contradiction. 
+Usually we estimate by hand the random variable we want to care about. Here we want to prove an existential bound, so we estimate the probability of the bad case. But we estimate the probability of the bad case using another proof by contradiction.
+%, and we assume that it doesn't work, so estimating probability here is also by contradiction! 
 
-What's remaining now is just estimating integrals. 
+It remains to estimate some integrals. 
 
 %\step{2} Extend $F_1$ to the whole space to $F_2$ such that 
 %\begin{enumerate}
