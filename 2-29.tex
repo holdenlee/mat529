@@ -181,15 +181,19 @@ For all $t>0$, $\ve{P_t*F}_{\text{Lip}}\lesssim 1$.
 %1+\ep subtlety, ceases to be true, need restriction on $T$. Not relevant. $1+\ep$ version do more carefully.
 \end{lem}
 %Note to get $P_t*F$ we had three averaging arguments: partition of unity, averaging with respect to a ball, and then averaging with decaying weights.
+\begin{proof}
 We have 
 \bal
 P_t*F(x)-P_t*F(y) &= \int_{\R^n} P_t(z)(F(x-z) - F(x-y))\,dz.
 \end{align*}
+Now use the fact that $F$ is Lipschitz.
+\end{proof}
 Our goal is to show there exists $t_0>0$, $x\in B$ %\in \rc{} B_X$ 
 such that if we define
-\[
+\beq{eq:bdt-T}
 T=(P_{t_0}*F)'(x):X\to Y,
-\]
-we have $\ve{T}\lesssim 1$. Moreover $\ve{T^{-1}}\lesssim D$.
-$T_y=\lim_{h\to \iy} \fc{P_{t_0}*F(x+hy) - P_{t_0}*F(x)}{h}$.
+\eeq
+(i.e., $Ta=\pl_a(P_{t_0}*F)(x)$).
+We showed $\ve{T}\lesssim 1$. It remains to show $\ve{T^{-1}}\lesssim D$. Then $T$ has distortion at most $O(D)$, and hence $T$ gives the desired extension in Bourgain's discretizaton theorem~\ref{thm:bdt}.
+%$T_y=\lim_{h\to \iy} \fc{P_{t_0}*F(x+hy) - P_{t_0}*F(x)}{h}$.
 %pigeonhole, must exist

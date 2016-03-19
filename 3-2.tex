@@ -2,14 +2,14 @@
 \blu{3-2: Today we continue with Bourgain's Theorem. Summarizing our progress so far:
 \begin{enumerate}
 \item
-Initially we had a function $f: N_{\delta} \to Y$ and a $\delta$-net $N_{\delta}$ of $B_X$.
+Initially we had a function $f: \cal N_{\de} \to Y$ and a $\delta$-net $\cal N_{\de}$ of $B_X$.
 \item
 From $f$ we got a new function $F: X \to Y$ with $\txtn{supp}(F) \subseteq 3 B_X$, satisfying the following. (None of the constants matter.) 
 \begin{enumerate}
 \item
 $\|F\|_{L_p} \le C$ for some constant.
 \item 
-For all $x \in N_{\delta}$, $\|F(x) - f(x)\|_Y \leq n\delta$. 
+For all $x \in \cal N_{\de}$, $\|F(x) - f(x)\|_Y \leq n\delta$. 
 \end{enumerate}
 \end{enumerate}
 }
@@ -23,34 +23,40 @@ There isn't any particular reason why we need to use the Poisson kernel; there a
 %There will be many lemmas we need to go through. 
 We need a lot of lemmas.
 
+%\begin{lem} Inequality lemma. \\
+%Suppose $t, R, \delta > 0$ satisfy: 
+%\begin{enumerate}
+%
+%\item $\delta \leq c \frac{t\log(3/t)}{\sqrt{n}} \leq c' \frac{1}{n^{5/2}D^2}$
+%
+%\item $c'' n^{3/2}D^2 \log(3/t) \leq R \leq \frac{c''}{t\sqrt{n}}$
+%
+%\end{enumerate}
+%Then for every $x \in \frac{1}{2}B_X$ and $a \in \delta x$ a direction, (note $\partial_a$ is a directional derivative) 
+%\[
+%\left(\left\|\partial_a(P_t*F)\right\|_Y * P_{Rt}\right)(x) \ge c''''/D
+%\]
+%\end{lem}
+
 \begin{lem}[Key lemma 1]\llabel{lem:bdt-1}
 %Let $c, c', c''$ be universal constants which arise from the proof. 
 There are universal constants $C,C',C''$ such that the following hold.
-Suppose $t \in (0, \frac{1}{2}]$, $R \in (0, \infty)$. 
-Let $\delta \in (0, \frac{1}{100n})$ satisfy 
+Suppose $t \in (0, \frac{1}{2}]$, $R \in (0, \infty),\delta \in (0, \frac{1}{100n})$ satisfy 
 \begin{align}
-\delta &\leq C \frac{t\log(1/t)}{\sqrt{n}} \leq C' \frac{1}{n^{5/2}D^2}
+\delta &\leq C \frac{t\log(3/t)}{\sqrt{n}} \leq C' \frac{1}{n^{5/2}D^2}
 \label{eq:bdt1-1}
 \\
 \label{eq:bdt1-2}
- C''n^{3/2}D^2\log(1/t) &\leq R \leq \frac{C''}{t\sqrt{n}}.
+ C''n^{3/2}D^2\log(3/t) &\leq R \leq \frac{C''}{t\sqrt{n}}.
 \end{align}
-%
-%
-%\begin{enumerate}
-%
-%\item $ \delta \leq C \frac{t\log(1/t)}{\sqrt{n}} \leq c' \frac{1}{n^{5/2}D^2}$
-%
-%\item $ c''n^{3/2}D^2\log(1/t) \leq R \leq \frac{c''}{t\sqrt{n}}$
-%
-%\end{enumerate}
-
 Then for all $x \in \frac{1}{2} B_X, a \in S_X$, we have
 \[
-\|\partial_a(P_t*F)\|_Y * P_{Rt}(x) \ge \frac{1}{D}
+(\|\partial_a(P_t*F)\|_Y * P_{Rt})(x) \ge \frac{C'''}{D}
 \]
 \end{lem}
 This result says that given a direction $a$ and look at how long the vector $\pl_a (P_t*F)$ is, it is not only large, but large on average. Here the average is over the time period $Rt$. 
+
+\fixme{Note that I haven't been very careful with constants; there are some points where the constant is missing/needs to be adjusted.}
 %How large on average? 
 %?
 %You let the Poisson semigroup fight itself (flow in times $t$), you'll be at $Rt$. We want this to be long for every direction, but the average is also a function of $t$ (the measure with respect to averaging). So we have a directional derivative result with weird averaging: We flow an exponetially small amount of time, from this information you want to deduce the situation where we are invertible. 
@@ -104,6 +110,7 @@ Together~\eqref{eq:bdt-poisson1} and~\eqref{eq:bdt-poisson2} give a contradictio
 
 Now assuming Lemma~\ref{lem:bdt-1} (Key Lemma $1$), let's complete the proof of Bourgain's discretization theorem. Assume from now on $\delta < \left(\frac{1}{cD}\right)^{(CD)^{2n}}$ where $C$ is a large enough constant that we will choose $(C = 500$ or something). 
 
+\begin{proof}[Proof of Bourgain's Discretization Theorem~\ref{thm:bdt}]
 Let $\mathcal{F} \subseteq S_X$ be a $\frac{1}{C_2D}$-net in $S_X$. Then $|\mathcal{F}| \leq (C_3D)^n$ for some $C_3$. We will apply the Lemma~\ref{lem:bdt-2} (Key Lemma 2) with $\mu$ the uniform measure on $\mathcal{F}$, 
 \begin{align*}A &= (1/CD)^{5n}\\
 R + 1 &= (CD)^{4n}\\
@@ -187,9 +194,12 @@ We've proved that there must exist a point in half the ball such that for every 
 %So we got that the for the \emph{average}, the $P_{Rt}$ goes away. 
 From this we can conclude that for this $x$,
 \[
-\|\partial_a(P_{(R + 1)t} * F)(x)\|_Y \ge 1/D
+\ve{Ta}_Y=\|\partial_a(P_{(R + 1)t} * F)(x)\|_Y \ge 1/D
 \]
-You should just look at what the exact constants are in the paper. 
+where $a\in S_X$ we let $t_0=(R+1)t$. This shows $\ve{T^{-1}}\le D$.
+\end{proof}
+For the exact constants, see the paper \fixme{(reference)}.
+%You should just look at what the exact constants are in the paper. 
 
 %%NOTE: can include the following once it's fixed
 
