@@ -1,0 +1,334 @@
+\blu{3-21: A better bound in Bourgain Discretization}
+
+First I will go back to where we left off last time. When do you need a discretization bound going to zero? 
+I will explain this point again. There were two ingredients that I stated. My goal from last class is to show something very weak: 
+There exist Banach spaces $X, Y$ with dim $X = n$ such that if $\delta < 1$ and $N_{\delta}$ is a $\delta$-net in the unit ball, then 
+$C_Y(N_{\delta})$ is the distortion of the embedding into Y such that $C_Y(N_{\delta}) > C_Y(X)$, then $\delta < \frac{1}{n}$. And we proved that 
+\[
+\frac{1}{\rho n^{Cn}} < \delta_{X \to Y}(1/2) < 1/n
+\]
+We are mostly interested in changing the lower bound. 
+Here let's take $X = l_1^n, Y = l_2$. And the two ingredients we proved were first that $(L_1, \sqrt{\|x - y\|_1})$ is a metric space to a subset of $L_2$.  
+We claim that $(\Omega, \mu)$ is a measure space $(L_1(\mu), \sqrt{\|x - y\|_1})$ is isometric to a subset of $L_2(\Omega \times \R, \mu \times \lambda)$, where $\lambda$ is the Lesbegue measure of $\R$. All Hilbert spaces are separable. 
+
+First we define $T: L_1(\mu) \to L_2(\mu \times \lambda)$, with $f \in L_1(\mu)$, then
+\[
+Tf(w, x) = 
+\begin{cases}
+1 & 0 \leq f(w) \leq x \\
+-1 & x \leq f(x) \leq 0 \\
+0 & \txtn{o.w.}
+\end{cases}
+\]
+
+Then consider two $f_1, f_2 \in L_1(\mu)$. If you look at $|Tf_1 - Tf_2|$, this is just the indicator of the area between the graph of $f_1$ and the graph of $f_2$. So then, it's obvious what the $L_2$ norm is: 
+\[
+\|Tf_1 - Tf_2\|_{L_2(\mu \times \lambda)} = \sqrt{\int_{\Omega}\int_{\R}\left(\textbf{1}_{f_1(w), f_2(w)}\left(x\right)^2\right)dxd\mu}
+\]
+where we interpret $\textbf{1}$ as a signed indicator. This equation is just equal to 
+\[
+\sqrt{\int_{\Omega} | f_1(w) - f_2(w) | d\mu(w)}
+\]
+More generally, we can say that if $q \leq p < \infty$, then $(L_q, \|x - y\|_q^{q/p})$ is isometric to a subset of $L_p$. We may prove this later if we need it. 
+
+The second ingredient is due to a theorem by Enflo: 
+
+\begin{thm} (Enflo, $1969$). \\
+The best possible embedding of the hypercube into Hilbert space has distortion $\sqrt{n}$: 
+\[
+C_2(\{0, 1\}^n, \| \cdot \|_1) = \sqrt{n}
+\]
+\end{thm}
+Note that we don't have any constants here, we know it exactly. This is very rare. 
+\begin{proof}
+We need to show there is an upper bound and a lower bound. The identity mapping $\{0, 1\}^n \to l_2^n$ is an upper bound. Take $x, y \in \{0, 1\}^n$. What can we say about their $l_2$ distance? $\|x - y\|_2 = \left(\sum_{i = 1}^n |x_i - y_i|^2 \right)^{1/2} = \left(\sum_{i = 1}^n |x_i - y_i| \right)^{1/2} = \sqrt{\|x - y\|_1}$, since the values of $x, y$ are only $0, 1$. Then
+\[
+\frac{1}{\sqrt{n}} \|x - y\|_1 \leq \|x - y\|_2 = \sqrt{\|x - y\|_1} \leq \|x - y\|_1
+\]
+Thus $C_2(\{0, 1\}^n) \leq \sqrt{n}$. 
+So what Enflo is telling us is if you want to represent the boolean hypercube as a Euclidean geometry, nothing does better than the identity mapping.
+We want to show $C_2(\{0, 1\}^n, \|\cdot\|_1) \leq \sqrt{n}$. When we write addition, we are doing it over $\mathbb{F}_2^n$ (this is addition in boolean hypercube). 
+\begin{lem} Enflo's inequality. \\
+We claim that for every $f: \{0, 1\}^n \to l_2$, $\sum_{x \in \mathbb{F}_2^n}\|f(x) - f(x + e)\|_2^2 \leq \sum_{j = 1}^n \sum_{x \in \mathbb{F}_2^n} \|f(x + e_j) - f(x)\|_2^2$, where $e = (1, \cdots, 1)$ and $e_i$ are standard basis vectors of $\R^n$. This is specific to $l_2$.
+\end{lem}
+\begin{proof} 
+We can prove this by induction on $n$. I will show a proof that is Fourier analytic and which generalizes to other situations.
+\begin{df} Walsh function. \\
+Let $A \subseteq \{1, \cdots, n\}$. Then the Walsh function $W_A: \mathbb{F}_2^n \to \{\pm 1\}$ is defined by 
+$W_A(x) = (-1)^{j \in A}$
+\end{df}
+Observe that $\textbf{E}_{x \in \mathbb{F}_2^n}W_A(x)W_B(x) = \delta_{AB}$ for $B \subseteq \{1, \cdots, n\}$. 
+Then, this is $\textbf{E}{(-1)^{\sum_{j \in A} x_j + \sum_{j \in B} x)j}} = 0$. Thus, $\{W_A\}_{A \subseteq \{1, \cdots, n\}}$ is an orthonormal basis of $L_2(\mathbb{F}_2^n)$. Then $f: \mathbb{F}_2^n \to X$  where $X$ is a Banach space. This can be written as 
+\[
+f = \sum_{A \subseteq \{1, \cdots, n\}} \hat{f}(a)W_A
+\]
+where $\hat{f}(A) = \frac{1}{2^n}\sum_{x \in \mathbb{F}_2^n} f(x)(-1)^{\sum_{j \in A}x_j}$.
+This does not hold only for reals, it applies to vectors too though the intuition we gave is for the real line. 
+Now how do we prove two vectors are the same in a Banach space? It is enough to show that any linear functional gives the same value. 
+Then $f(x) - f(x + e) = \sum_{A \subseteq \{1, \cdots, n\}} \hat{f}(A)\left(W_A(x) - W_A(x + e)\right)$. So this is 
+\[
+\sum_{A \subseteq \{1, \cdots, n\}} \hat{f}(A)W_A(x)\left(1 - (-1)^{|A|}\right) = \sum_{A \subseteq \{1, \cdots, n\}, |A| \txt{ odd}} 2\hat{f}(A)W_A(x)
+\]
+This is the formula for the left hand side of the inequality we are trying to prove. 
+Now for the right hand side, let us look at $-f(x + e_j) + f(x) = \sum_{A \subseteq \{1, \cdots, n\}} \hat{f}(A)(W_A(x) - W_A(x + e_j)) = \sum_{A \subseteq \{1, \cdots, n\}, j \in A} 2\hat{f}(A)W_A(x)$. Note it's enough to prove Enflo's inequality for real-values. 
+\[
+\sum_{x \in \mathbb{F}_2^n}\left(f(x) - f(x + e)\right)^2 = 2^n \|\sum_{|A| \txtn{ odd}} 2\hat{f}(A)W_A\|_{L_2(\mathbb{F}_2^n)}^2 = 2^n \sum_{|A| \txtn{ odd}} 4(\hat{f}(A))^2
+\]
+For every $j$, 
+\[
+\sum_{j = 1}^n \sum_{x \in \mathbb{F}_2^n} \left(f(x + e_j) - f(x)\right)^2 = \sum_{j = 1}^n 2^n \sum_{A: j \in A} 4\left(\hat{f}(A)\right)^2
+\]
+\[
+= 2^n \sum_A \sum_{j \in A} 4\hat{f}(A)^2 = 2^n\sum_{A} 4|A|\hat{f}(A)^2
+\]
+We put the left hand side and right hand side formulas together, and we see that the claim is the same as 
+\[
+\sum_{A \subseteq \{1, \cdots, n\}, |A| \txtn{ odd}} \hat{f}(A)^2 \leq \sum_{A \subseteq \{1, \cdots, n\}}|A|\hat{f}(A)^2
+\]
+which is trivially true. This invites improvements though since this is a pretty big gap. 
+\end{proof}
+This is what we called earlier in the semester Hilbert space of Enflo-type $2$. Basically the sum of the squares of the lengths of the diagonals is the sum of the squares of the lengths of the edges. 
+
+Suppose $\frac{1}{D}\|x - y\|_1 \leq \|f(x) - f(y)\|_2 \leq \|x - y\|_1$. Then our goal is to show that $D \geq \sqrt{n}$. We can say $\|f(x + e) - f(x)\|_2 \geq \frac{1}{D}\|(x \oplus e) - x\|_1 = \frac{n}{D}$. Then, plugging in our inequality, we have 
+\[
+2^n(n/D)^2 \leq n\cdot 2^n \cdot 1^2
+\]
+since there are $2^n$ points in the space. This then gives
+\[
+D^2 \geq n
+\]
+as desired.
+Let $N_{\delta}$ be a $\delta$-net in $B_{l_1^n}$. Let $T: l_1^n \to L_2$ satisfy $\|T(x) - T(y)\|_2 = \sqrt{\|x - y\|_1}$. $T$ restricted to $N_{\delta}$ has distorition $\sqrt{\frac{2}{\delta}}$. $x, y \in N_{\delta}$ with $x \neq y$. 
+We have
+\[
+\frac{1}{\sqrt{2}}\|x - y\|_1 \leq \sqrt{\|x - y\|_1} \leq \frac{1}{\sqrt{\delta}} \|x - y\|_1
+\]
+Then the distortion of $l_1^n$ in $l_2$ is $\sqrt{n}$. Then $\sqrt{\frac{2}{\delta}} \geq K\sqrt{n}$ which implies $\delta \leq \frac{2}{K^2n}$ where $K$ is some constant. 
+\end{proof}
+
+\begin{thm} 
+Suppose $p \geq 1$, $X$ is an $n$-dimensional normed space. Then 
+\[
+\delta_{X \hookrightarrow L_p}(\epsilon) > \frac{\epsilon^2}{n^{5/2}}
+\]
+In the world of embeddings into $L_p$, we are in the right ballpark (powers of $n$, if not exactly $1/n$). This is a special case of a more general theorem, which I won't state. This proof doesn't use many properties of $L_p$. 
+\end{thm}
+\begin{proof}
+The proof of this comes from the next theorem. 
+\end{proof}
+
+\begin{thm} $X, Y$ are Banach spaces, dim$ X = n < \infty$. Suppose that there exists a universal constant $c$ such that $\delta \leq \frac{c\epsilon^2}{n^{5/2}}$, and that $N_{\delta}$ is a $\delta$-net of $B_X$. Let me briefly say something about vector-valued $L_p$ spaces. Whenever you write $L_p(\mu, Z)$, this equals all functions $f: \Omega \to Z$ such that $\left(\int \|f(\omega)\|_Z^p d\mu(\omega)\right)^{1/p} < \infty$ (our norm is bounded). Then there exists a separable probability space $(\Omega, \mu)$ (it will in the end be a uniform measure on half the ball) and a finite dimensional subspace $Z \subseteq Y$ and a linear operator $T: X \to L_{\infty}(\mu, Y)$ such that for every $x \in X$, $\|x\|_X = 1$, 
+\[
+\frac{1 - \epsilon}{D} \leq \int_{\Omega} \|Tx(\omega)\|_Y d\mu(\omega) \leq \txtn{esssup}_{\omega \in \Omega} \|(Tx)\omega\|_Y \leq 1 + \epsilon
+\]
+Note that the second term is equal to $\|Tx\|_{L_1(\mu, Z)} \leq \|Tx\|_{L_{\infty}(\mu, Z)}$. Now what happens when $Y = L_p([0, 1])$? We have
+\[
+L_p(\mu, Z) \subseteq L_p(\mu, Y) = L_p(\mu, L_p) = L_p(\mu \times \lambda)
+\]
+A different way to think of it is think of it as a function of $\omega$ and $x$: $f(\omega, x): \Omega \times [0, 1] \to \R$. This is a very classical fact in measure theory: Kolmogorov's representation theorem, which says that for any separable $L_p(\mu)$ space is isometric to a subset of $L_p$. This is an immediate corollary of the fact that if I give you a separable probability space, there is a separable transformation of the probability space $(\Omega, \mu) \cong ([0, 1], \lambda)$ where $\lambda$ is Lebesgue measure. So there is a measure preserving isomorphism if the probability measure is atom-free. If there are finitely many atoms, it will be isomorphic to $[0, 1] \times \{1, \cdots, n\}$ if there are $n$ atoms. If it's just separable, it's isomorphic to $[0, 1] \times \mathbb{N}$, and if it's completely atomic, you get $\mathbb{N}$. If you haven't seen this fact, read Halmos's book. This is just called Kolmogorov's representation theorem. 
+Because of this fact, we don't really care what $\mu$ was. 
+
+Now for this to be an improvement of Bourgain's discretization theorem for $L_p$, we need that if $Z$ is a finite dimensional subspace of $Y$ and $W$ is a finite dimensional subspace of $L_{\infty}(\mu, Z)$ such that on $W$, the $L_{\infty}$ and $L_1$ norms are equivalent (a very strong restriction), then $W$ embeds in $Y$. 
+That's the only property of $L_p$ we're using. Take $W = TX \subseteq L_{\infty}(\mu, Y)$. That's a finite dimensional subspace of bounded functions. But on this finite dimensional subspace, it just happens to be the case that the $L_{\infty}$ norm is the space as the $L_1$ norm, up to a constant. The expectation is the same as the max, up to constants. That's a big restriction on the functions. If any such subspace already embeds back into $Y$, then you're finished. Our theorem gives an $n^{power}$ solution. We might ask whether this is true in general. However, this is not true: Not every $Y$ has this property. 
+\end{thm}
+Next class we'll prove this theorem, which will imply our first theorem. What is the advantage of formulating the theorem in this way? We can use Bourgain's almost-extention theorem along the ball. It's already Lipschitz, so we can already differentitate it. The measure itself will be the unit ball. We'll look at the derivative of the extended function in direction $\omega$ at point $x$. That is what our $T$ will be. We will look in all possible directions. Then the lower bound we have here says that the derivative of the function is only invertible on average, not at every point in the sphere. That tends to be big on average. We will work for that, but you see the advantage: In this formulation, we're going to get an average lower-bound, not an always lower-bound, and in this way we will be able to shave off two exponents. But this is not for Banach spaces in general. The advantage we use here is $L_p$ of $L_p$ is $L_p$. 
+\begin{proof}
+
+\end{proof}
+
+\begin{thm} Ostrovskii and Randrianantoanina. \\
+Not every $Y$ has this property. You can construct spaces of functions taking values in a finite dimensional subspace of it which can not be embedded back into $Y$. 
+This is not published yet. Nevertheless, you have to work to find bad counterexamples. 
+\end{thm}
+%\step{2} Extend $F_1$ to the whole space to $F_2$ such that 
+%\begin{enumerate}
+%\item
+%$\forall x\in \cal N_\de$, $\ve{F_2(x)-f(x)}_Y \lesssim L\de$.
+%\item
+%$\ve{F_2(x)-F_2(y)}_Y\lesssim L(\ve{x-y}_X + \de)$.
+%%not smooth yet. 
+%\item
+%$\Supp(F_2)\subeq 2B_X$.
+%\item
+%$F_2$ is smooth.
+%%F_1 had no bounded continuity, but is a sum against a partition of unity. 
+%%just smooth without any bounds fine.
+%%spiky.
+%%when I say not smooth, I mean no bounds.
+%%I need the norm to be smooth for this.
+%\end{enumerate}•%
+
+%Denote $\al(t)=\max\{1-|1-t|,0\}$. %
+
+%\ig{images/9-1}{.25}%
+
+%Let
+%\[
+%F_2(x)=\al(\ve{x}_X) F_1\pa{x}{\ve{x}_X}.
+%\]
+%%0 the moment it passes 2.
+%$F_2$ still satisfies condition 1. As for condition 2, 
+%\bal
+%\ve{F_2(x)-F_2(y)}_Y &= \ve{\al (\ve{x}_X)F_1\pf{x}{\ve{x}_X} - \al(\ve{y}_X) F_1\pf{y}{\ve{y}_X}} \\
+%&\le |\al(\ve{x})-\al(\ve{y})|\ub{\ve{F_1\pf{x}{\ve{x}_X}}}{\le 2L}+\al(\ve{y})\ve{F_1\pf{x}{\ve{x}_X} - F_1\pf{y}{\ve{y}_X} }\\
+%&\le (\ve{x}-\ve{y})2L + \al(\ve{y}) L\pa{
+%\ve{\nv{x}-\nv{y}}+4\de 
+%} \\
+%&\le 2L\ve{x-y}+L\al(\ve{y}) \pa{\ve{x}\ab{\rc{\ve{x}}-\rc{\ve{y}}} + \fc{\ve{x-y}}{\ve{y}} + 4\de}\\
+%&\le 2L\ve{x-y} +L\al(\ve{y}) \pa{\fc{\ve{x-y}}{\ve{y}} + \fc{\ve{x-y}}{\ve y}  + 4\de}\\
+%&\lesssim L(\ve{x-y}+\de),
+%%mult by 4de, use bounded by 1
+%\end{align*}
+%where in the last step we used $\al(\ve{y})\le \ve{y}$ and $\al(\ve{y})\le 1$. %
+
+%Note $F_2$ is smooth because the sum for $F_1$ was against a partition of unity and $\ved_X$ is smooth, although we don't have uniform bounds on smoothness for $F_2$.
+%%F_1 had no bounded continuity, but is a sum against a partition of unity. 
+%%just smooth without any bounds fine.
+%%spiky.
+%%when I say not smooth, I mean no bounds.
+%%I need the norm to be smooth for this.%
+
+%%For the next step we need the following. %
+
+%\step{3} We make $F$ smoother by convolving.
+%\begin{lem}[Begun, 1999]
+%Let $F_2:X\to Y$ satisfy $\ve{F_2(x)-F_2(y)}_Y\le L(\ve{x-y}_X+\de)$. Let $\tau \ge c\de$. Define 
+%\[
+%F(x) = \rc{\Vol(\tau B_X)}\int_{\tau B_X} F_2(x+y)\,dy.
+%\]
+%Then 
+%\[
+%\ve{F}_{\text{Lip}} \le L\pa{1+\fc{\de n}{2\tau}}.
+%\]
+%\end{lem}
+%The lemma proves the almost extension theorem as follows. We passed from $f:\cal N_\de\to Y$ to $F_1$ to $F_2$ to $F$. 
+%If $x\in \cal N_\de$, 
+%\bal
+%\ve{F(x)-f(x)}_Y &=\ve{
+%\rc{\Vol(\tau B_X)} \int_{B_X} (F_2(x+y) - f(x))\,dy
+%}\\
+%&\le \rc{\Vol(\tau B_X)}\int_{\tau B_X}\ve{F_2(x+y)-F_2(x)}_Y + \ub{\ve{F_2(x)-f(x)}_Y}{\de L} \dy\\
+%&\le \rc{\Vol(\tau B_X)}\int_{\tau B_X}(L(\ub{\ve{y}_X}{\le\tau}+\de L)) \dy\lesssim L\tau.
+%\end{align*}
+%Now we prove the lemma. 
+%\begin{proof}
+%We need to show
+%\[
+%\ve{F(x)-F(y)}_Y \le L\pa{1+\fc{\de n}{2\tau}} \ve{x-y}_X.
+%\]
+%\Wog $y=0$, $\Vol(\tau B_X)=1$. Denote 
+%\bal
+%M&=\tau B_{X}\bs (x+\tau B_X)\\
+%M'&=(x+\tau B_X) \bs \tau B_X.
+%\end{align*}%
+
+%\ig{images/9-2}{.25}%
+
+%We have
+%\bal
+%F(0)-F(x) &= \int_M F_z(y)\,dy - \int_{M'} F_z(y)\,dy.
+%\end{align*}
+%Define $\om(z)$ to be the Euclidean length of the interval $(z+\R x)\cap (\tau B_X)$. By Fubini,
+%\[
+%\int_{\Proj_{X^{\perp}} (\tau B_X)} \om(z) \,dz = \Vol_n(\tau B_X)=1.
+%%intersection of projection.
+%\]
+%Denote
+%\bal
+%W&= \set{z\in \tau B_X}{(z+\R x)\cap (\tau B_X)\cap (x+\tau B_X)\ne \phi}\\
+%N&= \tau B_X\bs W.
+%\end{align*}
+%Define $C:M\to M'$ a shift in direction $X$ on every fiber that maps the interval $(z+\R x)\cap M\to (z+\R x)\cap M'$. %
+
+%\ig{images/9-3}{.25}%
+
+%$C$ is a measure preserving transformation with
+%\[
+%\ve{z-C(z)}_X =\begin{cases}
+%\ve{x}_X , &z\le N\\
+%\om(z) \fc{\ve{x}_X}{\ve{x}_2},& z\in W\cap M.
+%\end{cases}
+%\]
+%(In the second case we translate by an extra factor $\fc{\om(z)}{\ve{x}_2}$.)
+%%(In the second case we add the total length $
+%%C maps $M'$ to $M$.
+%%do a clever change of variable differently in each fiber.
+%Then 
+%\bal
+%\ve{F(0)-F(x)}_Y &=\ve{\int_M F_2(y)\dy - \int_{M'}F_2(y)\dy}_Y\\
+%&= \ve{\int_M(F_2(y) - F_2(C(y)))\dy}_Y\\
+%&\le \int_M L(\ve{y-C(y)}_X+\de)\dy\\
+%&\le \int_M L (\ve{y-C(y)}_X + \de)\dy\\
+%&=L\de \Vol(M) + L \int_M \ve{y-C(y)}_X\dy\\
+%\int_M \ve{y-C(y)}_X\dy 
+%%orth decomp but not unit vector, integrate the length multiply by norm of direction. jacobian.
+%&=\int_{N}\ve{x}_X\dy + \int_{W\cap M}\fc{\om(y)\ve{x}_X}{\ve{x}_2}\dy\\
+%&=\ve{x}_X \Vol(N) + \int_{\Proj(W\cap M)} \fc{\om(z) \ve{x}_X}{\ve{x}_2} \ve{x}_2\,dz&\text{orthogonal decomposition}\\
+%&=\ve{x}_X \Vol(N) + \Vol(\tau B_X\bs N) \\
+%&=\ve{x}_X \Vol(\tau B_X)=\ve{x}_X.
+%\end{align*}
+%%w as the entire length. What I get is the entire volume. 
+%We show $M=\tau B_X\bs (x+\tau B_X) \subeq \tau B_X\bs (1-\fc{\ve{x}}{\tau}) \tau B_X$. Indeed, for $y\in M$,
+%\bal
+%\ve{y-x}_X&\ge \tau\\
+%\ve{y} & \ge \tau - \ve{x} = \pa{1-\fc{\ve{x}}{\tau}}\tau.
+%\end{align*}
+%\end{proof}
+%Then 
+%\[
+%\Vol(M) \le \Vol(\tau B_X)-\Vol\pa{\pa{1-\fc{\ve{x}}{\tau}}\tau B_X}=1-\pa{1-\fc{\ve{x}}{\tau}} \lesssim \fc{n\ve{x}}{\tau}
+%\]
+%\end{proof}
+%Bourgain did it in a more complicated, analytic way avoiding geometry. Begun notices that careful geometry is sufficient.%
+%
+
+%Later we will show this theorem is sharp.%
+
+%%iteration!%
+
+%\section{Proof of Bourgain's discretization theorem}%
+
+%At small distances there is no guarantee on the function $f$. Just taking derivatives is dangerous. It might be true that we can work with the initial function. But the only way Bourgain figured out how to prove the theorem was to make a 1-parameter family of functions.%
+
+%\subsection{The Poisson semigroup}
+%\begin{df}
+%The \ivocab{Poisson kernel} is $P_t(x):\R^n\to \R$ given by
+%\[
+%P_t(x)=\fc{C_nt}{(t^2+\ve{x}_2^2)^{\fc{n+1}2}}, \quad C_n=\fc{\Ga\pf{n+1}2}{\pi^{\fc{n+1}2}}.
+%\]
+%%Convolution becomes product under FT
+%\end{df}%
+
+%\begin{pr}[Properties of Poisson kernel]
+%\begin{enumerate}
+%\item
+%For all $t>0$, $\int_{\R^n} P_t(x)\,dx=1$.
+%\item
+%(Semigroup property) $P_t*P_s=P_{t+s}$. 
+%\item
+%$\wh{P_t}(x) = e^{-2\pi\ve{x}_2t}$.
+%\end{enumerate}•
+%\end{pr}%
+
+%\begin{lem}
+%Let $F$ be the function obtained from Bourgain's almost extension theorem~\ref{thm:baet}.
+%For all $t>0$, $\ve{P_t*F}_{\text{Lip}}\lesssim 1$.
+%%P_t is prob measure.
+%%Average values of $F$.
+%%poU, geometr y of ball, average with decaying weights.
+%%all averaging of Lipschitz things.%
+
+%%1+\ep subtlety, ceases to be true, need restriction on $T$. Not relevant. $1+\ep$ version do more carefully.
+%\end{lem}
+%%Note to get $P_t*F$ we had three averaging arguments: partition of unity, averaging with respect to a ball, and then averaging with decaying weights.
+%We have 
+%\bal
+%P_t*F(x)-P_t*F(y) &= \int_{\R^n} P_t(z)(F(x-z) - F(x-y))\,dz.
+%\end{align*}
+%Our goal is to show there exists $t_0>0$, $x\in B\in \rc B_X$ such that if we define
+%\[
+%T=(P_{t_0}*F)'(x):X\to Y,
+%\]
+%we have $\ve{T}\lesssim 1$. Moreover $\ve{T^{-1}}\lesssim D$.
+%$T_y=\lim_{h\to \iy} \fc{P_{t_0}*F(x+hy) - P_{t_0}*F(x)}{h}$.
+%%pigeonhole, must exist
