@@ -1,2 +1,230 @@
 
 \blu{3/23: We will prove the improvement of Bourgain's Discretization Theorem.}
+
+%Bound something average rather than worst case.
+
+% and $D=C_Y(\cal N_\de)$ then if $\de\le \fc{C\ep^2}{n^2D}$ then there exists a finite dimensional subspace $Z\subeq Y$, a probability space $(\Om,\mu)$, anda linear operator $T:X\to L_\iy(\Om,Z)$ sch that for all $x\in X$, 
+%\[\fc{1-\ep}{D}\ve{x}_X\le \ve{Tx}_{L_1(\mu,Z)}\le \ve{Tx}_{L_{\iy}(\mu, Z)}\le (1+\ep)\ve{x}_X.\]
+
+\begin{proof}
+There exists $f:\cal N_\de\to Y$ such that 
+\[
+\rc{D} \ve{x-y}_Y\le \ve{f(x)-f(y)}_Y \le \ve{x-y}_X
+\]
+for $x,y\in \cal N_\de$. By Bourgain's almost extension theorem, letting $Z=\spn(f(\cal N_\de))$, there exists $F:X\to Z$ such that
+\begin{enumerate}
+\item
+$\ve{F}_{L_p}\lesssim1$.
+\item
+For every $x\in \cal N_\de$, $\ve{F(x)-f(x)}\le n\de$.
+%try to prove it differently by using average results.
+\item
+$F$ is smooth.
+\end{enumerate}
+
+Let $\Om=\rc2B_X$, with $\mu$ the normalized Lebesgue measure on $\Om$:
+\[
+\mu(A) = \fc{\vol(A\cap \pa{\rc 2B_X})}{\vol(\rc 2B_X)}.
+\]
+Define $T:X\to L_{\iy}(\mu, Z)$ as follows. For all $y\in X$, 
+\[
+(Ty)(x) = F'(x)(y)=\pl_yF(x).
+\]
+%fix direction, look at all derivatives in that direction over the ball
+%function which decodes all derivatives at all locations at all directions. 
+%this is the game we are playing
+This function is in $L_\iy$ because
+\[
+\ve{(Ty)(x)}=\ve{F'(x)(y)} \le \ve{F'(x)}\ve{y}\lesssim \ve{y}.
+\]
+This proves the upper bound.
+
+We need 
+\begin{align*}
+\rc D \ve{y} \lesssim \ve{Ty}_{L_1(\mu,Z)} 
+&= \int{\rc2B_X} \ve{F'(x)y} \,d\mu(x) \\
+&=\rc{\vol(\rc2 B_X)}\int_{\rc 2B_X}\ve{F'(x)y}\,dx.
+\end{align*}
+
+We need two simple and general lemmas.
+%linearly isometric
+\begin{lem}
+There exists an isometric embedding $J:X\to \ell_\iy$.
+\end{lem}
+This is a restatement of the Hahn-Banach theorem.
+\begin{proof}
+$X^*$ is separable, so let $\{x_k^*\}_{k=1}^{\iy}$ be a set of linear functionals that is dense in $S_{X^*}=\pl B_{X^*}$. Let 
+\[
+J_X = (x_k^*(x))_{k=1}^{\iy}\in\ell_{\iy}.
+\]
+For all $x$, $|x_k^*(x)|\le \ve{x_k^*}\le \ve{x_k^*} \ve{x}=\ve{x}$.
+%always normalizing functional
+By Hahn Banach, since every $x$ admits a normalizing functional,
+\[
+\ve{Jx}_{\ell_{\iy}} = \sup_k |x_k^*(x)|=\sup_{x^*\in S_X} |x^*(x)| = \ve{x}.
+\]
+\end{proof}
+This may see a triviality, but there are 4 situations where this theorem will make its appearance.
+\begin{rem}
+Every separable metric space $(X,d)$ admits an isometric embedding into $\ell_\iy$, given as follows. Take $\{x_k\}_{k=1}^{\iy}$ dense in $X$, and let
+\[
+f(x)=(d(x,x_k)-d(x,x_0))_{k=1}^{\iy}.
+\]
+\end{rem}
+Proof is left as an exercise.
+
+\begin{lem}[Nonlinear Hahn-Banach Theorem]
+\index{nonlinear Hahn-Banach Theorem}
+Let $(X,d)$ be any metric space and $A\subeq X$ any nonempty subset. If $f:A\to \R$ is $L$-Lipschitz then there exists $F:X\to \R$ that extends $f$ and 
+\[
+\ve{F}_{\text{Lip}} = L = \ve{f}_{\text{Lip}}.
+\]
+\end{lem}
+The lemma says we can always extend the function and not lose anything in the Lipschitz constant.
+%in the context of functions, 
+Recall the Hahn-Banach Theorem says that we can extend functionals from subspace and preserve the norm. Extension in vector spaces and extension in $\R$ are different.
+
+This lemma seems general, but it is very useful.
+%This is a different order of magnitude.
+
+We mimic the proof of the Hahn-Banach Theorem.
+
+%because lip doesn't change
+\begin{proof}
+We will prove that one can extend $f$ to one additional point while preserving the Lipschitz constant. 
+
+Then use Zorn's Lemma on the poset of all extensions to supersets ordered by inclusion (with consistency) to finish.
+
+Let $A\subeq X$, $x\in X\bs A$. We define $t=F(x)\in \R$. To make $F$ is Lipschitz, for all $a\in A$, we need
+\[
+|t-f(a)|\le d_X(x,a).
+\]
+Then we need
+\[t\in \bigcap_{a\in A} [f(a)-d_X(x,a),f(a)+d_X(x,a)].\]
+%pairwise because real line.
+The existence of $t$ is equivalent to 
+\[
+\bigcap_{a\in A}[f(a)-d_X(x,a),f(a)+d_X(x,a)].
+\]
+By compactness it is enough to check this is true for finite intersections. Because we are on the real line (which is a total order), it is in  fact enough to check this is true for pairwise intersections. 
+\[
+[f(a)-d_X(x,a), f(a)+d_X(x,a)] \cap [f(b)-d_X(x,b), f(b)+d_X(x,b)].
+\]
+We need to check 
+\begin{align*}
+f(a)+d(x,a) &\ge f(b) -d(x,b)\\
+\iff 
+|f(b)-f(a)|&\le d(x,a)+d(x,b).
+\end{align*}
+This is true by the triangle inequality: 
+\[
+|f(b)-f(a)|\le d(a,b) \le  d(x,a)+d(x,b).
+\]
+\end{proof}
+This theorem is used all over the place. Most of the time people just give a closed formula: define $F$ on all the points at once by
+\[
+F(x)=\inf\set{f(a)+d(x,a)}{a\in A}.
+\]
+Now just check that this satisfies Lipschitz. From our proof you ses exactly why they define $F$ this way: it comes from taking the inf of the upper intervals (we can also take the sup of the lower intervals). The extension is not unique; there are many formulas for the extension.
+
+There is a whole isometric theory about exact extensions: look at all the possible extensions, what is the best one? $F$ is the pointwise smallest extension; the other one is the pointwise largest. The theory of absolutely minimizing extensions is related to an interesting nonlinear PDE called the infinite Laplacian. This is different from what we're doing because we lose constants in many places.
+%extension into $\R$ nontrivial.
+%largest  extension. The sup of the lower intervals would be  
+
+\begin{cor}
+Let $(X,d)$ be any metric space. Let $A\subeq X$ be a nonempty subset $f:A\to \ell_\iy$ Lipschitz. Then there exists $F:X\to \ell_\iy$ that extends $f$ and $\ve{F}_{\text{Lip}}=\ve{f}_{\text{Lip}}$. 
+%lip into $\ell_\iy$.
+\end{cor}
+\begin{proof}
+Note that saying $f:A\to \ell_\iy$, $f(a)=(f_1(a),f_2(a),\ldots)$ has $\ve{f}_{\text{Lip}}=1$ means that $f_i$ is 1-Lipschitz for every $i$.
+\end{proof}
+$f$ takes $\cal N_\de\subeq B_X$ to $f(\cal N_\de)\subeq Z$. $f^{-1}$ takes it back to $X$; $J$ is the embedding to $\ell_\iy$.
+\[
+\xymatrix{
+B_X&Z\ar@/^1pc/[rrd]^{G}&&\\
+\cal N_\de \ha{u} \ar[r]^f & f(\cal N_\de)\ha{u} \ar[r]^{f^{-1}|_{f(\cal N_\de)}} \ar@/_2pc/[rr]_{J\circ f^{-1}|_{f(\cal N_\de)}} & X\ar[r]^J & \ell_\iy
+}
+\]
+%trivial
+%The composition with a dense set of functionals, $G$ is an extension of this composition.
+%simple operations, dense set directions
+Note $J\circ f^{-1}|_{f(\cal N_\de)}$ is $D$-Lipschitz.  By nonlinear Hahn-Banach, there exists $G:Z\to \ell_\iy$ with $\ve{G}_{\text{Lip}}\le D$ such that 
+\[
+G(f(x))=J(x)
+\]
+for all $x\in \cal N_\de$.
+%convolve with bump function (e.g., Gaussian) with small support
+%we can because finite dimensional.
+
+We want $G$ to be differentiable. We do this by convolving with a smooth bump function with small support to get $H:Z\to \ell_\iy$ such that 
+\begin{enumerate}
+\item
+$H$ is smooth
+\item
+$\ve{H}_{\text{Lip}}\le D$, 
+\item
+for all $x\in F(B_X)$, $\ve{G(x)-H(x)} \le nD\de$. 
+%define the inverse, approximate the inverse.
+\end{enumerate}
+Define a linear operator
+%input a function and output a sequence
+\[
+S:L_1(\mu, Z)\to \ell_{\iy}
+\]
+by
+%check everything is in the right space.
+for all $h\in L_1(\mu,Z)$, $h:\rc 2B_X\to Z$,
+%F is a point in $X$, we can differentiate at this point, get linear operator from $Z$ to $L_\iy$. $h(x)$ is a point in $Z$, so we can plug into linear operator and get a point in $\ell_\iy$. Vector-valued integration. Do the integration coordinatewise. This is in $\ell_\iy$.
+\[
+Sh = \int_{\rc 2B_X} H'(F(x))(h(x))\,d\mu(x).
+\]
+(Type checking: F is a point in $X$, we can differentiate at this point and get linear operator $Z\to \ell_\iy$. $h(x)$ is a point in $Z$, so we can plug into linear operator and get a point in $\ell_\iy$. This is a vector-valued integration; do the integration coordinatewise. So $Sh$ is in $\ell_\iy$.)
+
+Now 
+\bal
+\ve{Sh}_{\ell_\iy} &\le \int_{\rc 2B_X} \ve{H'(F(x))(h(x))}_{\ell_\iy} \,d\mu(x)\\
+&\le \int_{\rc 2B_X}\ub{\ve{H'(F(x))}_{Z\to \ell_\iy}}{=:D} \ve{h(x)}\,d\mu(x)\\
+%bounded norm between auxiliary spaces.
+&\le D \int_{\rc 2B_X} \ve{h(x)} \\
+&\le D\ve{h}_{L_1(\mu,Z)}\\
+\implies 
+\ve{S}_{L_1(\mu, Z)\to \ell_\iy}&\le D\\
+S\ub{Ty}h &=\int_{\rc 2B_X} H'(F(x)) ((Ty)(x))\,d\mu(x)\\
+&=\int_{\rc 2B_X} H'(F(x)) (F'(x)(y)) \,d\mu(x)\\
+&=\int_{\rc 2B_X} (H\circ F)'(x)(y)\,d\mu(x)&\text{chain rule}
+%smooth : use banach space, diffce quotient.
+%need finite dim for a million things.
+%htere is bounded operator
+\end{align*}
+Now we show $H\circ F$ is very close to $J$; it's close to being invertible. (Recall $G(f(x))=Jx$.)
+
+This does not a priori mean the derivative is close. We use a geometric argument to say that if a function is sufficiently close to being an isometry, then the integral of its derivative on a finite dimensional space is close to being invertible.  $H\circ F$ was a proxy to $J$.
+%upgrade closeness to closeness of derivative.
+
+Check that $H\circ F$ is close to $J$. For $y\in \cal N_\de$, by choice of $H$,
+\bal
+\ve{H(F(y))-Jy}_{\ell_\iy}&\le \ve{H(F(y)) - G(F(y))}_{\ell_{\iy}} +\ve{G(F(y))-G(f(y))}_{\ell_\iy}\\
+&\le nD\de + D\ve{F(y)-f(y)}_Z\\
+&\lesssim nD\de.
+\end{align*}
+%at any point. 
+%for eveyr point $x$ in image of ball. $\ve{G(x)-H(x)}\le nD\de$.
+For general $x\in \rc 2B_X$, there exists $y\in \cal N_\de$ such that $\ve{x-y}_X\le 2\de$. Then 
+%universal constant Lipschitz.
+\bal\fixme{FIX}
+\ve{H(F(y))-Jy}_{\ell_\iy}&\le \ve{H(F(y)) - G(F(y))}_{\ell_{\iy}} +\ve{G(F(y))-G(f(y))}_{\ell_\iy}\\
+&\le nD\de + D \de+\de\\
+&\lesssim nD\de.
+\end{align*}
+For all $x\in \rc B_X$, $\ve{H\circ F(x)-Jx}\le Cn D\de$. Define $g(x)=H\circ F(x)-Jx$. Then $\ve{g}_{L^{\iy}(\rc 2B_X)}\le CnD\de$. 
+
+We need a geometric lemma.
+\begin{lem}
+Suppose $(V,\ved_V)$ is any Banach space, $U=(\R^n, \ved_U)$ is a $n$-dimensional Banach space. Let $g:B_U\to V$ be continuous on $B_U$ and differentiable on $\text{int}(B_U)$. Then 
+\[
+\ve{\rc{\vol(B_U)}\int_{B_U} g'(u)\,du}_{U\to V}\le n\ve{g}_{L_{\iy}(B_U)}.
+\]
+%in operator norm, close to $J$. One line shows!
+\end{lem}
+
+\end{proof}
