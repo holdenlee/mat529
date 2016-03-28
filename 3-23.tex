@@ -6,7 +6,7 @@
 % and $D=C_Y(\cal N_\de)$ then if $\de\le \fc{C\ep^2}{n^2D}$ then there exists a finite dimensional subspace $Z\subeq Y$, a probability space $(\Om,\mu)$, anda linear operator $T:X\to L_\iy(\Om,Z)$ sch that for all $x\in X$, 
 %\[\fc{1-\ep}{D}\ve{x}_X\le \ve{Tx}_{L_1(\mu,Z)}\le \ve{Tx}_{L_{\iy}(\mu, Z)}\le (1+\ep)\ve{x}_X.\]
 
-\begin{proof}
+\begin{proof}[Proof of Theorem~\ref{thm:bourgain-lp2}]
 There exists $f:\cal N_\de\to Y$ such that 
 \[
 \rc{D} \ve{x-y}_Y\le \ve{f(x)-f(y)}_Y \le \ve{x-y}_X
@@ -42,7 +42,7 @@ This proves the upper bound.
 We need 
 \begin{align*}
 \rc D \ve{y} \lesssim \ve{Ty}_{L_1(\mu,Z)} 
-&= \int{\rc2B_X} \ve{F'(x)y} \,d\mu(x) \\
+&= \int_{\rc2B_X} \ve{F'(x)y} \,d\mu(x) \\
 &=\rc{\vol(\rc2 B_X)}\int_{\rc 2B_X}\ve{F'(x)y}\,dx.
 \end{align*}
 
@@ -211,12 +211,14 @@ Check that $H\circ F$ is close to $J$. For $y\in \cal N_\de$, by choice of $H$,
 %for eveyr point $x$ in image of ball. $\ve{G(x)-H(x)}\le nD\de$.
 For general $x\in \rc 2B_X$, there exists $y\in \cal N_\de$ such that $\ve{x-y}_X\le 2\de$. Then 
 %universal constant Lipschitz.
-\bal\fixme{FIX}
-\ve{H(F(y))-Jy}_{\ell_\iy}&\le \ve{H(F(y)) - G(F(y))}_{\ell_{\iy}} +\ve{G(F(y))-G(f(y))}_{\ell_\iy}\\
+\bal
+%\fixme{FIX}
+\ve{H(F(x))-Jx}_{\ell_\iy}
+%&\le \ve{H(F(y)) - G(F(y))}_{\ell_{\iy}} +\ve{G(F(y))-G(f(y))}_{\ell_\iy}\\
 &\le nD\de + D \de+\de\\
 &\lesssim nD\de.
 \end{align*}
-For all $x\in \rc B_X$, $\ve{H\circ F(x)-Jx}\le Cn D\de$. Define $g(x)=H\circ F(x)-Jx$. Then $\ve{g}_{L^{\iy}(\rc 2B_X)}\le CnD\de$. 
+For all $x\in \rc2 B_X$, $\ve{H\circ F(x)-Jx}\le Cn D\de$. Define $g(x)=H\circ F(x)-Jx$. Then $\ve{g}_{L^{\iy}(\rc 2B_X)}\le CnD\de$. 
 
 We need a geometric lemma.
 \begin{lem}
