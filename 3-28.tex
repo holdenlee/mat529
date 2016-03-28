@@ -1,0 +1,175 @@
+
+\blu{3/28: Finishing up Bourgain's Theorem}
+
+Previously we had $X, Y$ Banach spaces with dim$(X) = n$. Let $N_{\delta} \subseteq B_X$ be a $\delta$-net, $\delta \leq c/n^2D$, $f: N_{\delta} \to Y$. 
+We have 
+\[
+\frac{1}{D}\|x - y\| \leq \|f(x) - f(y)\| \leq \|x - y\|
+\]
+WLOG $Y = \txtn{span}(f(N_{\delta}))$. 
+The almost extension theorem gave us a smooth map from $F:X \to Y$, $\|F\|_{Lip} \lesssim 1$ and for all $x \in N_{\delta}$, $\|F(x) - f(x)\| \lesssim n\delta$. 
+Letting $\mu$ be the normalized Lebesgue measure on $1/2 B_X$, define $T:X \to L_{\infty}(\mu, Y)$ by
+\[
+(Ty)(x) = F'(x)y
+\]
+for all $y \in X$. 
+
+The goal was to prove 
+\[
+\|Ty\|_{L_1(\mu, Y)} \gtrsim \frac{1}{D}\|y\|
+\]
+and the approach was to show for $y \in X$ the average $\frac{1}{\txtn{vol}(1/2 B_X)}\int_{1/2 B_X}\|F'(x)y\| dy$ is big. 
+
+Fix a linear isometric embedding $J: X \to l_{\infty}$., we proved that there exists $G: Y \to l_{\infty}$ such that $\forall x \in N_{\delta}, G(f(x)) = J(x)$. We have $\|G\|_{Lip} \leq D$. Fix $H: Y \to l_{\infty}$ where $H$ is smooth, $\|H\|_{Lip} \leq D$, and $\forall x \in F(B_X)$, $\|H(x) - G(x)\| \leq nD\delta$. 
+
+Define $S: L_1(\mu, Y) \to l_{\infty}$ by
+\[
+Sh = \int_{1/2 B_X}H'(F(x))(h(x)) d\mu(x)
+\]
+for all $h \in L_1(\mu, Y)$. Note that $\|S\|_{L_1(\mu, Y) \to l_{\infty}} \leq D$. 
+By the chain rule, $STy = \int_{1/2 B_X}(H \circ F)'(x)y d\mu(x)$. 
+We checked for every $x \in B_X$, $\|H(F(x)) - Jx\|_{l_{\infty}]} \lesssim nD\delta$. 
+
+Suppose you are on a point on the net. Then you know $H$ is very close to $G$. $F$ was $n\delta$ close to $f$, and $H$ is $D$-Lipschitz, which is how we get $n\delta D$ (take a net point, find the closest point on the net, and use the fact that the functions are $D$-Lipschitz).
+
+This is where we stopped. Now how do we finish? 
+
+We need a small geometric lemma: 
+
+\begin{lem} Geometric Lemma.  \label{lem:geolem}\\
+$U, V$ are Banach spaces, dim$(U) = n$. Let $U = (\R^n, \|\cdot\|_U)$. 
+Suppose that $g: B_U \to V$ is continuous on $B_U$ and smooth on the interior. 
+Then 
+\[
+\left\|\frac{1}{\txtn{vol}(B_U)}\int_{B_U} g'(u) du\right\|_{U \to V} \leq n\|g\|_{L_{\infty}(S_X)}
+\]
+\end{lem}
+where the inside of the LHS norm should be thought of as an operator. Let $R$ be the normalized integral operator. Then 
+\[
+Rx = \frac{1}{\txtn{vol}(B_U)}\int_{B_U} g'(u)x du
+\]
+
+The way to think of using this is if you have an $L_{\infty}$ bound, you get an $L_{1}$ bound. 
+Assuming this lemma, let's apply it to $g = H\circ F - J$. We get
+\bal
+\left\|\int_{1/2 B_X}\left((H\circ F)' - J\right) d\mu(x)\right\|_{X \to l_{\infty}} &\lesssim n^2D\delta
+\\
+\left\|\int_{1/2 B_X}(H\circ F)'(x)d\mu(x) - J\right\|_{X \to l_{\infty}} &= \|ST - J\|_{X \to l_{\infty}} \lesssim n^2D\delta
+\end{align*}
+Now we want to bound from below $\|Ty\|_{L_1(\mu, Y)}$. We have 
+\bal
+\|Ty\|_{L_1(\mu, Y)} &\geq \frac{\|STy\|_{l_{\infty}}}{\|S\|_{L_1(\mu, Y) \to l_{\infty}}}
+\\
+&\geq \frac{1}{D}\|STy\|_{l_{\infty}} \geq \frac{1}{D}\left(\|Jy\| - \|ST - J\|_{X \to l_{\infty}}\|y\|\right)
+\\
+&= \frac{1}{D}\left(\|y\| - (n^2D\delta\|y\|)\right)
+\end{align*}
+There is a bit of  magic in the punchline. We want to bound the operator below, and we understand it as an average of derivatives. We succeeded to show the function itself is small, and there is our geometric lemma which gives a bound on the derivative if you know a bound on the function. 
+
+Now let's prove the lemma.
+\begin{proof}[Proof of Lemma~\ref{lem:geolem}]
+Fix a direction $y \in \R^n$ and normalize so that $\|y\|_2 = 1$. For every $u \in \txtn{Proj}_{y^{\perp}}(B_U)$, let $a_U \leq b_U \in \R$ be such that $u + \R y \cap B_U = u + [a_U, b_U]y$ (basically, this is the intersection of the projection line with the ball). 
+
+Using Fubini, 
+\bal
+\left\|\frac{1}{\txtn{vol}(B_U)}\int_{B_U} g'(u) du\right\|_V &= \left\|\frac{1}{\txtn{vol}(B_U)} \int_{\txtn{Proj}_{y^{\perp}}(B_U)} \int_{a_U}^{b_U} \frac{d}{ds}g(u + sy)ds du\right\|_V
+\\
+&= \left\|\frac{1}{\txtn{vol}(B_U)} \int_{\txtn{Proj}_{y^{\perp}}(B_U)} \left(g(u + b_Uy) - g(u + a_Uy)\right) du \right\|_V
+\\
+&\leq \frac{1}{\txtn{vol}_n(B_U)}\cdot 2\txtn{vol}_{n-1}(\txtn{Proj}_{y^{\perp}}(B_U)) \|g\|_{L_{\infty}(S_{X}, V)}
+\end{align*}
+We need to show that 
+\[
+\frac{2\txtn{vol}_{n -1}\left(\txtn{Proj}_{y^{\perp}}(B_U)\right)}{\txtn{vol}_n(B_U)} \leq n\|y\|_U
+\]
+The convex hull of $y$ over the projection is the cone over the projection. 
+\[
+\txtn{vol}_n(\txtn{conv}\left(\frac{y}{\|y\|_U} \cup \txtn{Proj}_{y^{\perp}}(B_U)\right)) = \frac{1}{n\|y\|_U}\cdot \txtn{vol}_{n-1}\left(\txtn{Proj}_{y^{\perp}}(B_U)\right)
+\]
+Letting $K = \txtn{conv}\left(\left\{\pm \frac{y}{\|y\|_U}\right\} \cap \txtn{Proj}_{y^{\perp}}(B_U)\right)$, this is the same as saying that $\txtn{vol}_n(K) \leq \txtn{vol}_n(B_U)$. Note that $K$ is the double cone, that is where the factor of $2$ got absorbed. This is an application of Fubini's theorem. 
+
+Geometrically, the idea is that when we look on the projective lines for whatever part of the cone is not in our ball set, we will be able to fit the outside inside the set. 
+In formulas, $c_U$ is the largest multiple of $u$ which is inside the boundary of the cone. $c_U \geq 1$. 
+\[
+K = \bigcup_{u \in \txtn{Proj}_{y^{\perp}}(B_U)} \left(u + \left[ -\frac{c_U - 1}{c_U\|y\|_U}, +\frac{c_U - 1}{c_U\|y\|_U} \right]\right)
+\]
+We also have 
+\[
+\frac{1}{c_U}\left(c_Uu + a_{c_Uu}y\right) \pm (1 - \frac{1}{c_U})\frac{y}{\|y\|_U} \in B_U
+\]
+and we get that $K \subset B_U$ by Fubini. 
+\end{proof}
+
+Thus, we've completed the proof of Bourgain's theorem for the semester. The big remaining question is can we do something like this in the general case? 
+
+\section{Kirszbraun's Extension Theorem}
+Last time we proved nonlinear Hahn-Banach theorem. I want to prove one more Lipschitz Extension theorem, which I can do in ten minutes which we will need later in the semester. 
+
+\begin{thm} Kirszbraun's extension theorem (1934). \label{thm:kirszbraun}
+Let $H_1, H_2$ be Hilbert spaces and $A \subseteq H_1$. Let $f: A \to H_2$ Lipschitz. Then, there exists a function $F: H_1 \to H_2$ that extends $f$ and has the same Lipschitz constant.
+\end{thm}
+We did this for real valued functions and $l_{\infty}$ functions. This version is non-trivial, and relates to many open problems. 
+\begin{proof}
+There is an equivalent geometric formulation.
+Let $H_1, H_2$ be Hilbert spaces $\{x_i\}_{i \in I} \subseteq H_1$ and $\{y_i\}_{i \in I} \subseteq H_2$, $\{r_i\}_{i \in I} \subseteq (0, \infty)$. Suppose that $\forall i, j \in I$, $\|y_i - y_j\|_{H_2} \leq \|x_i - y_i\|_{H_1}$. If 
+\[
+\bigcap_{i \in I} B_{H_1}(x_i, r_i) \neq \emptyset
+\]
+then 
+\[
+\bigcap_{i \in I} B_{H_1}(y_i, r_i) \neq \emptyset
+\]
+as well.
+
+Intuitively, this says the configuration of points in $H_2$ are a squeezed version of the $H_1$ points. Then, we're just saying something obvious. If there's some point that intersects all balls in $H_1$, then using the same radii in the squeezed version will also be nonempty.
+Our geometric formulation will imply extension. We have $f: A \to H_2$, WLOG $\|f\|_{Lip} = 1$. For all $a, b \in A$, $\|f(a) - f(b)\|_{H_2} \leq \|a - b\|_{H_1}$. Fix any $x \in H_1 \setminus A$. What can we say about the intersection of the following balls?: $\bigcap_{a \in A} B_{H_1}(a, \|a - x\|_{H_1})$. Well by design it is not empty since $x$ is in this set. So the conclusion from the geometric formulation says 
+\[
+\bigcap_{a \in A} B_{H_2}\left(f(a), \|a - x\|_{H_1}\right) \neq \emptyset
+\]
+So take some $y$ in this set. Then $\|y - f(a)\|_{H_2} \leq \|x - a\|_{H_2}$ $\forall a \in A$. 
+Define $F(x) = y$. Then we can just do the one-more-point argument with Zorn's lemma to finish. 
+
+Let us now prove the geometric formulation. It is enough to prove the geometric formulation when $|I| < \infty$ and $H_1, H_2$ are finite dimensional. 
+To show all the balls intersect, it is enough to show that finitely many of them intersect (this is the finite intersection property: balls are weakly compact). 
+Now the minute $I$ is finite, we can write $I = \{1, \cdots, n\}$, $H_1' = \txtn{span}\{x_1, \cdots, x_n\}, H_2' = \txtn{span}\{y_1, \cdots, y_n\}$. This reduces everything to finite dimensions. 
+We have a nice argument using Hahn-Banach.
+\fixme{FINISH THIS}
+\end{proof}
+
+\begin{rem}
+In other norms, the geometric formulation in the previous proof is just not true. This effectively characterizes Hilbert spaces.
+Related is the Kneser-Poulsen conjecture, which effectively says the same thing in terms of volumes:
+\begin{conj} Kneser-Poulsen. \\
+Take $x_1, \cdots, x_k; y_1, \cdots, y_k \in \R^n$ and $\|y_i - y_j\| \leq \|x_i - x_j\|$ for all $i, j$. Then $\forall r_i \geq 0$
+\[
+\txtn{vol}\left(\bigcap_{i = 1}^k B(y_i, r_i) \right) \geq \txtn{vol}\left(\bigcap_{i = 1}^k B(x_i, r_i)\right)
+\]
+\end{conj}
+This is known for $n = 2$, where volume is area using trigonometry and all kinds of ad-hoc arguments. It's also known for $k = n+2$. 
+\end{rem}
+
+
+
+
+%\bal
+%\ve{Sh}_{\ell_\iy} &\le \int_{\rc 2B_X} \ve{H'(F(x))(h(x))}_{\ell_\iy} \,d\mu(x)\\
+%&\le \int_{\rc 2B_X}\ub{\ve{H'(F(x))}_{Z\to \ell_\iy}}{=:D} \ve{h(x)}\,d\mu(x)\\
+%%bounded norm between auxiliary spaces.
+%&\le D \int_{\rc 2B_X} \ve{h(x)} \\
+%&\le D\ve{h}_{L_1(\mu,Z)}\\
+%\implies 
+%\ve{S}_{L_1(\mu, Z)\to \ell_\iy}&\le D\\
+%S\ub{Ty}h &=\int_{\rc 2B_X} H'(F(x)) ((Ty)(x))\,d\mu(x)\\
+%&=\int_{\rc 2B_X} H'(F(x)) (F'(x)(y)) \,d\mu(x)\\
+%&=\int_{\rc 2B_X} (H\circ F)'(x)(y)\,d\mu(x)&\text{chain rule}
+%%smooth : use banach space, diffce quotient.
+%%need finite dim for a million things.
+%%htere is bounded operator
+%\end{align*}
+
+%\begin{proof}[Proof of Theorem~\ref{thm:bourgain-lp2}]
+%There exists $f:\cal N_\de\to Y$ such that 
+%\[
+%\rc{D} \ve{x-y}_Y\le \ve{f(x)-f(y)}_Y \le \ve{x-y}_X
+%\]
+%for $x,y\in \cal N_\de$. By Bourgain's almost extension theorem, letting $Z=\spn(f(\cal N_\de))$, %there exists $F:X\to Z$ such that
