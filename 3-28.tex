@@ -105,8 +105,8 @@ Thus, we've completed the proof of Bourgain's theorem for the semester. The big 
 \section{Kirszbraun's Extension Theorem}
 Last time we proved nonlinear Hahn-Banach theorem. I want to prove one more Lipschitz Extension theorem, which I can do in ten minutes which we will need later in the semester. 
 
-\begin{thm} Kirszbraun's extension theorem (1934). \label{thm:kirszbraun}
-Let $H_1, H_2$ be Hilbert spaces and $A \subseteq H_1$. Let $f: A \to H_2$ Lipschitz. Then, there exists a function $F: H_1 \to H_2$ that extends $f$ and has the same Lipschitz constant.
+\begin{thm}[Kirszbraun's extension theorem (1934)] \label{thm:kirszbraun}
+Let $H_1, H_2$ be Hilbert spaces and $A \subseteq H_1$. Let $f: A \to H_2$ Lipschitz. Then, there exists a function $F: H_1 \to H_2$ that extends $f$ and has the same Lipschitz constant ($\ve{F}_{\text{Lip}}=\ve{f}_{\text{Lip}}$).
 \end{thm}
 We did this for real valued functions and $l_{\infty}$ functions. This version is non-trivial, and relates to many open problems. 
 \begin{proof}
@@ -139,8 +139,8 @@ We have a nice argument using Hahn-Banach.
 \begin{rem}
 In other norms, the geometric formulation in the previous proof is just not true. This effectively characterizes Hilbert spaces.
 Related is the Kneser-Poulsen conjecture, which effectively says the same thing in terms of volumes:
-\begin{conj} Kneser-Poulsen. \\
-Take $x_1, \cdots, x_k; y_1, \cdots, y_k \in \R^n$ and $\|y_i - y_j\| \leq \|x_i - x_j\|$ for all $i, j$. Then $\forall r_i \geq 0$
+\begin{conj}[Kneser-Poulsen]
+Let $x_1, \ldots, x_k; y_1, \ldots, y_k \in \R^n$ and $\|y_i - y_j\| \leq \|x_i - x_j\|$ for all $i, j$. Then $\forall r_i \geq 0$
 \[
 \txtn{vol}\left(\bigcap_{i = 1}^k B(y_i, r_i) \right) \geq \txtn{vol}\left(\bigcap_{i = 1}^k B(x_i, r_i)\right)
 \]

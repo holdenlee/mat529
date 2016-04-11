@@ -1,0 +1,172 @@
+
+\blu{4/11: Continue Theorem~\ref{thm:pisier}. The dual to having Rademacher type $p$: for all $g^*:\{\pm 1\}^n\to X^*$, $\pa{\sumo in \ve{\wh g(\{i\})}_{X^*}^{p^*}}^{\rc{p^*}}\lesssim \ve{g^*}_{L^{r^*}(\{\pm 1\}^n, X^*)}$ for every $1<r<\iy$.
+
+%if time prove Kahane. 
+Note that for the purpose of proving Theorem~\ref{thm:pisier} we only need $r=p$ in Kahane's inequality. However, I recommend that you read up on the full inequality.
+%, which is the original definition.
+%Freedom to decouple the powers. If we just care about application, we don't need Kahane's inequality.
+%kahane with r on LHS, \E over $\ep$, $p$ on RHS, $\lesssim_{X,r,p}$.
+
+For $f:\{\pm 1\}^n\to X$, define $\pl_j f:\{\pm 1\}^n\to X$ by $\pl_j f = \fc{f(\ep)-f(\ep_1,\ldots, -\ep_j,\ldots, \ep_n)}{2}$. Then $\pl_j^2=\pl_j=\pl_j^*$ and $\pl_j W_A=\begin{cases}
+W_A,&j\in A\\
+0,&j\nin A.
+\end{cases}$
+
+The Laplacian is $\De=\sumo jn \pl_j=\sumo jn \pl_j^2$, 
+\[
+\De f = \sum_{A\subeq [n]}|A|\wh f(A) W_A.
+\]
+If $t>0$ then 
+\[
+e^{-t\De} = \sum_{A\subeq [n]} e^{-t|A|}W_A
+\]
+is the heat semigroup. It is a contraction. $e^{-t\De} = \pa{\prod_{i=1}^n (1+e^{-t}\ep_i)}*f$.
+}
+
+We have
+\begin{align}
+\ve{e^{-t\De} f}_{L_p(\{\pm 1\}^n, X)} &\ge e^{-nt} \ve{f}_{L^p(\{\pm 1\}^n, X)}\\
+e^{-t\De} (V_{[n]} e^{-t\De} f) &=e^{-tn} W_{[n]}f
+\end{align}
+where $W_{[n]}(\ep)=\prod_{i=1}^n \ep_i$. For $f=\sum_{A\subeq [n]} \wh f(A) W_A$, we have
+\begin{align}
+W_{[n]}e^{-t\De}f &= \sum_{A\subeq [n]} e^{-t|A|}\wh f(A) W_{[n]\bs A}\\
+%e^{-t\De} (W_{[n]}f)
+e^{-t\De}(W_{[n]} e^{-t\De} f) &= \sum_{A\subeq [n]} e^{-t|A|} \wh f(A) e^{-t(n-|A|)}\\
+&=e^{-tn} \sum_{A\subeq [n]} \wh f(A) W_{[n]\bs A} \\
+&=e^{-tn} W_{[n]} f\\
+e^{-tn} \ve{W_{[n]}f}_{L_p(\{\pm 1\}^n,X)}
+&= \ve{e^{-t\De} (W_{[n]}(e^{-t\De} f))}_p\\
+&\le \ve{\cancel{W_{[n]}} e^{-t\De}f}_p.
+\end{align}
+%$\rc{p^*}+\rc{p}=1$, $p^*=\fc{p}{p-1}$
+
+The key claim is the following. 
+\begin{clm}\llabel{clm:pis1}
+Suppose $X$ has Rademacher type $p$. 
+For all $1<r<\iy$, for all $t>0$, for all $g^*:\{\pm 1\}^n\to X^*$, 
+\[
+\ve{\pa{\ve{e^{-t\De} \pl_j g^*(\ep)}_{X^*}^{q^*}}^{\rc{ q^*}}}_{L_{r^*}(\{\pm 1\}^n)}\lesssim_{X,r,p} \fc{\ve{g^*}_{L_{r^*}(\{\pm 1\}^n, X^*)}}{(e^t-1)^{\fc{p^*}{q^*}}}
+.
+%integrable, singularity at 0.
+\]
+%Apply heat flow to it, do this in every direction. For every fixed $\ep$, compute the $L_{q^*}$ norm. Insider here is function of $\ep$.
+\end{clm}
+Assume the claim. We prove the following.
+\begin{clm}\llabel{clm:pis2}
+If $X$ has Rademacher type $p$, $1<q<p$, and $1<r<\iy$, then for every function $f:\{\pm 1\}^n \to X$ with $\E f = 0 = \wh f(\phi)$ we have 
+\[
+\ve{f}_{L_r(\{\pm 1\}^n, X)} \lesssim \rc{p-q} \ve{
+\pa{\sumo jn \ve{\pl_j f(\ep)}_X^q
+}^{\rc q}}_{L_r(\{\pm 1\}^n, X)}.
+\]
+\end{clm}
+When $r=q$, 
+\begin{align}
+\ve{f-\E f}_q&\lesssim \prc{p-q}^q \EE_{\ep} \sumo jn \ve{\pl_j f(\ep)}_X^q\\
+&= \prc{p-q}^q \rc{2^q} \sumo jn \ve{f(\ep)-f(\ep_1,\ldots, -\ep_j, \ep_n)}_X^q\\
+\ve{f(\ep)-f(-\ep)}_q&\le %\ve{f(\ep)-}_q...
+\\
+&= 2\ve{f(\ep)-\E f}_q\\
+&\lesssim \rc{p-q} \pa{\sumo jn \E\ve{f(\ep) - f(\ep_1,\ldots, -\ep_j, \ep_n)}^2}
+%averge digonal at most constnt times... average edge.
+\end{align}
+by definition of Enflo type.
+%$r=q$. Raise to the power $q$.
+
+We show that the Key Claim~\ref{clm:pis1} implies Claim~\ref{clm:pis2}. 
+\begin{proof}
+Normalize so that
+\[
+\ve{\pa{\sumo jn \ve{\pl_j f(\ep)}_X^q}^{\rc q}}_{L_r(\{\pm 1\}^n, X)}=1.
+\]
+For every $s>0$, by Hahn-Banach, take $g_s^*:\{\pm 1\}^n\to X^*$ such that $\ve{g_s^*}_{L_{r^*}(\{\pm 1\}^n,X^*)}=1$ and
+\[
+\E\ba{g_s^*(\ep) (\De e^{-s\De} f(\ep))} = \ve{\De e^{-s\De} f}_{L_r(\{\pm 1\}^n, X)}.
+\]
+Write this as $\an{g_s^*, \De e^{-s\De}f}$. 
+
+Recall that $L_r(\{\pm 1\}^n,X)^* = L_{r^*}(\{\pm 1\}^n, X^*)$. Taking $h\in L_r(\{\pm 1\}^n,X)^*$ and $g^*\in  L_{r^*}(\{\pm 1\}^n, X^*)$, we have 
+\[
+g^*(h)= \an{g^*,h} = \E[g^*(\ep)h(\ep)] = \E[\an{g^*,h}(\ep)].
+\]
+
+We have
+\begin{align}
+\De e^{-s\De} f &=\sum_{A\subeq [n]}|A|e^{-s|A|}\wh f(A)W_A\\
+\ve{\De e^{-s\De}f}_{L^r(X)}&=\an{g_s^*, \sum \pl_j^2 e^{-s\De}f}\\
+&=\sumo jn \an{g_s^*, \pl_j e^{-s\De}\pl_jf}\\
+%use the fact that this is self-adjoint.
+&=\sumo jn \an{e^{-s\De} \pl_jg_s^*, \pl_jf}\\
+&=\ub{\pa{e^{-s\De} \pl_jg_s^*}_{j=1}^n}{\in L_{r^*}(\ell_{q^*}^n(X^*))} \ub{\pa{\pl_j f}_{j=1}^n}{\in L_r(\ell_q^n(X))}.
+\end{align}
+Note that $(L_r(\ell_q^n(X)))^* = L_{r^*}(\ell_{q^*}^n(X^*))$, so we have a pairing here.
+
+\begin{align}
+&\le \ve{ \pa{ \sumo jn \ve{e^{-s\De} \pl_j g_s^*(\ep)}_{X^*}^{q^*}}^{\rc{q}
+%q^* %?
+}}_{L^{r^*}(X^n)}
+\ve{\pa{\sumo jn \ve{\pl_j f(\ep)}_X^q}^{\rc q}}_{L^r(X)}\\
+%holder inequality, see as functionals.
+&\le \fc{\ve{g_s^*}_{L_{r^*}(X^*)}}{(e^t-1)^{\fc{p^*}{q^*}}}
+ &\text{by Key Claim~\ref{clm:pis1}}\\
+&\lesssim \rc{(e^t-1)^{\fc{p^*}{q^*}}}.
+%normalizing functional
+\ve{\De e^{-s\De} f}_{L_r(X)} \lesssim_{X,p,r} \rc{(e^t-1)^{\fc{p^*}{q^*}}}.
+\end{align}
+Integrating,
+\begin{align}
+\int_0^{\iy} \De e^{-s\De} f &=\sum_{A\subeq [n]}\int_0^{\iy}|A|e^{-s|A|}\wh f(A)W_A.
+\end{align}
+Then
+\begin{align}
+\ve{f}_{L_r(X)} &= \ve{\int_0^{\iy} \De e^{-s\De} f\,ds}_{L_r(X)}\\
+&\le \int_0^{\iy}\ve{\De e^{-s\De} f}_{L^r(X)}\,ds\\
+&\le \iiy \fc{ds}{(e^t-1)^{\fc{p^*}{q^*}}}<\iy.
+\end{align}
+\end{proof}
+We now prove the key claim~\ref{clm:pis1}.
+
+\begin{proof}[Proof of Key Claim~\ref{clm:pis1}.]
+This is an interpolation argument. We first introduce a natural operation.
+
+Given $g^*:\{\pm 1\}^n\to X^*$, for every $t>0$ define a mapping $g_t^*:\{\pm 1\}^n\times \{\pm 1\}^n\to X^*$ as follows. For $\de\in \{\pm 1\}^n$, 
+\begin{align}
+g^*(\ep,\de) &= \sum_{A\subeq [n]} \wh g^*(A) \prod_{i\in A} (e^{-t}\ep_i + (1-e^{-t}) \de_i)\\
+& = g^*(e^{-t} \ep + (1-e^{-t}) \de)
+%not defined by cube, write F expansion, think of it as defined on $\R^n$. Then meaning
+%hink of as real vector, replace by convex combination of
+%linear interpolation between 2 cubes.
+\end{align}
+Think of $g^*(\ep) = \sum_{A\subeq [n]} \wh g^*(A) \prod_{i\in A}\ep_i$ (extended outside $\{\pm 1\}^n$ by interpolation).
+
+Observe 
+\begin{align}
+g^*(\ep,\de)& = %\sum_{A\subeq [n]} \wh g^*(A) \sum_{B\subeq A} e^{-t|B|}(1-e^{-t})^{|A|-|B|} \prod_{i\in B} \ep_i \prod_{i\in A\bs B}\de_i\\
+%&=\sum_{B\subeq [n]} e
+\sum_{B\subeq [n]} e^{-t|B|} (1-e^{-t})^{n-|B|} g^*\pa{\sum_{i\in B} \ep_i e_i + \sum_{i\nin B} \de_i e_i}\\
+g^*\pa{
+\sum_{i\in B} \ep_ie_i + \sum_{i\nin B} \de_ie_i
+}&= \sum_{A\subeq [n]} \wh{g^*}(A) W(A\cap B)(\ep)W_{A\bs B}(\de)\\
+&\qquad
+\sum_{B\subeq [n]} e^{-t|B|} (1-e^{-t})^{n-|B|} g^*(\sum_{i\in B} \ep_i e_i + \sum_{i\nin B} \de_i e_i)\\
+&= \sum_{B\subeq [n]} e^{-t|B|}(1-e^{-t})^{n-|B|} \sum_{A\subeq [n]} \wh{g^*}(A) W_{A\cap B}(\ep)W_{A\bs B}(\de)\\
+&=\sum_{A\subeq [n]}\wh{g^*}(A) \sum_{B\subeq [n]} e^{-t|B|}(1-e^{-t})^{n-|B|} W_{A\cap B}(\ep)W_{A\bs B}(\de).
+\end{align}
+Let $\ga= \begin{cases}
+\ep_i,&\text{w.p. }e^{-t}\\
+\de_i,&\text{w.p. }1-e^{-t}.
+\end{cases}$.
+Then
+\begin{align}%\xiI
+t\pa{\prod_{i\in A} \ga_i} & =\prod_{i\in A}(e^{-t}+ (1-e^{-t})\de_i\\
+\sum_A \wh{g^*}(A) \E w_A(\ga) & = \E\pa{\sum_A \wh{g^*}(A)W_A(\ga)}\\
+&=\sum_{B\subeq [n]} e^{-t|B|} (1-e^{-t})^{n-|B|}g^*(\ga)
+%product number of terms 
+\end{align}
+Instead of a linear interpolation, we did a random interpolation.
+
+What is $\ve{g_t^*}_{L_{r^*}(\{\pm 1\}^n\times \{\pm 1\}^n, X^*)} \le \sum_{B\subeq [n]} e^{-t|B|(1-e^{-t})^{n-|B|}}$? 
+%$\ve{g_t^*}_{L_{r^*}(X^*)} \le \ve{g}_{r^*}$
+%\ve{g}_{r^*}
+\end{proof}
