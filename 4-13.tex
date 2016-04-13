@@ -1,0 +1,137 @@
+
+\blu{4/13: Continue Theorem~\ref{thm:pisier}}. 
+
+We're proving a famous and nontrivial theorem, so there are more computations (this is the only proof that's known). 
+
+We previously reduced everything to the following ``Key Claim'' \ref{clm:pis1}. 
+
+Fix $t > 0$. Define $g_t^*: \{\pm 1\}^n \times \{\pm 1\}^n \to X^*$. Then 
+\bal
+g_t^*(\ep, \delta) &= g^*(e^{-t}\ep + (1 - e^{-t})\delta)
+\\
+&= \sum_{A \subseteq \left\{1, \cdots, n\right\}} \hat{g}^*(A) \prod_{i \in A} \left(e^{-t}\ep_i + (1 - e^{-t})\delta_i\right)
+\end{align*}
+
+Then it's a fact that $\|g_t^*\|_{L_{r^*}(\{\pm 1\}^n \times \{\pm 1\}^n, X^*) \leq \|g^*\|_{L_r(\{\pm 1\}^n, X^*)}}$ which is true for any Banach space from a Bernoulli interpretation. 
+
+Let us examine the Fourier expansion of the original definition of $g^*$ in the variable $\delta_i$.
+What is the linear part in $\de$? We have 
+\bal
+g_t^*(\ep, \de) &= \sum_{i = 1}^n \de_i \left(\sum_{A \subseteq \{1, \cdots, n\}, i \in A}(1 - e^{-t(|A| - 1)}\ep_j)\right) + \Phi(\ep, \de)
+\end{align*}
+where $\Phi$ is the remaining part. The way to write this is to write $\E\Phi(\ep, \de) \de_i = 0$, for all $i = 1, \cdots, n$ since we know the extra part is orthogonal to all the linear parts, since the Walsh function determines an orthogonal basis. 
+
+So 
+\bal
+\sum_{A \subseteq \{1, \cdots, n\}, i \in A} (1 - e^{-t})e^{-t|A|} e^t\prod_{j \in A\setminus\{i\}}\hat{g}^*(A) &= (e^t - 1)\ep_i e^{-t\De}\partial_i g^*
+\end{align*}
+
+What does $\partial_i$ do to $g^*$? It only keeps the $i$s which belong to it, and it keeps it with the same coefficient. Then you hit it with $e^{-t\De}$, which corresponds to $e^{-t|A|}$. Then the last part is just the Walsh function. 
+
+All in all, you get that $g_t^*(\ep, \de) = (e^t - 1)\sum_{i = 1}^n \de_i\ep_ie^{-t\De}\partial_ig^*(\ep) + \Phi(\ep, \de)$. 
+
+Now fix $\ep \in \{\pm 1\}^n$. Recall the dual formulation of Rademacher type $p$: For every function $h^*: \{\pm 1\}^n \to X^*$, compute $\|(\sum_{i = 1}^n \|\hat{h}^*(i)\|_X^{p^*})^{1/p^*}\|_{L_{r^*}(\{\pm 1\}^n, X^*)} \leq \|h^*\|_{L_{r^*}(\{\pm 1\}^n, X^*)}$. 
+
+Then, applying this inequality to our situation with $g_t^*(\ep, \de)$ where we have fixed $\ep$, we get
+\bal
+\left\|\left(\sum_{i = 1}^n \|e^{-t\De}\partial_ig^*(\ep)\|_{X^*}^{p^*}\right)^{1/p^*}\right\|_{L_{r^*}(\{\pm 1\}^n, X^*)} &\lesssim (e^t - 1)^{-1}\left(\E_{\de} \|g_t^*(\ep, \de)\|_{X^*}^{r^*}\right)
+\end{align*}
+
+Then, we get 
+\bal
+\left\|\left(\sum_{i = 1}^n \|e^{-t\De}\partial_ig^*\|_{X^*}^{p^*}\right)^{1/p^*}\right\|_{L_{r^*}(\{\pm 1\}^n, X^*)} &\lesssim (e^t - 1)^{-1}\|g_t^*\|_{L_{r^*}(\{\pm 1\}^n \times \{\pm 1\}^n, X^*)}
+\\
+&\lesssim (e^t - 1)^{-1}\|g\|_{L_{r^*}(\{\pm 1\}^n, X^*)}
+\end{align*}
+
+Now we want to take $t \to \infty$. Let us look at $\|e^{-t\De}\partial_i g^*\|_{L_{\infty}(\{\pm 1\}^n, X^*)}$. $e^{-t\De}$ is a contraction, and so does $\partial_i$. We proved the first term is an averaging operator, which does not decrease norms. We also have that $\partial_i$ is averaging a difference of two values, so it also does not decrease norm. Therefore, we can put a max on it and still get our inequality: 
+\bal
+\max_{1 \leq i \leq n} \|e^{-t\De}\partial_i g^*\|_{L_{\infty}(\{\pm 1\}^n, X^*)} \leq \|g^*\|_{L_{\infty}(\{\pm 1\}^n, X^*)}
+\end{align*}
+
+Then, 
+\bal
+\left\|\left(\sum_{i = 1}^n \|e^{-t\De}\partial_ig^*\|_{X^*}^{a}\right)^{1/a}\right\|_{L_b(\{\pm 1\}^n, X^*)} &= \|(\|e^{-t\De}\partial_i g^*\|_{X^*})_{i = 1}^n\|_{L_b(l_a^n(X^*))}
+\end{align*}
+
+Define $S: L_{r^*}(X^*) \to L_{r^*}(l_{p^*}^n(X^*))$, and it maps 
+\bal
+S(g^*) = (e^{-t\De}\partial_ig^*(\ep))_{i = 1}^n
+\end{align*}
+The first inequality is the same thing as saying the operator norm of $S$
+\bal
+\|S\|_{L_{r^*}(X^*) \to L_{r^*}(l_{p^*}^n(X^*))} \lesssim \fc{1}{e^t - 1}
+\end{align*}
+
+We also know that 
+\bal
+\|S\|_{L_{\infty}(X^*) \to L_{\infty}(l_{\infty}^n(X^*))} \leq 1
+\end{align*}
+
+We now want to interpolate these two statements ($r^*$ and $\infty$) to arrive at $q^*$, as in the last remaining portion of the proof which is left.
+
+Define $\theta \in [0, 1]$ by $\fc{1}{q^*} = \fc{\theta}{p^*} + \fc{1 - \theta}{\infty} = \fc{\theta}{p^*}$, so $\theta = \fc{p^*}{q^*}$. 
+
+By the vector-valued Riesz Interpolation Theorem (proof is identical to real-valued functions) (this is in textbooks), 
+
+\bal 
+\|S\|_{L_{a^*}(X^*) \to L_{a^*}(l_{q^*}^n(X^*))} \lesssim \fc{1}{(e^t - 1)^{\theta}}
+\end{align*}
+provided $\fc{1}{a^*} = \fc{\theta}{r^*} + \fc{1 - \theta}{\infty}$, or $a^* = \fc{r^*}{\theta} = \fc{r^*q^*}{p^*}$. $\fc{q^*}{p^*} > 1$, as $r$ ranges from $1 \to \infty$, so does $r^*$. In Pisier's paper, he says we can get any $a^*$ that we want. However, this seems to be false. But this does not affect us: If we choose $r = p$, then we get $a = q$, which is all we needed to finish the proof. 
+
+So in \ref{clm:pis1}, we take $r^* > \fc{q^*}{p^*}$, and this completes the claim. 
+
+Later I will either prove or give a reference for the interpolation portion of the argument. 
+
+Remember what we proved here and the definition of Enflo type $p$. You assign $2^n$ points in Banach space, to every vertex of the hyper cube. We deduce the volume of parallelpiped for any number of points. The open question is do we need to pass to this smaller value, and we needed it to get the integral to converge. 
+
+\section{Grothendieck's Inequality}
+
+Next week is student presentations, let's give some facts about Grothendieck's inequality. Let's prove the big Grothendieck theorem (this has books and books of consequences). Applications of Grothendieck's inequality is a great topic for a separate course. 
+
+The big Grothendieck Inequality is the following:
+
+\begin{thm} Big Grothendeick. \\
+There exists a universal constant $K_G$ (the Grothendieck constant) such that the following holds true. Let $A = (a_j) \in M_{m \times n}(\R)$, and $x_1, \cdots, x_m, y_1, \cdots, y_n$ are unit vectors in a Hilbert space $H$. Then there exist signs $\ep_1, \cdots, \ep_n, \de_1, \cdots, \de_n \in \{\pm 1\}^n$ such that if you look at the bilinear form 
+\[
+\sum_{i, j} a_{ij}\langle x_i, y_j \rangle = K_G \sum_{a_{ij}\ep_i\de_j}
+\]
+So whenever you have a matrix, and two sets of high-dimensional vectors in a Hilbert space, there is at most a universal constant (less than $2$ or $3$) times the same thing but with signs. 
+\end{thm}
+
+Let's give a geometric interpretation. Consider the following convex bodies in $(\R^n)^2$. So $A$ is the convex hull of all matrices of the form $conv(\left\{(\ep_i\de_j): \ep_1, \cdots, \ep_m, \de_1, \cdots, \de_n \in \{\pm 1\} \right\}) \subseteq M_{m \times n}(\R) \cong \R^{mn}$. These matrices all have entries $\pm 1$. 
+This is a polytope. 
+
+$B = conv(\left\{\langle x_i, y_j \rangle: x_i, y_j \txtn{ unit vectors in a Hilbert space } \right\}) \subseteq M_{m \times n}(\R)$. It's obvious that $B$ contains $A$ since $A$ is a restriction to $\pm 1$ entries. 
+
+Grothendieck says the latter half of the containment $A \subseteq B \subseteq K_G A$. If there is a point outside $K_G A$, you can find a separating hyperplane, which is a matrix. If $B$ is not in $K_G A$, then there exists $\langle x_i, y_j \rangle \not\in K_G A$ which means by separation there exists a matrix $a_{ij}$ such that $\sum a_{ij} \langle x_i, y_j > K_G\sum a_{ij}c_{ij}$ for all $c_{ij} \in A$, which is a contradiction by Grothendieck's theorem taking $c_{ij} = \ep_i\de_j$. 
+
+We previously proved $l_{\infty} \to l_2$, the following is a harder theorem: 
+\begin{lem} 
+Every linear operator $T: l_{\infty}^n \to l_1^n$ satisfies for all $x_1, \cdots, x_m \in \ell_{\infty}^n$. 
+\bal
+\left(\sum_{i = 1}^n \|Tx_i\|_{l_1^n}^2 \right)^{1/2} &\leq K_G \cdot \|T\|_{l_{\infty}^n \to l_1^n} \max_{\|x\|_1 \leq 1, x_i \in l_1^n}\left( \sum_{i = 1}^n \langle x, x_i \rangle^2\right)^{1/2}
+\end{align*}
+\end{lem}
+
+As an exercise, see how the lemma follows from Grothendieck, and how the little Grothendieck inequality follows from the big one in the case where $a_{ij}$ is positive definite (so it's just a special case; there the best constant is $\sqrt{\pi/2}$).
+
+Note that $\max_{\|x\|_1 \leq 1} \langle x, x_i \rangle$ just gives $\|x_i\|_{\infty}$. But Grothendieck says for any number of $x_1, \cdots x_m$, we can for free improve our norm bound by a constant universal factor. 
+
+In the little Grothendieck inequality, what we did was prove the above fact for an operator for $l_1 \to l_2$, and we deduced Pietch domination from that conclusion: There is a probability measure on the unit ball of $\ell_1^n$ such that $\|Tx\|_1^2 \leq K_G^2\|T\|_{\ell_{\infty}^n \to \ell_1^n} \int_{B_{\ell_1^n}} \langle y^*, x \rangle^2 d\mu(y^*)$. If you know there exists such a probability measure, you know the above lemma, since you just do this for each $x_i$, and this is at most the maximum so you can just multiply. 
+
+This is an amazing fact though: Look at $T: \ell_{\infty}^n \to \ell_1^n$, and look at $L_2(\mu, )$. This is saying that if you think of an element in $\ell_{\infty}$ as a bounded function on the $L_2$ unit ball of its dual. You can think like this for any Banach space. Then, we have a diagram mapping from $\ell_2^n \to L_2(\mu)$ by identity into a Hilbert space subspace $H$ of $L_2(\mu)$, and $S: H \to \ell_1^n$. You got these operators to factor through a Hilbert space $H$, so we form a commutative diagram and the norm of $S$ is at most $\|S\| \leq K_G\|T\|$. 
+
+This is how this is used. These theorems give you for free a Hilbert space out of nothing, and we use this a lot. After the presentations, from just this duality consequence, I'll prove one or two results in harmonic analysis and another result in geometry, and it really looks like magic. You can end up getting things like Parseval for free. We already saw the power of this in Restricted Invertibility. 
+
+Let's begin a proof of Grothendieck's inequality. 
+\begin{proof}
+We will give a proof getting $K_G \leq \fc{\pi}{2\log(1 + \sqrt{2})} = 1.7\cdots$ (this is not from the original theorem). We don't actually know what $K_G$ is. People don't really care what $K_G$ is beyond the first digit. 
+Grothendieck was interested in the worst configuration of points on the sphere, but it would not tell us what the configuration of points is. We want to know the actual number, or some description of the points. We know this is not the best bound since it doesn't give the worst configuration of points. 
+
+You do the following: The input was points $x_1, \cdots, x_m, y_1, \cdots, y_n \in $ unit sphere in Hilbert space $H$. We will construct a new Hilbert space $H'$ and new unit vectors $x_i', y_j'$ such that if $z$ is uniform over the sphere of $H'$ according to surface area measure, then the expectation of $\E\txtn{sign}(\langle z, x_i' \rangle) *\txtn{sign}(\langle z, y_j'\rangle) = \fc{2\log(1 + \sqrt{2})}{\pi} \langle x_i, y_j \rangle$ for all $i, j$. 
+
+So we have a sphere with points $x_i, y_j$, and there is a way to nonlinearly transform into a sphere in the same dimension with $x_i', y_j'$. On the new sphere, if you take a uniformly random direction on the sphere, and look at a hyperplane defined by $z$, then the sign just indicates whether $x_i', y_j'$ are on the same or opposite sides. Let's call $\ep_i$ the first ``random sign'', and $\de_j$ the second ``random sign''. Then, $\E \sum a_{ij} \ep_i\de_j = \fc{2\log (1 + \sqrt{2})}{\pi} \sum a_{ij} \langle x_i, y_j \rangle$. So there exists an instance (random construction) of $\ep_i, \de_j$ such that $\sum a_{ij} \langle x_i, y_j \rangle \leq \fc{\pi}{2\log (1 + \sqrt{2})} \sum a_{ij} \langle x_i, y_j \rangle$. If you succeed in making a bigger constant bound when bounding the expectation of the multiplication of the signs, you get a better Grothendieck constant. For the argument we will give, we will see that the exact number we get will be the best constant. 
+
+\end{proof}
+
