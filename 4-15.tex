@@ -1,0 +1,225 @@
+
+\blu{Undergrad Presentations}. 
+
+\section{Grothendieck's Inequality for Graphs: Arka and Yuval}
+
+We're going to talk about upper bounds for the Grothendieck constant for quadratic forms on graphs.
+
+\begin{thm} Grothendieck's Inequality. \\
+\bal
+\sum_{i = 1}^n \sum_{i = 1}^m a_{ij} \langle x_i, y_i \rangle &\leq K_G \sum_{i = 1}^n \sum_{i = 1}^m a_{ij} \ep_i \de_j
+\end{align*}
+where $x_i, y_j$ are on the sphere. This is a bipartite graph where $x_i$s form one side and $y_j$s form the other side. Then you assign arbitrary weights $a_{ij}$. So you can consider arbitrary graphs on $n$ matrices. 
+\end{thm}
+
+For every $x_i, y_j$, there exist signs $\ep_i, \de_j$ such that
+\bal
+\sum_{i, j \in \{1, \cdots, n\} } a_{ij} \langle x_i, y_j \rangle &\leq C \log n \sum a_{ij} \ep_i \de_j
+\end{align*}
+
+We will prove an exact bound on the complete graph, where the Grothendieck constant is $C \log n$. 
+
+For a general graph, we will prove that $K(G) = \mc{O}(\log \Theta(G))$, where we will define the $\Theta$ function of a graph later. 
+
+\begin{df} $K(G)$ is the least constant $K$ s.t. for all matrices $A: V \times V \to \R$, 
+\bal
+\txtn{sup}_{f: V \to S^{n - 1}} \sum_{(u, v) \in E} A(u, v) \langle f(u), f(v) \rangle &\leq K \txtn{sup}_{\varphi: V \to E} \sum_{(u, v) \in E} A(u, v) \varphi(u)\varphi(v)
+\end{align*}
+\end{df}
+
+\begin{df} The Gram representation constant of $G$. \\
+Denote by $R(G)$ the infimum over constants $R$ s.t. for every 
+$f: V \to S^{n - 1}$. There exists $F:V \to L_{\infty}^{[0, 1]}$
+such that for every $v \in V$ we have $\|F(v)\|_{\infty} \leq R$ 
+and $\langle f(u), f(v) \rangle = \langle F(u), F(v) \rangle = \int_0^1  F(u)(t)F(v)(t) dt$. 
+For $(u, v)$ which is an edge, you find the constant $R$ so that you can embed functions $f$ into $F$ such that the $\ell_{\infty}$ norm is less than an explicit constant.
+\end{df}
+
+\begin{lem} Let $G$ be a loopless graph. Then $K(G) = R(G)^2$. 
+\end{lem}
+\begin{proof}
+Fix $R > R(G)$ and $f: V \to S^{n - 1}$. Then there exists $F: V \to L_{\infty}[0, 1]$ such that
+for every $v \in V$, we have $\|F(v)\|_{\infty} \leq R$ and for $(u, v) \in E$ $\langle f(u), f(v) \rangle \leq \langle F(u), F(v) \rangle$. 
+Then, 
+\bal 
+\sum_{(u, v) \in E} A(u, v) \langle f(u), f(v) \rangle = \sum_{(u, v) \in E} A(u, v)\langle F(u), F(v) \rangle &= \int \sum_{(u, v) \in E} A(u, v)F(u)(t) F(v)(t) dt
+\\
+&\leq \int \txtn{sup}_{g: V \to [-R, R]} \sum A(u, v) g(u) g(v) dt
+\end{align*}
+
+We use definition and linearity to reverse the sum and integral. Now we use the loopless assumption to get to the definition of the right side of the Grothendieck inequality. We just need to fix the $[-R, R]$ to $[-1, 1]$. 
+We then get the last term above is equivalent to $R^2 \txtn{sup}_{\varphi: V \to [-1, 1]} \sum_{(u, v) \in E} A(u, v)\varphi(u)\varphi(v)$, which completes the proof. 
+
+Now, for each $f: V \to S^{n -1}$, consider $M(f) \subseteq \R^{|E|} = (\langle f(u), f(v))_{(u, v) \in E}$. For each $\varphi: V \to \{-1, 1\}$, define $M(\varphi) = (\varphi(u), \varphi(v))_{(u, v)} \in \R^{\varphi}$. Now we use the convex geometry interpretation of Grothendieck from the last class. Mimicking it, we write 
+\bal 
+\txtn{conv}\left\{ M(\varphi): \varphi: V \to \{-1, 1\}\right\} \subseteq \txtn{conv}\left\{M(f): f:V \to S^{n -1} \right\}
+\end{align*}
+The implication of Grothendieck's inequality gives us 
+\bal
+\txtn{conv}\left\{M(f): f: V \to S^{n - 1} \right\} \subseteq K(G) \cdot \txtn{conv}\left\{ M(\varphi): \varphi: V \to \{-1, 1\}\right\} 
+\end{align*}
+
+So there exist weights $\{\lambda_g: g: V \to \{-1, 1\}\}$ which satisfy $\sum_{q: V \to \{-1, 1\}} \lambda_g = 1$, $\lambda_g \geq 0$ and for all $(u, v) \in E$ $\langle f(u), f(v) \rangle = \sum_{q:v \to \{-1, 1\}} \lambda_g g(u)g(v) K(G)$. 
+
+Now consider 
+\[
+F(u) = \sqrt{K(g)} \cdot g(u) [\lambda_1 + \cdots + \lambda_{g - 1}, \lambda_1 + \cdots + \lambda_g]
+\]
+Then, 
+\bal
+\langle F(u), F(v) \rangle = \sum_{g: \{V \to \{-1, 1\}\}} K(G) g(u)g(v) \lambda_g
+\end{align*}
+Then we consider our interval becomes $[-\sqrt{K(G)}, \sqrt{K(G)}]$, and thus $R(G) \leq \sqrt{K(G)}$ and $R(G)^2 \leq K(G)$. This proof can be modified for graphs with loops, but this is not quite true. 
+\end{proof}
+
+An obvious corollary is that if $H$ is a subgraph of $G$, then $R(H) \leq R(G)$, and $K(H) \leq K(G)$. This inequality is not obvious from the Grothendieck inequality directly, but is obvious going with our point of view. 
+
+\begin{lem} Let $K_n^{\circ}$ denote the complete graph on $n$-vertices with loops. Then 
+$R(K_n^{\circ}) = \mc{O}(\sqrt{\log n})$. 
+\end{lem}
+\begin{proof}
+Let $\sigma$ be the normalized surface measure on $S^{n - 1}$. By computation, there exists $c$ s.t. $\sigma\left(\left\{ x \in S^{n - 1}: \|x\|_{\infty} \leq c\sqrt{\frac{\log n}{n}}\right\}\right) \geq 1 - \frac{1}{2n}$, which can be calculated through integration. 
+
+When you get a function $f$ on the sphere to the $n - 1$ dimensional sphere, you want to find a rotation so that all these vectors have low coordinate vector value. We basically use the union bound. For each of the $n$ vectors, the probability you get a vector with low valued last coordinate is $1 - 1/(2n)$, do this for all the vectors and you get probability greater than $1/2$. Then you can magnify this to get almost surely.
+
+For every $x \in S^{n - 1}$, the random variable on the orthogonal group $O(n)$ given by $U\to Ux$ is uniformly distributed on $S^{n - 1}$.  Thus for every $f: V \to S^{n - 1}$, there is a rotation $U \in O(n)$ such that $\forall v \in V$ $\|U(f(v))\|_{\infty} \leq c\sqrt{\frac{\log n}{n}}$. 
+
+We want $F(v)$ to be equal to the $j^{th}$ coordinate of $Uf(v)$ on interval of length $1/n$. I.e., 
+Let $F(u)(t) = (U(f(v))) \sqrt{n}$ on $\frac{j - 1}{n} \leq t \frac{j}{n}$. 
+
+Thus $R \leq c \sqrt{\log n}$. 
+\end{proof}
+
+Now I will prove the thing mentioned at the beginning: 
+\begin{thm} $K(G) \leq \log \chi(G)$, where $\chi(G)$ is the chromatic number. 
+\end{thm}
+
+This theorem generalizes since on bipartite graphs $\chi(G)$ is a constant. 
+
+One thing we want to observe about the Grothendieck inequality is that it only cares about the Hilbert space structure. So we will just prove this in one specific (nice) Hilbert space and then we'll be done. Fix a probability space $(\Omega, P)$ such that $g_1, \cdots, g_n$ be i.i.d. standard Gaussians on $\Omega$ (for instance, $\Omega$ is the infinite product of $\R$). 
+
+Now define the Gaussian Hilbert space $H = \left\{\sum_{i = 1}^{\infty} a_i g_i: \sum a_i^2 < \infty\right\} \subseteq L^2(\Omega)$. Every function in here will have mean zero since these are linear combinations of Gaussians. Note that the unit ball $B(H)$ consists of all Gaussian distributions with mean zero and variance at most $1$ (since the variance is norm squared). 
+
+Let $\Gamma$ be the left hand side of the Grothendieck inequality: $\txtn{sup}_{f: V \to \{-1, 1\}} \sum_{(u, v) \in E} A(u, v) \langle f(u), f(v) \rangle$, and let $\Delta = \txtn{sup}_{f: V \to \{-1, 1\}} \sum_{(u, v) \in E} A(u, v)\varphi(u)\varphi(v)$. 
+
+\begin{df} Truncation. \\
+For all $M > 0$, $\psi \in L_2(\Omega)$, define the truncation of $\psi$ at $M$ to be
+\[
+\psi^M(x) = 
+\begin{cases}
+\psi(x) & |\psi(x)| \leq M \\
+M & \psi(x) \geq M \\
+-M & \psi(x) \leq -M
+\end{cases}
+\] 
+We're just cutting things off at the interval $[-M, M]$. 
+So fix $f$ maximizing $\Gamma$. 
+
+\begin{lem} There exists Hilbert space $H$, $h: V \to H$, $M > 0$ with $\|h(v)\|_H^2 \leq 1/2$ for all vertices $v \in V$, $M \lesssim \sqrt{\log \chi(G)}$, and we can now write $\Gamma$ as a sum over all edges $\Gamma = \sum_{(u, v)} A(u, v) \langle f(u)^M, f(v)^M \rangle + \sum_{(u, v) \in E} A(u, v) \langle h(u), h(v) \rangle$, where the second term is an error term. 
+\end{lem}
+\begin{proof}
+Let $k = \chi(G)$. A fact for all $s: V \to l_2$ s.t. $\langle s(u), s(v) \rangle = \frac{-1}{k - 1}$ for all $(u, v) \in E$, and $\|s(u)\| = 1$. 
+
+Define another Hilbert space $U = l_2 \oplus \R$. Define $t, \hat{t}$, two functions from $V \to U$. They are defined as follows: 
+\[
+t(u) = (\sqrt{\frac{k - 1}{k} s(u)}) \oplus (\frac{1}{\sqrt{k}}e_1)
+\]
+\[
+\hat{t}(u) = (-\sqrt{\frac{k - 1}{k}}s(u)) \oplus (\frac{1}{\sqrt{k}}e_1)
+\]
+Now, $t(u), \hat{t}(u)$ are unit vectors for all $(u, v) \in E$. Then $\langle t(u), t(v) \rangle = \langle \hat(t)(u), \hat{t}(v) \rangle = 0$. 
+We also have $\langle t(u), \hat{t}(v) \rangle = \frac{2}{k}$. 
+
+Our goal is to prove that such a function exists. Set $H' = U \otimes L_2(\Omega)$. We now write 
+down a function 
+\[
+h(u) = \frac{1}{4}t(u) \otimes (f(u) + f(u)^M) + k\hat{t}(u) \otimes (f(u) - f(u)^M)
+\]
+It turns out that this function does everything we want. 
+A couple of key facts: It's easy to check that the definition of $\Gamma$ holds, defined in terms of $h(u)$ (for the error term). Checking $\|h(v)\|_H^2 \leq 1/2$ holds is also possible. You can bound $\|h(u)\|^2 \leq (1/2 + k\|f(u) - f(u)^M\|)^2$ after evaluating inner products. Now we use th eproperty of the Hilbert space. $f(u)$ is in the ball of $H$, with mean zero and variance at most $1$. Then, $\|f(v) - f(v)^M\|^2$ is the probability that the Gaussian falls outside the interval $[-M, M]$. Therefore, from basic probability theory, 
+\[
+\|f(v) - f(v)^M\|^2 \leq \frac{\sqrt{2}{\pi}} \int_{M}^{\infty} x^2 e^{-x^2/2} dx \leq 2Me^{-M^2/2}
+\]
+where the last part follows by calculus. This is great since if we pick $M \sim \sqrt{\log k}$. So this will decay super quickly. Picking $M = 8\sqrt{\log k}$ gives that the entire thing will be $\leq 1/2$. That proves the lemma, so we're done.
+\end{proof}
+
+This lemma is actually all we need. Suppose we have proved this. Now we can say the following. We can bound the first term by taking expectations: 
+$\sum_{(u, v) \in E} A(u, v)\langle f(u)^M, f(v)^M \rangle  = \E \sum_{(u, v) \in E} A(u, v)f(u)^Mf(v)^M \leq M^2 \Delta$ by the definition of $\Delta$. 
+
+For the second term, we write $\sum_{(u, v) \in E} A(u, v)\langle h(u), h(v) \rangle \leq (\max_{v \in V} \|h(v)\|^2)\Gamma \leq \frac{1}{2}\Gamma$. 
+by re-scaling. You need to pull out each of these maxima separately, using linearity each time. You can also multiply each thing by $\sqrt{2}$ makes it be in $B(H)$. You just have to multiply by $\sqrt{2}$ and divide by $\sqrt{2}$ and they're not dependent anymore. By the conditions of the lemma, our $h$ has norm at most $1/2$, so the 
+This entire thing is Hilbert space independent, so the whole thing is $< \frac{\Gamma}{2}$. Thus $\Gamma \leq M^2\Delta + \frac{1}{2}\Gamma \implies \Gamma \leq 2M^2\Delta$. 
+
+This implies $\Gamma \lesssim \log \chi(G)\Delta$, which is exactly what we wanted to say, since the left hand side of the Grothendieck inequality is the first term, and the right hand side of the Grothendieck inequality is the second term with Grothendieck constant $\log \chi(G)$. 
+
+\section{Noncommutative Version of Grothendieck's Inequality - Thomas and Fred}
+
+First we'll phrase the classical Grothendieck inequality in terms of an optimization problem. Given $A \in M_n(\R)$, we can consider 
+\[
+\max_{\ep_i, \de_j \in } \sum_{i, j = 1}^n A_{ij} \ep_i\de_j
+\]
+In general this is hard to solve, so we do a semidefinite relaxation
+\[
+\txtn{sup}_{d \txtn{ dimensions}} \textn{sup}_{x, y \in (S^{d - 1})^n}  \sum_{i, j = 1}^n A_{ij}\langle x_i, y_j \rangle
+\]
+which implies that it's polynomially solveable, and Grothendieck inequality ensures you're only a constant factor off from the best. 
+
+We can give a generalization to tensors. Given $M \in M_n(M_n(\R))$ consider 
+\[
+\txtn{sup}_{u, v \in O_n} \sum_{i, j, k, l = 1}^n M_{ijkl} U_{ij}V_{kl}
+\]
+Set $M_{iijj} = A_{ij}$, then we obtain
+\[
+\txtn{sup} \sum A_{ij} U_{ii}V_{jj} = \sup_{x, y \in \{-1, 1\}^n} \sum_{i, j = 1}^n A_{ij}x_iy_j = \max_{\ep, \de \in \{-1, 1\}^n} \sum A_{ij} \ep_i \de_j
+\]
+
+We relax to SDP over $\R$ of $M$: 
+\[
+\txtn{sup}_{d \in \N} \sup_{X, Y \in O_n(\R^d)} \sum_{i, j, k, l = 1}^n M_{ijkl} \langle X_{ij}, Y_{kl} \rangle
+\]
+Recall that $U \in O_n$ means that 
+\[
+\sum_{k = 1}^n U_{ik} U_{jk} = \sum_{k = 1}^n U_{ki} U_{kj} = \delta_{ij}
+\]
+If $X \in M_n(\R^d)$, let $XX^*, X^*X \in M_n(\R)$ defined by 
+\[
+(XX^*)_{ij} = \sum_{k = 1}^n \langle X_{ik}, Y_{jk} \rangle
+\]
+\[
+(X^*X)_{ij} = \sum_{k = 1}^n \langle X_{ki}, Y_{kj} \rangle
+\]
+Then $O_n(\R^d) = \left\{X: M_n(\R^d): XX^* = X^*X = I\right\}$.
+
+We want to say something about when we relax the search space, we get within a constant factor of the non-relaxed version of the program. We will prove this in the complex case.
+
+We will write 
+\[
+\txtn{Opt}_{\C}(M) = \txtn{sup}_{U, V \in U_n} |\sum_{i, j, k, l = 1}^n M_{ijkl} U_{ij} \overline{V}_{kl}|
+\]
+The fact that Opt is less than the SDP, Pisier proved thirty years after Grothendieck conjectured it. 
+What we will actually prove is that the SDP solution is at most twice the optimal: 
+\[
+\txtn{SDP}_{\C}(M) \leq 2 \txtn{Opt}_{\C}(M)
+\]
+
+\begin{thm} Fix $n, d \in \N$ and $\ep \in (0, 1)$. Suppose we have $M \in M_n(M_n(\C))$ and $X, Y \in U_n(\C^d)$ such that 
+\[
+|\sum_{i, j, k , l = 1}^n M_{ijkl} \langle X_{ij}, Y_{kl} \rangle | \geq (1 - \ep) \txtn{SDP}_{\C}(M)
+\]
+
+So what we're saying is suppose some SDP algorithm gave a solution satisfying this from input $X, Y \in U_n(\C^d)$. Then we can give a rounding algorithm which will output $A, B \in U_n$ such that 
+\[
+\E |\sum_{i, j, k, l = 1}^n M_{ijkl} A_{ij}\overline{B}_{kl}| \geq (1/2 - \ep)\txtn{SDP}_{\C}(M)
+\]
+
+Now what's the algorithm? It's a slightly clever version of projection. We have $X, Y \in U_n(\C)$, and we want to get to actual unitary matrices. First sample $z \in \{1, -1, i, -i\}^d$ (complex unit cube). Then $x_{z} = \frac{1}{\sqrt{2}}\langle X, z \rangle$ (take inner products columnwise), similarly $Y_z = \frac{1}{\sqrt{2}}\langle Y, z \rangle$. Now we take the Polar Decomposition $A = U\Sigma V^*$ where $U, V$ are unitary. The polar decomposition is just $A = (UV^*)(V\Sigma V^*)$, and then the first guy is unitary, and the second guy is PSD (think of it as $e^{i\theta} * r$). 
+
+Then we have $(A, B) = (U_z|X_z|^{it}, V_z|Y_z|^{-it})$ where $t$ is sampled from the hyperbolic secant distribution. It's very similar to a normal distribution. The PDF is more precisely
+\[
+\varphi(t) = \frac{1}{2} \txtn{sech}(\frac{\pi}{2}t) = \frac{1}{e^{\pi t/2} + e^{-\pi t/2}}
+\]
+When you have a positive definite matrix, you can raise it to imaginary powers, so we're rotating only the positive semidefinite part, and keeping the rotation side $(UV^*)$. 
+Note that the $(A, B)$ are unitary. (You can also think of this as raising diagonals to $it$, these necessarily have eigenvalue of magnitude $1$).
+
+
+
