@@ -1,5 +1,5 @@
 [0] Config.pm:324> INFO - This is Biber 2.0
-[0] Config.pm:327> INFO - Logfile is 'mat529.blg'
-[177] biber-MSWIN:273> INFO - === %a %b %e, %Y, %H:%M:%S
-[353] Utils.pm:161> ERROR - Cannot find control file 'mat529.bcf'! - did you pass the "backend=biber" option to BibLaTeX?
-[353] Biber.pm:110> INFO - ERRORS: 1
+[1] Config.pm:327> INFO - Logfile is 'mat529.blg'
+[784] biber-MSWIN:273> INFO - === %a %b %e, %Y, %H:%M:%S
+[976] Utils.pm:161> ERROR - Cannot find control file 'mat529.bcf'! - did you pass the "backend=biber" option to BibLaTeX?
+[977] Biber.pm:110> INFO - ERRORS: 1

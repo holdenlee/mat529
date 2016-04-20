@@ -1,0 +1,148 @@
+
+\blu{4-20-16}
+
+For $X,Y\in U_n(\C^d)$, do the following.
+\begin{enumerate}
+\item
+Sample $z\in \{\pm 1,\pm i\}$ uniformly. Sample $t$ from the hyperbolic secant distribution.
+\item
+Let $X_z=\rc{\sqrt 2}\an{x,z}$, $Y_Z=\rc{\sqrt 2} \an{Y,z}$.
+\item
+Let $(A,B):=(U_Z|X_Z|^{it}, V_Z|Y_Z|^{-it})\in U_n\times U_n$ where $X_Z=U_Z|X_Z|, Y_Z=U_Z|Y_Z|$ (polar decomposition).
+\end{enumerate}•
+$M(X,Y)= \sumo{i,j,k,l}n M_{ijkl} \an{X_{ij},Y_{kl}}$. We want to show
+\[
+\E_t[M(A,B)] \ge \pa{\rc 2-\ep} M(X,Y) \ge (\rc2 - \ep)\text{SDP}_\C(M)
+\]
+We want to show that the rounded solution still has large norm.
+
+It's possible that $|X_Z|$ has 0 eigenvalues. One solution is to add some Gaussian noise to the original $X,Y$ because the set of non-invertible matrices is an algebraic set of measure 0. Alternatively, replace the eigenvalues by $\ep\to 0$.
+
+We have
+\[
+\E_z[M(X_z,Y_z)] = \rc 2 \E_z \ba{
+\sumo{r,s}d \ol{z_r} z_s \sumo{i,j,k,l}n (X_{ij})r\ol{(Y_{kl})}_s
+}=\rc 2 M(X,Y).
+\]
+
+Now we analyze step 3. The characteristic function of the hyperbolic secant distribution is, for $a>0$,
+\[
+\E[a^{it}] = \int a^{it}e(t)\,dt = \fc{2a}{Ha^2}
+\]
+by doing a contour integral.
+%e^{itc}, up to scalar multiples the hyperbolic secand
+%char function of gaussian is a gaussian.
+Then 
+\begin{align}
+\EE_t[a^{it}] &=2a-\EE_t [a^{2+it}]\\
+\EE_t[A^{it}]&=2A - \EE_t[A^{2+it}]\\
+\EE_t[A\ot \ol B] &=\EE_t[(U_z|X_z|^{it}) \ot (\ol{V_z} |Y_z|^{it})]\\
+&=(U_z\ot \ol{V_z}) \EE_t [(|X_z|\ot |Y_t|)^{it}]\\
+&=2X_z\ot \ol{Y_z} - \EE_t[(U_z|X_z|^{2+it})\ot (\ol{V_z|Y_z|}^{2-it})]
+\end{align}
+We apply $M$. 
+\[
+\EE_{z,t} [M(A,B)] = M(X,Y) - \EE_{z,t}[M(U_z|X_z|^{2+it}, V_z|Y_z|^{2-it})]
+\]
+Because $A,B\in M_n(\C)$, we can write $M(A,B)$ in terms of the tensor product, 
+\begin{align}
+M(A,B) &= \sumo{i,j,k,l}n A_{ij} \ol{B_{kl}}\\
+&= \sumo{i,j,k,l}n M_{ijkl} (A\ot \ol B)_{(ij),(kl)}
+\end{align}
+\begin{clm}[Key claim]
+For all $t\in \R$,
+\[
+\ab{\EE_z \ba{M(U_z|X_z|^{2+it}, V_z|Y_z|^{2-it})}}\le \rc2\text{SDP}_\C(M).
+\]
+\end{clm}
+\begin{proof}
+We have $F(t),G(t)\in M_n(\C^{\{\pm 1,\pm i\}^d})$.  
+where
+\begin{align}
+(F(t)_{jk})_z&= \rc{2^d} (U_z|X_z|^{2+it})_{jk}\\
+(G(t)_{jk})_z&= \rc{2^d}(V_z|Y_z|^{2-it})_{jk}.
+M(F(t),G(t)) &= \rc{4^d} \sum_{z\in \{\pm 1,\pm i\}^d} M(U_z|X_z|^{2+it}, V_z|Y_z|^{2-it})\\
+&=\EE_z[M(U_z|X_z|^{2+it},V_z|Y_z|^{2-it})].
+\end{align}•
+%arb vec of arb dimension. We want to represent this error term. entries which are vectors in huge dimensional space
+%exists solution in SDP...
+%use any dimension we want
+
+\begin{lem}
+$F(t),G(t)$ satisfy
+\[
+\max\bc{
+\ve{F(t)F(t)^*}, \ve{F(t)^*F(t)}, \ve{G(t)G(t)^*}, \ve{G(t)^*G(t)}
+}
+\]
+\end{lem}
+%We can find 2 matrices in the SDP space such that whe we plug them in,
+\begin{lem}
+Suppose $X,Y\in \cal M_n(\C^d)$ and $\max\{\ve{XX^*}, \ve{X^*X}, \ve{YY^*}, \ve{Y^*Y}\}$. Then there exist $R,S\in U_n(\C^{d+2n^2})$ such that $M(R,S) = M(X,Y)\le 1$ for every $M\in M_n(M_n(\C))$. 
+\end{lem}
+
+From the two lemmas, there exist $R(t), S(t)\in U_n(\C^{d+2n^2})$ such that $M(R(t),S(t))=M(\sqrt 2 F(t), \sqrt 2 G(t))$. Then
+\begin{align}
+|M(F(t),G(t))| &= \rc 2 |M(R(t), S(t))| \le \rc 2 2\text{SDP}_\C(M)\\
+F(t)F(t)^* &=\rc{4^d} \sum_{z\in \{\pm 1,\pm i\}^d} U_z|X_z|^*U_z^* \\
+&=\EE_z[U_z |X_z|^* U_2^*] = \EE_z[(X_zX_z^*)].
+\end{align}
+
+\begin{clm}
+For $W\in M_n(\C^d)$, define for each $v\in [d]$, $(W_r)_{ij} = (W_{ij})_r$, $W_z= \an{W,z}$. Then
+\[
+\EE_z [(W_zW_z^*)^2] = (WW^*)^2 + \sumo rd W_r (W^*W-W_r^*W_r) W_r^* .
+%every entry, $r$th coordinate, gives complex matrix.
+\]
+\end{clm}
+Note $W_z = \sumo rd \Si_rW_r$ and
+\begin{align}
+WW^*&= \sumo rd  W_r W_r^*&
+W^*W&= \sumo rd W_r^*W_r.
+\end{align}
+We compute
+\begin{align}
+\EE_z[(W_z W_z^*)^2] & = \EE_z \ba{
+\sumo_{p,q,r,s}d \ol{z_p}z_q\ol{z_r}z_s W_pW_q^*W_rW_s^*
+}\\
+&=\sumo p d W_p W_p^* W_p W_p^* + \sumr{p,q=1}{p\ne q}^n (W_pW_q^*W_qW_q^* + W_pW_q^*W_qW_p^*)
+\end{align}
+\begin{multline}
+\sumo{p,q}d W_pW_p^* W_qW_q^* + \sumo{p,q}d W_pW_q^*W_qW_p^* - \sumo pd W_pW_p^*W_pW_p^*
+\\=\pa{\sumo pd W_pW_p^*}^2 + \sumo pd W_p\pa{\sumo qd W_q^*W_q}W_p^* - \sumo pd W_pW_p^*W_pW_p^*.
+\end{multline}
+Apply the claim with $W=\rc{\sqrt 2}X$. Recall that $XX^*=X^*X=I$. Then 
+\[
+F(t)F(t)^* + \rc 4\sumo rd X_rX_r^*X_rX_r^* = \rc 2 I = F(t)F(t)^* + \rc 4 \sumo rd X_r^*X_rX_r^*X_r
+\]
+and similarly for $G$.
+
+\begin{proof}[Proof of Lemma 2]
+%$\sqrt 2$.
+Let $A=I-XX^*$, $B=I-X^*X$.  Note $A,B\succeq 0$, $\Tr(A) = \Tr(\ol B)$. We have
+\begin{align}
+A&=\sumo in \la_i (v_iv_i^*)\\
+B&= \sumo jn \mu_j(v_jv_j^*)\\
+\si &= \sumo in \la_j  =\sumo jn \mu_j\\
+R&= X\opl \pa{
+\bigopl_{i,j=1}^n \sfc{\la_i\mu_j}{\si}(u_iv_j^*)
+} \opl O_{M_n(\C^{n^2})} \in M_n(\C^d\opl \C^{n^2}\opl \C^{n^2})\\
+S&=Y\opl O_{M_n(\C^{n^2})} \opl \pa{\bigopl_{i,j=1}^n \sfc{\la_i\mu_j}{\si}(u_iv_j^*)}
+\end{align}
+Check $R\in U_n(\C^{d+2n^2})$, 
+\begin{align}
+RR^* &= XX^*+A\\
+R^*R&= X^*X +B\\
+M(R,S)&= M(X,Y).
+\end{align}
+\end{proof}
+The $\si$ disappears because $\sum \mu_j=\si$.
+%Then $S=Y\opl O$
+\end{proof}
+%amazing inequality.
+The factor 2 in the noncommutative inequality is sharp. That the answer is 2 (rather than some strange constant) means there is something going on algebraically. The hyperbolic secant is the unique distribution that makes this work.
+
+%H used geometric methods in a dual form. The hyperbolic secant fell out. The inequalities were a few months of trial and error. His proof had infinite tensor products. Believe it's going to be true. Without the hint that it works, it's magic. The hint is that it works.
+
+
+%\chapter{Lipschitz extensions from finite sets}

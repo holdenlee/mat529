@@ -112,6 +112,7 @@ M & \psi(x) \geq M \\
 -M & \psi(x) \leq -M
 \end{cases}
 \] 
+\end{df}
 We're just cutting things off at the interval $[-M, M]$. 
 So fix $f$ maximizing $\Gamma$. 
 
@@ -160,7 +161,7 @@ First we'll phrase the classical Grothendieck inequality in terms of an optimiza
 \]
 In general this is hard to solve, so we do a semidefinite relaxation
 \[
-\txtn{sup}_{d \txtn{ dimensions}} \textn{sup}_{x, y \in (S^{d - 1})^n}  \sum_{i, j = 1}^n A_{ij}\langle x_i, y_j \rangle
+\txtn{sup}_{d \txtn{ dimensions}} \txtn{sup}_{x, y \in (S^{d - 1})^n}  \sum_{i, j = 1}^n A_{ij}\langle x_i, y_j \rangle
 \]
 which implies that it's polynomially solveable, and Grothendieck inequality ensures you're only a constant factor off from the best. 
 
@@ -206,6 +207,7 @@ What we will actually prove is that the SDP solution is at most twice the optima
 \[
 |\sum_{i, j, k , l = 1}^n M_{ijkl} \langle X_{ij}, Y_{kl} \rangle | \geq (1 - \ep) \txtn{SDP}_{\C}(M)
 \]
+\end{thm}
 
 So what we're saying is suppose some SDP algorithm gave a solution satisfying this from input $X, Y \in U_n(\C^d)$. Then we can give a rounding algorithm which will output $A, B \in U_n$ such that 
 \[
@@ -220,6 +222,3 @@ Then we have $(A, B) = (U_z|X_z|^{it}, V_z|Y_z|^{-it})$ where $t$ is sampled fro
 \]
 When you have a positive definite matrix, you can raise it to imaginary powers, so we're rotating only the positive semidefinite part, and keeping the rotation side $(UV^*)$. 
 Note that the $(A, B)$ are unitary. (You can also think of this as raising diagonals to $it$, these necessarily have eigenvalue of magnitude $1$).
-
-
-
