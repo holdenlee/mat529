@@ -1,0 +1,394 @@
+
+\blu{4-27}
+
+
+\section{Improving the Grothendieck constant}
+\begin{thm}[Krivine (1977)]
+\[
+K_G \le \fc{\pi}{2\ln(1+\sqrt 2)}\le 1.7...
+\]
+\end{thm}
+The strategy is \ivocab{preprocessing}.  
+
+\ig{images/4-27-1}{.25}
+
+There exist new vectors $x_1',\ldots, x_n',y_1',\ldots, y_n'\in \bS^{2n-1}$ such that if $z\in \bS^{2n-1}$ is chosen uniformly at random, then  for all $i,j$,
+\[
+\EE_z\ub{(\sign\an{z,x_i'})}{\ep_i} \ub{(\sign\an{z,y_j'})}{\de_j} = \ub{\fc{2\ln(1+\sqrt 2)}{\pi}}{c}\an{x_i,y_j}.
+\]
+Then
+\[
+\sum a_{ij} \an{x_i,y_j} = \E \ba{\fc{\pi}{2\ln (1+\sqrt 2)} \sum a_{ij}\ep_i\de_j}.
+\]
+
+We will take vectors, transform them in this way, take a random point on the sphere, take a hyperplane orthogonal, and then see which side the points fall on. 
+
+\begin{thm}[Grothendieck's identity]
+For $x,y\in \bS^k$ and $z$ uniformly random on $\bS^k$,
+\[
+\EE_z[\sgn(\an{x,z}) \sgn(\an{y,z})] = \fc 2\pi \sin^{-1}(\an{x,y}).
+\]
+%collect 1 if both on the same side . 1 if on both on the sameside.
+\end{thm}
+\begin{proof}
+This is 2-D plane geometry. 
+
+The expression is 1 if both $x,y$ are on the same side of the line, and $-1$ if the line cuts between the angle. 
+\end{proof}
+%used in GW min cut.
+
+Once we have the idea to pre-process, the rest of the proof is natural. 
+\begin{proof}
+\begin{align}
+\EE_z\ba{\sign(\an{z,x_i'})\sign(\an{z,y_j'})}
+& = \fc 2\pi \sin^{-1} (\an{x_i',y_j'}) = c\an{x_i,y_j}\\
+\an{x_i',y_j'} &=  \sin\Big(\ub{\fc{\pi c}2}u\an{x_i,y_j}\Big).
+\end{align}
+We write the Taylor series expansion for $\sin$. 
+\begin{align}
+\an{x_i',y_j'} &= \sin(u\an{x_i,y_j})\\
+&=\sum_{k=0}^{\iy} \fc{(u\an{x_i,y_j})^{2k+1}}{(2k+1)!} (-1)^k\\
+&=\sum_{k=0}^{\iy} \fc{(-1)^k u^{2k+1}}{(2k+1)!} \an{x_i^{\ot (2k+1)}, y_j^{\ot (2k+1)}}.
+\end{align}
+(For $a,b\in \ell_2$, $a\ot b = (a_ib_j)$, $a^{\ot 2}=(a_ia_j)$, $b^{\ot 2} = (b_ib_j)$, $\an{a^{\ot 2},b^{\ot 2}}=\sum a_ia_j b_ib_j = \an{a,b}^2$.)
+
+Define an infinite direct sum corresponding to these coordinates.
+
+Define 
+\begin{align}
+x_i' &= \bigopl_{k=0}^{\iy} \pa{ \fc{(-1)^k u^{\fc{2k+1}2}}{\sqrt{(2k+1)!}} x_i^{\ot 2k+1}}\\
+y_j' &= \bigopl_{k=0}^{\iy} \pa{ \fc{u^{\fc{2k+1}2}}{\sqrt{(2k+1)!}} x_i^{\ot 2k+1}}\in \bigopl_{k=1}^{\iy} (\R^m)^{\ot 2k+1}\\
+\an{x_i',y_j'} &=\sum_{k=0}^{\iy} (-1)^k \fc{u^{2k+1}}{(2k+1)!} \an{x_i^{\ot 2k+1}, y_j^{\ot 2k+1}}.
+\end{align}
+%\o\bigopl{}{}
+The infinite series expansion of sin generated an infinite space for us. % space
+
+%didn't check anything about u, have to be unit vectors. 
+%Why do they have to be?
+%identity not true otherwise. assume get unit vectors at the end.
+We check
+\begin{align}
+\ve{x_i'}^2 &=\sum_{k=0}^{\iy} \fc{u^{(2k+1)}}{(2k+1)!} = \sinh(u) = \fc{e^u-e^{-u}}2=1.
+\end{align}•
+\end{proof}
+We don't care about the construction, we care about the identity. All I want is to find $x_i',y_j'$ with given $\an{x_i',y_j'}$; this can be done by a SDP. We're using this infinite argument just to show existence.
+
+%proj into 1 d, best you can do is sine.. Best you can do is sine
+%Can do better in higher dim.
+
+A different way to see this is given by the following picture. Take a uniformly random line and look at the orthogonal projection of points on the line. Is it positive or negative. A priori we have vectors in $\R^n$ that don't have an order. 
+
+We want to choose orientations. A natural thing to do is to take a random projection onto $\R$ and use the order on $\R$. Krevine conjectured his bound was optimal.
+
+What is so special about positive or negative? We can partition it into any 2 measurable sets. Any partition into 2 measurable sets produces a sign. It's a nontrivial fact that no partition beats this constant. This is a fact about measure theory.
+
+The moment you choose a partition, %took product of signs
+it forced the construction of the $x',y'$. %generalize to any 2 sets $A,B$, get another analytic funciton.
+The whole idea is the partition; then the preprocessing is uniquely determined; it's how we reverse-engineered the theorem.
+
+Here's another thing you can do. What's so special about a random line? The whole problem is about finding an orientation. 
+
+Consider a floor (plane) chosen randomly, look at shadows. If you partition the plane into 2 half-planes, you get back the same constant. We can generalize to arbitrary partitions of the plane. This is equivalent to an isoperimetric problem. In many such problems the best thing is a half-space. We can look at higher-dimensional projections. It seems unnatural to do this---except that you gain!
+
+In $\R^2$ there is a more clever partition that beats the halfspace! Moreover, as you take the increase the dimension, eventually you will converge to the Grothendieck constant. The partitions look like fractal objects!
+%$\sqrt{n}$
+
+%even though trying to find orientations, it pays off to do crazy partition.
+%This is why we don't know the second digit...
+
+\section{Application to Fourier series}
+
+This is a classical theorem about Fourier series. %I'll state it for a general abelian group. 
+Helgason generalized it to a general abelian group.
+
+\begin{df}
+Let $S=\R/\Z$. The space of continuous functions is $C(S')$. Given $m:\Z\to \R$ (the multiplier), 
+define 
+\begin{align}
+\La_m:C(\bS') &\to \ell_\iy\\
+\La_m(f) &= (m(n)\wh f(n))_{n\in \Z}.
+\end{align}
+\end{df}
+
+For which multipliers $m$ is $\La_m(f)\in \ell_1$ for every $f\in C(\bS^1)$?
+
+A more general question is, what are the possible Fourier coefficients of a continuous functions? For example, if $\log n$ works, then $\sum |\wh f(n)||m(n)|<\iy$. This is a classical topic.
+
+An obvious sufficient condition is  that $m\in \ell_2$, by Cauchy-Schwarz and Parseval.
+\begin{align}
+\sum_{n\in \Z} |m(n)\wh f(n)|& \le \pa{\sum m(n)^2}^{\rc 2} \ub{\pa{\sum |\wh f(n)|^2}^{\rc 2}}{\ve{f}_2\le \ve{f}_{\iy}}\\
+\ve{\La_m(f)}_{\ell_1}&\le \ve{m}_2\ve{f}_{\iy}.
+\end{align}
+
+This theorem says the converse.
+\begin{thm}[Orlicz-Paley-Sidon] %, Helgason
+%Let $G$ be a compact abelian group and $G'$ be the dual group.
+If $\La_m(f)\in \ell_1$ for all $f\in C(\bS^1)$, then $m\in \ell_2$.
+\end{thm}
+We know the fine line of when Fourier coefficients of continuous functions converge. 
+
+We can make this theorem quantitative. Observe that if you know $\La_m:C(\bS^1) \to \ell_1$, then $\La_m$ has a closed graph (exercise). The closed graph theorem (a linear operator between Banach spaces with closed graph is bounded) says that $\ve{\La_m}<\iy$. 
+% $\set{(f,\La_m(f))}{f\in C()}$
+
+\begin{cor}
+$\sum|m(n)\wh f(n)|\le K\ve{f}_{\iy}$.
+\end{cor}
+
+We show $\ve{\La_m}\le \ve{m}_2\le K_G\ve{\La_m}$.
+
+%deduce from Groth that you get this improved more than boundedness.
+We will use the following consequence of Grothendieck's inequality (proof omitted).
+\begin{cor}
+Let $T:\ell_{\iy}^n\to \ell_1^m$. For all $x_1,\ldots, x_n\in \ell_\iy$, 
+\[
+\pa{\sum_i \ve{Tx_i}_1^2}^{\rc 2} \le K_G\ve{T}  \sup_{y\in \ell_1}{\sumo in \an{y,x_i}^2}.
+\]
+
+Equivalently, there exists a probability measure $\mu$ on $[n]$ such that $\ve{Tx}\le K_G\ve{T}\int  K_G\ve{T}\pa{\int x_j^2 \,d\mu(j)}^{\rc 2}$.
+\end{cor}
+\begin{proof}
+Use duality. To get the equivalence, use the same proof as in Piesch Domination.
+\end{proof}
+%piesch domination theorem was another duality.
+
+%start with operators between spaces and get Hilbert spaces. In our case.
+
+\begin{proof}
+Given $\La_m:C(\bS^1)\to \ell_1$, there exists $\mu$ on $\bS^1$ such that for every $f$, letting $f_\te(x)=f(e^{i\te}x)$,
+%discretization
+\begin{align}
+\pa{\sum |m(n)\wh f_\te(n)|}^2&\le K_G^2 \ve{\La_m}^2\int_{S^1} (f_\te(x))^2 \,d\mu(x)\\
+%has to be uniform measure.
+\pa{\sum |m(n)\wh f(n)|}^2&\le K_G^2 \ve{\La_m}^2\int_{S^1} (f(x))^2 \,d\mu(x).
+\end{align}
+%f x n
+Apply this to the following trigonometric sum
+\[
+f(x) = \sum_{n=-N}^N m(n) e^{-in\te},
+%multiplier fight against itself.
+\]
+to get
+\[
+\pa{\sum_{n=-N}^N m(n)^2}^2 \le K_G^2 \ve{\La}_m^2 \sum_{n=-N}^N m(n)^2.
+\]
+%cancelling out, get!
+\end{proof}
+
+RIP also had this kind of magic.
+%duality, auxiliary measure, select random point.
+
+\section{? presentation}
+
+
+\begin{thm}
+Let $(X,d)$ be a metric space with $X=A\cup B$ such that 
+\begin{itemize}
+\item
+$A$ embeds into $\ell_2^a$ with distortion $D_A$, and
+\item
+$B$ embeds into $\ell_2^b$ with distortion $D_B$.
+\end{itemize}
+Then $X$ embeds into $\ell_2^{a+b+1}$ with distortion at most $7D_AD_B+5(D_A+D_B)$. %If $D_A=D_B=1$, then $X$ embeds into $\ell_2^{a+b+1}$ with distortion $\le 12.07$.
+
+Furthermore, given $\psi:A\to \ell_2^a$ and $\ph_B:B\to \ell_2^b$ with $\ve{\ph_A}_{\text{Lip}}\le D_A$ and $\ve{\ph_B}_{\text{Lip}}\le D_B$, there is an embedding $\Psi:X\hra \ell_2^{a+b+1}$ with distortion $7D_AD_B + 5(D_A+D_B)$ such that $\ve{\Psi(u) - \Psi(v)}\ge\ve{\ph_A(u)-\ph_A(v)}$ for all $u,v\in A$.
+\end{thm}
+For $a\in A$, let $R_a = d(a,B)$ and for $b\in B$, let $R_b=d(A,b)$. 
+
+\begin{df}
+%finite distortion, then also finite distortion.
+%The most surprising thing about this theorem is that it's not trivial.
+
+For $\al>0$, $A'\subeq A$ is an \vocab{$\al$-cover} for $A$ with respect to $B$ if
+\begin{enumerate}
+\item
+For every $a\in A$, there exists $a'\in A'$ where $R_{a'} \leq R_a$ and $d(a,a') \le \al R_a$.
+\item
+For distinct $a_1', a_2'\in A'$, $d(a_1', a_2')\ge \al \min(R_{a_1'},R_{a_2'})$.
+%building a net, but the $\ep$ of the net is a function of the distance to the set. %density is distance to net point. if close to set, strong requirement, weaker as farther away.
+\end{enumerate}
+This is like a net, but the $\ep$ of the net is a function of the distance to the set. %density is distance to net point. if close to set, strong requirement, 
+The requirement is weaker for points that are farther away.
+
+\end{df}
+
+\begin{lem}
+For all $\al>0$, there is an $\al$-cover $A'$ for $A$ with respect to $B$. 
+\end{lem}
+
+\begin{proof}
+Induct. The base case is $\phi$, which is clear.
+
+Assume the lemma holds for $|A|<k$; we'll show it holds for $|A|=k$. Let $u\in A$ be the point closest to $B$. Let $Z=A\bs B_{\al R_u}(u)=:B$; we have $|Z|<|A|$. Let $Z'$ be a cover of $Z$, and let $A'=Z'\cup \{u\}$.
+
+We show that $A'$ is an $\al$-cover. We need to show the two properties.
+\begin{enumerate}
+\item
+Divide into cases based on whether $a\in B$ or $a\nin B$.
+\item
+For $a_1',a_2'\in A'$, if both are in $z'$, we're done. 
+
+Otherwise, without loss of generality, $a_1'=u$ and $a_2' \in Z'$. 
+\end{enumerate}•
+\end{proof}
+
+%infinite-dimensional hilbet space, no compactness. There is abstract nonsense you can do, but it's not just compactness. It's more like compactness of logic. It's abstract, not geometry.
+
+\begin{lem}
+Define $f:A'\to B$ to send every point in the $\al$-cover to a closest point in $B$, $d(a',f(a'))=R_{a'}$. 
+
+Then $\ve{f}_{\text{Lip}}\le 2\pa{1+\rc\al}$. 
+By the triangle inequality,
+\[
+d(f(a_1'), f(a_2')) \le d(f(a_1'), a_1') + d(a_1',a_2') + d(a_2',f(a_2')).
+\]
+We have
+\begin{align}
+Ra_1' + Ra_2' + d(a_1',a_2') &= 2 \min (R_{a_1'}, R_{a_2'}) + |R_{a_1'} + R_{a_2'} + d(a_1',a_2')\\
+& \le \rc{\al} d(a_1',a_2') + d(a_1',a_2') + d(a_1',a_2')\\
+&=2\pa{1-\rc \al} d(\al_1' ,\al_2')
+\end{align}
+%no issue with countability. Look at subset largest that admits an $\al$-cover. This argument shows we can add a point to it.
+\end{lem}
+
+Let $\ph_B:B\hra \ell_2^b$ be an embedding with $\ve{\ph}_{\text{Lip}}\le D_B$; it is noncontracting.
+
+\begin{lem}
+There is $\psi:X\to \ell_2^b$ such that 
+\begin{enumerate}
+\item
+For all $a_1,a_2\in A$, 
+\[
+\ve{\psi(a_1) - \psi(a_2)} \le 2\pa{1+\rc\al} D_AD_B d(\al_1,\al_2)
+\]
+\item
+For all $b_1,b_2\in B$,
+\[
+d(b_1,b_2) \le \ve{\psi(b_1)-\psi(b_2)} = \ve{\ph_B(b_1)-\ph_B(b_2)} \le D_Bd(b_1,b_2).
+\]
+\item
+For all $a\in A$, $b\in B$, $d(a,b)-(1+\al)(2D_AD_B+1)R_a\le \ve{\psi(a)-\psi(b)} \le 2(1+\al) (D_AD_B+(2+\al)D_B) d(a,b)$.
+\end{enumerate}
+\end{lem}
+%K extension theorem
+
+\begin{proof}
+Let $g=\ph_B f\ph_A^{-1}$.
+
+We have maps
+\[
+\xymatrix{
+A\ha{r}^c \ar[d]^{\ph_A} & A' \ar[d]^{\ph_A} \ar[r]^f & B\ar[d]^{\ph_B}&\\
+\ph(A) & \ph(A') \ar[l]_c \ar[r] & \ph(B)\ha{r}&\ell_2^b.
+}
+\]
+Now
+\[
+\ve{g}_{\text{Lip}} \le \ve{\ph_B}_{\text{Lip}}\ve{f}_{\text{Lip}}\ve{\ph_A^{-1}}_{\text{Lip}} \le D_B2\pa{1+\rc \al}
+\]
+By the Kirszbraun extension theorem~\ref{thm:kirszbraun}, construct $\wt g:\ell_2^a\to \ell_2^b$ with 
+\[
+\ve{\wt g}_{\text{Lip}} \le D_B2\pa{1+\rc\al}.
+\]
+Define $\psi(x) = \begin{cases}
+\wt g(\ph_A(x)),&\text{if }x\in A\\
+\ph_B(x), & \text{if }x\in B.
+\end{cases}$.
+
+We show the three parts.
+\begin{enumerate}
+\item
+\begin{align}
+\ve{\psi(a_1)-\psi(a_2)}& = \ve{\wt g(\ph_A(a_1)) - \wt g(\ph_A(a_2))}\\
+&\le \ve{\wt g}_{\text{Lip}} \ve{\ph_A}_{\text{Lip}} d(a_1,a_2).
+\end{align}
+\item
+This is clear.
+%$\ve{\psi(b_1)-\psi(b_2)}$
+\item Let $b=f(a')$. Then $d(a',b')\le R_a$, $\psi(a')=\psi(b')$. 
+We have
+\begin{align}
+\ve{\psi(a)-\psi(b)} &\le \ve{\psi(a)-\psi(a')} - \ve{\psi(a')-\psi(b')} - \ve{\psi(b) - \psi(b')}\\
+%upper bound these gues
+\ve{\psi(a)-\psi(b)} &\le 2\pa{1+\rc\al} D_AD_B d(a,a')  + D_B d(b,b')\\
+d(a,a') &\le \al R_a \le \al d(a,b)\\
+d(b,b') &\le d(b,a) + d(a,a') + d(a',b')\\
+&\le (2+\al)d(a,b).
+\end{align}
+This shows the first half of (3). 
+
+For the other inequality, use the triangle inequality against and get
+\begin{align}
+\ve{\psi(a)-\psi(b)}&\ge 
+\ve{\psi(b) - \psi(b')} - \ve{\psi(a')-\psi(b')} - \ve{\psi(a') - \psi(a)}\\ %foldl (-) (zip2 (\(x,y) -> \ve{\psi(x) - \psi(y)}) [b,b',a'] ...) 
+&\ge d(b,b') -2(1+\al) D_AD_BR_a.
+\end{align}•
+\end{enumerate}•
+\end{proof}
+
+Let 
+\begin{align}
+\psi_B&=\psi\\ %$\psi_A$. 
+\be&=(1+\al)(2D_AD_B+1)\\
+\ga &= \prc2\be\\
+\psi_\De:X&\to \R\\
+\psi_A(a)&=\ga R_a,&a\in A\\
+\psi_A(b)&=-\ga R_b,&b\in B\\
+\Psi:X&\to \ell^{a+b+1}\\
+\Psi(x)&=\psi_A\opl \psi_B \opl \psi_\De \in \ell_2^{a+b+1}.
+\end{align}
+For $a_1,a_2\in A$,
+\[
+\ve{\Psi(a_1)-\Psi(a_2)} \ge \ve{\Psi_A(a_1)-\Psi_A(a_2)} \ge d(a_1,a_2).
+\]
+For $a\in A,b\in B$,
+\[
+\ve{\Psi(a)-\Psi(b)}^2 =\ve{\psi_A(a) - \psi_A(b)}^2 + \ve{\psi_B(a)-\psi_B(b)}^2 + \ve{\psi_A(a)-\psi_A(b)}^2.
+\]
+\begin{align}
+\ve{\psi_A(a)-\psi_A(b)} &\ge d(a,b)-\be R_b\\
+\ve{\psi_B(a)-\psi_B(b)} &\ge d(a,b)-\be R_a\\
+\ve{\psi_A(a)-\psi_A(b)} &= \ga (R_a+R_b).
+\end{align}
+\begin{clm}
+We have $\ve{\psi(a)-\psi(b)} \ge d(a,b)$. 
+\end{clm}
+\begin{proof}
+\Wog{} $R_a\subeq R_b$. Consider 3 cases.
+\begin{enumerate}
+\item
+$\be R_b \le d(a,b) $.
+\item
+$\be R_a \le d(a,b) \le \be R_b$.
+\item
+$d(a,b)\le \be R_a$.
+\end{enumerate}
+Consider case 2. The other cases are similar.
+\begin{align}
+\ve{\psi(a)-\psi(b)}^2 & \ge (d(a,b)-\be R_a)^2 + \be^2 (R_a+R_b)^2/2\\
+&=d(a,b)^2 - 2\be d(a,b) R_a + \fc{\be^2}{2} (3R_a^2 + 2R_aR_b+R_b^2)\\
+&\ge d(a,b)^2 - 2\be R_aR_b +\fc{\be^2}{2} (3R_a^2 + 2R_aR_b+R_b^2)\\
+& = d(a,b)^2 + \be^2 ((\sqrt 3 R_a-R_b)^2 + 2(\sqrt 3 + R_aR_b))/2\\
+&> d(a,b)
+\end{align}
+
+%for case 1, something to say.
+\end{proof}
+
+%_=_;
+
+For $a_1,a_2\in X$, 
+\begin{align}
+\ve{\Psi(a_1)- \Psi(a_2)} &=\ve{\psi_A(a_1) + \psi_A(a_2)}^2 + \ve{\psi_B(a_1)-\psi_B(a_2)}^2+ \ve{\psi_B(a_1)-\psi_A(a_2)}\\
+&\le \pa{D_A^2 + 4\pa{1+\rc\al}^2 D_A^2D_B^2}d(a_1,a_2)^2 + \ga^2(R_{a_1} - R_{a_2})\\
+&\le \pa{D_A^2 + 4\pa{1+\rc\al}^2 D_A^2D_B^2+\ga^2}d(a_1,a_2)^2\\
+|R_a-R_{a_2}|&\le d(a_1,a_2)\\
+\ve{\Psi(b_1)-\Psi(b_2)}^2 &\le \pa{D_B^2 + 4\pa{1+\rc\al}^2 D_A^2D_B^2 + \ga^2} d(a,b)^2\\
+|\Psi(a)-\Psi(b)|^2 & \le \ve{\psi_A(a)-\psi_B(b)}^2 + \ve{\psi_B(a)-\psi_B(b)}^2 + \ve{\psi_A(a)-\psi(b)}^2\\
+&\le \cdots \ga^2(R_a+R_b)^2 \le\cdots
+\end{align}
+$R_a,R_b\le d(a,b)$.
+
+%clarity relative to diff
+
+
+

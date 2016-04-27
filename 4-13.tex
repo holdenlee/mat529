@@ -93,12 +93,12 @@ Next week is student presentations, let's give some facts about Grothendieck's i
 The big Grothendieck Inequality is the following:
 
 \begin{thm} Big Grothendeick. \\
-There exists a universal constant $K_G$ (the Grothendieck constant) such that the following holds true. Let $A = (a_j) \in M_{m \times n}(\R)$, and $x_1, \cdots, x_m, y_1, \cdots, y_n$ are unit vectors in a Hilbert space $H$. Then there exist signs $\ep_1, \cdots, \ep_n, \de_1, \cdots, \de_n \in \{\pm 1\}^n$ such that if you look at the bilinear form 
+There exists a universal constant $K_G$ (the Grothendieck constant) such that the following holds. Let $A = (a_{ij}) \in M_{m \times n}(\R)$, and $x_1, \ldots, x_m, y_1, \ldots, y_n$ be unit vectors in a Hilbert space $H$. Then there exist signs $\ep_1, \ldots, \ep_n, \de_1, \ldots, \de_n \in \{\pm 1\}^n$ such that if you look at the bilinear form 
 \[
-\sum_{i, j} a_{ij}\langle x_i, y_j \rangle = K_G \sum_{a_{ij}\ep_i\de_j}
+\sum_{i, j} a_{ij}\langle x_i, y_j \rangle \le  K_G \sum_{i,j} {a_{ij}\ep_i\de_j}
 \]
-So whenever you have a matrix, and two sets of high-dimensional vectors in a Hilbert space, there is at most a universal constant (less than $2$ or $3$) times the same thing but with signs. 
 \end{thm}
+So whenever you have a matrix, and two sets of high-dimensional vectors in a Hilbert space, there is at most a universal constant (less than $2$ or $3$) times the same thing but with signs. 
 
 Let's give a geometric interpretation. Consider the following convex bodies in $(\R^n)^2$. So $A$ is the convex hull of all matrices of the form $conv(\left\{(\ep_i\de_j): \ep_1, \cdots, \ep_m, \de_1, \cdots, \de_n \in \{\pm 1\} \right\}) \subseteq M_{m \times n}(\R) \cong \R^{mn}$. These matrices all have entries $\pm 1$. 
 This is a polytope. 

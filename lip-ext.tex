@@ -1,0 +1,390 @@
+\chapter{Lipschitz extension}
+
+`
+
+\section{Introduction and Problem Setup}
+
+We give a presentation of the paper ``On Lipschitz Extension From Finite Subsets'', by Assaf Naor and Yuval Rabani, $(2015)$. For the convenience of the reader referencing the original paper, we have kept the numbering of the lemmas the same.
+
+Consider the setup where we have a metric space $(X, d_X)$ and a Banach space $(Z, \|\cdot\|_Z)$. For a subset $S \subseteq X$,
+consider a $1$-Lipschitz function $f: S \to Z$. Our goal is to extend $f$ to $F:X \to Z$ without experiencing too much growth
+in the Lipschitz constant $\|F\|_{Lip}$ over $\|f\|_{Lip}$. 
+
+\begin{df} $e(X, S, Z)$ and its variants. \\
+Define $e(X, S, Z)$ to be the infimum over the sequence of $K$ satisfying
+$\|F\|_{Lip} \leq K\|f\|_{Lip}$ (i.e., $e(X, S, Z)$ is the least upper bound for $\frac{\|F\|_{Lip}}{\|f\|_{Lip}}$ for a particular $S$, $X$, $Z$).
+
+Then, define $e(X, Z)$ to be the supremum over all subsets $S$ for $e(X, S, Z)$: So of all subsets, what's the largest least upper bound for the ratio of Lipschitz constants? 
+
+We may also want to consider supremums over $e(X, S, Z)$ for $S$ with a fixed size. We can formulate this in two ways.
+$e_n(X, Z)$ is the supremum of $e(X, S, Z)$ over all $S$ such that $|S| = n$.
+We can also describe $e_{\epsilon}(X, Z)$ as the supremum of $e(X, S, Z)$ over all $S$ which are $\epsilon$-discrete in the sense that $d_X(x, y) \geq \epsilon\cdot \txt{diam}(S)$ for distinct $x, y \in S$ and some $\epsilon \in [0, 1]$.
+\end{df}
+
+\begin{df} Absolute extendability. \\
+We define $\textbf{ae}(n)$ to be the supremum of $e_n(X, Z)$ over all possible metric spaces $(X, d_X)$ and Banach spaces $(Z, \|\cdot\|_Z)$.
+Identically, $\textbf{ae}(\epsilon)$ is the supremum of $e_{\epsilon}(X, Z)$ over all $(X, d_X)$ and $(Z, \|\cdot\|_Z)$. 
+\end{df}
+
+From now on, we will primarily discuss subsets $S \subseteq X$ with size $|S| = n$. 
+Bounding the supremum, the absolute extendability $\textbf{ae}(n) < K$ allows us to make general claims about the extendability of maps from metric spaces into Banach spaces. \textbf{Any} Banach-space valued $1$-Lipschitz function defined on metric space $(M, d_M)$ can therefore be extended to \textbf{any} metric space $M'$ such that $M'$ contains $M$ (up to isometry; as long as you can embed $M$ in $M'$ with an injective distance preserving map) such that the Lipschitz constant of the extension is at most $K$. 
+
+Therefore, for the last thirty years, it has been of interest to understand upper and lower bounds on $\textbf{ae}(n)$, as we want to understand the asymptotic behavior as $n \to \infty$. In the $1980$s, the following upper and lower bound were given by Johnson and Lindenstrauss and Schechtman:
+\[
+\sqrt{\frac{\log n}{\log \log n}} \lesssim \textbf{ae}(n) \lesssim \log n
+\]
+In $2005$, the upper bound was improved:
+\[
+\sqrt{\frac{\log n}{\log \log n}} \lesssim \textbf{ae}(n) \lesssim \frac{\log n}{\log \log n}
+\]
+In this talk, we improve the lower bound for the first time since $1984$ to
+\[
+\sqrt{\log n} \lesssim \textbf{ae}(n) \lesssim \frac{\log n}{\log \log n}
+\]
+
+\subsection{Why do we care?}
+
+This improvement is of interest primarily not because of the removal of a $\sqrt{\log \log n}$ term in the denominator.
+It is due to the fact that the approach taken to get the lower bound provided by Johnson-Lindenstrauss $1984$ has an inherent limitation. 
+The approach of Johnson-Lindenstrauss to get the lower bound is to prove the nonexistance of linear projections of small norm. 
+By considering a specific case for $f, X, S, Z$, we can get a lower bound on $\textbf{ae}(n)$.
+Consider a Banach space $(W, \|\cdot\|_W)$ and let $Y \subseteq W$ be a $k$-dimensional linear subspace of $W$ with $N_{\epsilon}$ an $\epsilon$-net in the unit sphere of $Y$, and then define $S_{\epsilon} = N_{\epsilon} \cup \{0\}$. Fix $\epsilon \in (0, 1/2)$. 
+We take $f: S_{\epsilon} \to Y$ to be the identity mapping, and wish to find an extension to $F:W \to Y$. Then, in our setup, we let $X = W$, $S = S_{\epsilon}$, $Z = Y$. We seek to bound the magnitude of the Lipschitz constant of $F$, call it $L$. Johnson-Lindenstrauss prove that for $\epsilon \lesssim \frac{1}{k^2}$, there \textbf{exists} a linear projection $P:W \to Y$ with $\|P\| \lesssim L$. We can now proceed to lower bound $L$ by lower-bounding $\|P\|$ for all $P$. The classical Kadec'-Snobar theorem says that there always exists a projection with $\|P\| \leq \sqrt{k}$. Therefore, the best (largest) possible lower bound we could get will be $L \gtrsim \sqrt{k}$ by Kadec'-Snobar. But this is bad:
+
+Taking $n = |S_{\epsilon}|$, by bounds on $\epsilon$-nets we get $k \asymp \frac{\log n}{\log(1/\epsilon)}$ which implies
+\[
+L \gtrsim \sqrt{\frac{\log n}{\log (1/\epsilon)}}
+\]
+In order to get the lower bound on $\textbf{ae}(n)$ of $\sqrt{\log n}$, we must take $\epsilon$ to be a universal constant.
+However, from a lemma by Benyamini (in our current setting), $L \lesssim e_{\epsilon}(X, Z) \lesssim 1/\epsilon = O(1)$, which means that any lower bound we get on $L$ will be too small (and won't even tend to $\infty$). Therefore, we must make use of nonlinear theory to get the $\sqrt{n}$ lower bound on $\textbf{ae}(n)$. 
+
+\subsection{Outline of the Approach}
+
+Let us formally state the theorem, and then give the approach to the proof. 
+\begin{thm} Theorem $1$. \\
+For every $n \in \N$ we have $\textbf{ae}(n) \gtrsim \sqrt{\log n}$. 
+\end{thm}
+
+We give a metric space $X$, a Banach space $Z$, a subset $S \subseteq X$, a function $f:S \to Z$ such that $f$ extends to $F: X \to Z$ where $\|F\|_{Lip} \leq K\|f\|_{Lip}$. 
+
+Let $V_G$ be the vertices of a finite graph $G$ with distance metric the shortest path metric $d_G$ where edges all have length $1$. 
+
+We define our metric space $X = (V_G, d_{G_r(S)})$ where $G_r(S)$ is the $r$-magnification of the shortest path metric on $V_G$. $S$ is an $n$-vertex subset $(S, d_{G_r(S)})$. 
+Our Banach space $Z = (\R_0^{X}, \|\cdot\|_{W_1(X, d_{G_r(S)}})$ is equipped with the Wasserstein-$1$ norm induced by the $r$-magnification of the shortest path metric on the graph. Note that $\R_0^{X}$ is just weight distributions on the vertices of $X$ which sum to zero in the image. Our $f: S \to \R_0^{S} \subseteq Z$, and we extend to $F: X \to Z$. We will show how to choose $r$ and $|S|$ optimally to get the result. 
+
+The rest of my section of the talk will give the requisite definitions and lemmas to understand the full proof. 
+
+\section{$r$-Magnification}
+
+\begin{df} $r$-magnification of a metric space. \\
+Given metric space $(X, d_X)$ and $r > 0$, for every subset $S \subseteq X$ we define
+$X_r(S)$ as a metric space on the points of $X$ equipped with the following metric:
+\[
+d_{X_r(S)}(x, y) = d_X(x, y) + r|\{x, y\} \cap S|
+\]
+and where $d_{X_r(S)}(x, x) = 0$. 
+All this is saying is that when we have distinct points $x, y \in S$, we have the metric is
+$2r + d_X(x, y)$, when one point is in $S$ and one point is outside, we have $r + d_X(x, y)$, and
+when both $x, y$ are outside, the metric is unchanged.
+\end{df}
+
+The significance of this definition is as follows: It's easier for functions on $S$ to be Lipschitz (we enlarge the denominator) without affecting functions on $X \setminus S$. Thus, there are more potential $f$ we can draw from which satisfy $1$-Lipschitzness which can have potentially large Lipschitz extensions (i.e., large $K$) since we don't make it easier to be Lipschitz on $X \setminus S$ (which we must deal with in the extension space).
+
+However, we can't make $r$ too large: the minimum distance between $x, y$ in $S$ becomes close to diam$(S)$ under $r$-magnification as $r$ increases. Let us assume the minimum distance between $x, y$ is $1$ (as it would be in an undirected graph with an edge between $x, y$ under the shortest path metric). Particularly, for distinct $x, y \in S$, since $\txt{diam}(S, d_{X_r(S)}) = 2r + \txt{diam}(S, d_X)$, 
+\[
+d_{X_r(S)}(x, y) \geq 2r + 1 = \frac{2r + 1}{2r + \txt{diam}(S, d_X)} \cdot \txt{diam}(S, d_{X_r(S)})
+\]
+Then recall that $e_{\epsilon}(X, Z)$ is the supremum over $S$ such that are $\epsilon$-discrete, where here, $\epsilon = \frac{2r + 1}{2r + \txt{diam}(S, d_X)}$. Earlier we saw a bound that 
+\[
+e_{\epsilon}(X, Z) \lesssim 1/\epsilon = \frac{2r + \txt{diam}(S, d_X)}{2r + 1} \leq 1 + \frac{\txt{diam}(S, d_X)}{r}
+\]
+Thus, if we make $r$ too large, we again are bounding $e_{\epsilon}(X, Z) \lesssim 1 = O(1)$, which means our choice of $X$ and $Z$ is not good to get a large lower bound (again, we're not even going to $\infty$). 
+
+Thus we must balance our choice of $r$ appropriately.
+
+\section{Wasserstein-$1$ norm}
+
+Now we come to the second part of our choice of $Z$. Note that we will define $\R_0^X$ to be the set of functions on the points of $X$ such that for each $f \in \R_0^X$, $\sum_{x \in X} f(x) = 0$. We use $e_x$ to denote the indicator weight map with $1$ at point $x$ and $0$ everywhere else.
+
+\begin{df} Wasserstein-$1$ Norm. \\
+The Wasserstein-$1$ norm is the norm induced by the following origin-symmetric convex body in finite metric space $(X, d_X)$:
+\[
+K_{(X, d_X)} = \txt{conv}\left\{\frac{e_x - e_y}{d_X(x, y)}: x, y \in X, x \neq y \right\}
+\]
+This is a unit ball on $\R_0^X$. We denote the induced norm by $\|\cdot\|_{W_1(X, d_X)}$. 
+\end{df}
+
+We can give an equivalent (proven with the Kantorovich-Rubinstein duality theorem) definition of the Wasserstein-$1$ distance:
+\begin{df} Wasserstein-$1$ distance and norm. \\
+Let $\Pi(\mu, \nu)$ be all measures on $\pi$ on $X \times X$ such that 
+\[
+\sum_{y \in X} \pi(y, z) = \nu(z)
+\]
+for all $z \in X$
+and 
+\[
+\sum_{z \in X} \pi(y, z) = \mu(y)
+\]
+for all $y \in X$. Then, the Wasserstein-$1$ distance (earthmover) is 
+\[
+W_1^{d_X}(\mu, \nu) = \inf_{\pi \in \Pi(\mu, \nu)} \sum_{x, y \in X} d_X(x, y) \pi(x, y)
+\]
+In the case that $\mu = \nu$, we automatically have $(\mu \times \nu)/\mu(X) \in \Pi(\mu, \nu)$ (normalizing by one measure trivially gives the other), so $\Pi$ is nonempty.
+The norm induced by this metric for $f \in \R_0^X$ is
+\[
+\|f\|_{W_1(X, d_X)} = W_1^{d_X}(f^+, f^-)
+\]
+where $f^+ = \max(f, 0)$ and $f^- = \max(-f, 0)$ (since $\sum_{x \in X} f(x) = 0$, we need to make sure that $\mu, \nu$ are both nonnegative measure).
+Futhermore, we have $\sum_{x \in X} f^+(x) = \sum_{x \in X} f^-(x)$ (same total mass), which means that $\Pi(f^+, f^-)$ is nonempty.
+\end{df}
+
+\begin{df} $\ell_1(X)$ norm. \\
+Note that using standard notation, we can also define an $\ell_1$ norm on $f$ by 
+\[
+\|f\|_{\ell_1(X)} = \sum_{x \in X} |f(x)| = \sum_{x \in X} f^+(x) + f^-(x)
+\]
+Thus, for our restrictions on $f$, $\sum_{x \in X} f^+(x) = \sum_{x \in X} f^-(x) = \|f\|_{\ell_1(X)}/2$.
+\end{df}
+
+Now we give a simple lemma which gives bounds for the Wasserstein-$1$ norm induced by the $r$-magnification of a metric on $X$.
+\begin{lem} Lemma $7$. \\
+For $(X, d_X)$ a finite metric space, we have
+\begin{enumerate}
+
+\item $\|e_x - e_y\|_{W_1(X, d_X)} = d_X(x, y)$ for every $x, y \in X$. 
+
+\item For all $f \in \R_0^X$, 
+\[
+\frac{1}{2}\min_{x, y \in X; x \neq y} d_X(x, y)\|f\|_{\ell_1(X)} \leq \|f\|_{W_1(X, d_X)} \leq \frac{1}{2}\txt{diam}(X, d_X)\|f\|_{\ell_1(X)}
+\]
+
+\item For every $r > 0$, $S \subseteq X$, for all $f \in \R_0^S$,
+\[
+r\|f\|_{\ell_1(S)} \leq \|f\|_{W_1(S, d_{X_r(S)})} \leq \left(r + \frac{\txt{diam}(X, d_X)}{2}\right)\|f\|_{\ell_1(S)}
+\]
+\end{enumerate}
+\end{lem}
+\begin{proof}
+
+\begin{enumerate}
+
+\item This follows directly from the unit ball interpretation of the Wasserstein-$1$ norm, since $\frac{e_x - e_y}{d_X(x, y)}$ is by the first definition on the unit ball.
+
+\item Let $m = \min_{x, y} d_X(x, y) > 0$. For distinct $x, y \in X$, we have
+\[
+\max_{x, y \in X; x \neq y}\left\|\frac{e_x - e_y}{d_X(x, y)} \right\|_{\ell_1(X)} \leq \max_{x, y \in X; x \neq y} \frac{\|e_x - e_y\|_{\ell_1(X)}}{m} = \frac{2}{m}
+\]
+since $0 < m \leq d_X(x, y)$ and $1 + 1 = 2$. Therefore $\frac{e_x - e_y}{d_X(x, y)} \in \frac{2}{m}B_{\ell_1(X)}$. These elements span $K_{X, d_X}$, so we have $K_{X, d_X} \subseteq \frac{2}{m}B_{\ell_1(X)}$ and we get the first inequality. 
+The second inequality follows from 
+\[
+\|f\|_{W_1(X, d_X)} = \inf_{\pi \in \Pi(f^+, f^-)} \sum_{x, y \in X} d_X(x, y) \pi(x, y) \leq \txt{diam}(X, d_X)\sum_{x \in X} f^{+}(x) = \txt{diam}(X, d_X)\|f\|_{\ell_1(X)}/2
+\]
+
+\item This inequality is a special case of the previous inequality. We have that for $X_r(S)$, $m \geq 2r$ (so $\frac{2}{m} \leq \frac{1}{r}$) and $\frac{1}{2}\txt{diam}(X, d_{X_r(S)}) \leq \frac{1}{2}\left(2r  + \txt{diam}(X, d_X)\right) = \left(r + \frac{\txt{diam}(X, d_X)}{2}\right)$. Plugging in these estimates give the inequality.
+
+\end{enumerate}
+\end{proof}
+
+\section{Graph theoretic lemmas}
+
+\subsection{Expanders}
+
+We will need several properties of edge-expanders in our proof of the main theorem. 
+For this section, we fix $n, d \geq 3$ and let $G$ be a connected $n$-vertex $d$-regular graph.
+We can imagine $d = 3$ in this section, all that matters is that $d$ is fixed. 
+
+First we record two basic average bounds on distance in the shortest-path metric, denoted $d_G$.
+\begin{lem} Average shortest-path metric and $r$-magnified average shortest-path bounds. \\
+\begin{enumerate}
+
+\item $d_G$ lower bound: For nonempty $S \subseteq V_G$,
+\[
+\frac{1}{|S|^2}\sum_{x, y \in S}d_G(x, y) \geq \frac{\log |S|}{4\log d}
+\]
+
+\item $d_{G_r(S)}$ equality: For some $S \subseteq V_G$ and $r > 0$, 
+\[
+\frac{1}{|E_G|}\sum_{(x, y ) \in E_G} d_{G_r(x, y)} = 1 + \frac{2r|S|}{n}
+\]
+
+\end{enumerate}
+\end{lem}
+\begin{proof}
+
+\begin{enumerate}
+\item The smallest nonzero distance in $G$ is at least $1$. Thus, the average is bounded below by $\frac{1}{|S|^2}|S|(|S| - 1) = 1 - \frac{1}{|S|}$ since $G$ is connected (shortest case is complete graph on $n$ vertices). Then, $1 - 1/a \geq (\log a)/4 \log 3$ for $a \in [15]$ ($d = 3$ maximizes), so we proceed assuming $|S| \geq 16$. Let's bound the distance in the average. Since $G$ is $d$-regular, for every $x \in V_G$ the number of vertices $y$ such that $d_G(x, y) \leq k -1$ is at most $\sum_{i = 0}^{k - 1} d^i$. The rest of the vertices are farther away. Since $1 + \cdots + d^{k - 2} < d^{k -1}$ we have $\#\{y: d_G(x, y) \leq k - 1\} \leq 2d^{k - 1}$. Choosing $k = 1 + \lfloor \log_d(|S|/4) \rfloor$ gives that $2d^{k - 1} \leq \frac{|S|}{2}$. Therefore
+\[
+\frac{1}{|S|^2}\sum_{x, y \in S}d_G(x, y) \geq \frac{1}{|S|^2} * |S| * |S|/2 * (k - 1) = \frac{k -1}{2} = \frac{\log(|S|/4)}{2 \log d} \geq \frac{\log |S|}{4\log d}
+\]
+since $|S| \geq 16$.
+
+\item Let $E_1$ be edges completely contained in $S$ and $E_2$ be edges partially contained in $S$. Because $G$ is $d$-regular, $2|E_1| + |E_2| = d|S|$ ($2$ vertices in $S$ for $E_1$, only $1$ vertex for $E_2$, then divide by $d$ for overcounting since each vertex in $S$ hits $d$ other vertices, and we count exactly the edges which have at least one vertex in $S$). Note that $|E_G| = dn/2$ by double-counting vertices. Then for each edge in $E_1$ we add $2r$, for each edge in $E_2$ we add $r$, and otherwise we add $0$ to the base distance of an edge, which is $1$. Therefore, 
+\begin{align*}
+\begin{split}
+\frac{1}{|E_G|}\sum_{(x, y ) \in E_G} d_{G_r(x, y)} &= \frac{\left((0 + 1)|E_G \setminus (E_1 \cup E_2)| + (r + 1)|E_2| + (2r + 1)|E_1|\right)}{|E_G|} 
+\\
+&= 1 + \frac{r(2|E_1| + |E_2|)}{|E_G|} = 1 + \frac{rd|S|}{dn/2} = 1 + \frac{2r|S|}{n}
+\end{split}
+\end{align*}
+
+\end{enumerate}
+\end{proof}
+
+Now we introduce the definition of edge expansion. 
+
+\begin{df} Edge expansion $\phi(G)$. \\
+$G$ is a connected $n$-vertex $d$-regular graph.
+Consider $S, T \subseteq V_G$ disjoint subsets. Let $E_G(S, T) \subseteq E_G$ denote the set of edges which bridge $S$ and $T$.
+Then the \textbf{edge-expansion} $\phi(G)$ is defined by
+\[
+\phi(G) = \sup \left\{\phi: |E_G(S, V_G\setminus S)| \geq \phi\frac{|S|(n - |S|)}{n^2}|E_G|, \forall S \subseteq V_G, \phi \in [0, \infty)\right\}
+\]
+\end{df}
+
+We give an equivalent formulation of edge expansion via the cut-cone decomposition:
+\begin{lem} Edge-Expansion: Cut-cone Decomposition of Subsets of $\ell_1$. \\
+$\phi(G)$ is the largest $\phi$ such that for all $h:V_G \to \ell_1$,
+\[
+\frac{\phi}{n^2}\sum_{x, y \in V_G} \|h(x) - h(y)\|_1 \leq \frac{1}{|E_G|}\sum_{(x, y) \in E_G} \|h(x) - h(y)\|_1
+\]
+\end{lem}
+\begin{proof}
+We will assume this for this talk.
+\end{proof}
+
+Now we combine Lemma $7$ and the cut-cone decomposition to get Lemma $8$:
+\begin{lem} Lemma $8$. \\
+Fix $n \in \N$ and $\phi \in (0, 1]$. Suppose $G$ is an $n$-vertex graph with edge expansion $\phi(G) \geq \phi$. For all nonempty $S \subseteq V_G$ and $r > 0$, every $F:V_G \to \R_0^S$ satisfies
+\[
+\frac{1}{n^2}\sum_{x, y \in V_G} \|F(x) - F(y)\|_{W_1(S, d_{G_r(S)})} \leq \frac{2r + \txt{diam}(S, d_G)}{(2r + 1)\phi} \cdot \frac{1}{|E_G|} \sum_{(x, y) \in E_G}\|F(x) - F(y)\|_{W_1(S, d_{G_r(S)})}
+\]
+\end{lem}
+Basically, whereas before we were bounding average norms (normal and $r$-magnified) in the domain space $V_G$, we are now bounding average norms in the image space using the Wasserstein-$1$ norm induced by the $r$-magnification of the shortest path metric on the graph.
+\begin{proof}
+First, plug in $h = F$ into the cut-cone decomposition, where the norm is now defined by $\ell_1(S)$. Then, we know that diam$(S, d_{G_r}(S)) = 2r + \txt{diam}(S, d_G)$ and the smallest positive distance in $(S, d_{G_r(S)})$ is $2r + 1$. Applying Lemma $7$, every $x, y \in V_G$ satisfy
+\[
+\frac{2r + 1}{2}\|F(x) - F(y)\|_{\ell_1(S)} \leq \|F(x) - F(y)\|_{W_1(S, d_{G_r(S)})} \leq \frac{2r + \txt{diam}(S, d_G)}{2}\|F(x) - F(y)\|_{\ell_1(S)}
+\]
+Plugging these estimates directly into the cut-cone decomposition
+\[
+\frac{1}{n^2}\sum_{x, y \in V_G} \|F(x) - F(y)\|_{\ell_1(S)} \leq \frac{1}{\phi|E_G|}\sum_{(x, y) \in E_G} \|F(x) - F(y)\|_{\ell_1(S)}
+\]
+gives the desired result.
+\end{proof}
+
+\subsection{An Application of Menger's Theorem}
+
+Here, we want to bound below the number of edge-disjoint paths.
+
+\begin{lem} Lemma $9$. \\
+Let $G$ be an $n$-vertex graph and $A, B \subseteq V_G$ be disjoint. Fix $\phi \in (0, \infty)$ and suppose $\phi(G) \geq \phi$.
+Then
+\[
+\#\left\{\txt{edge-disjoint paths joining }A \txt{ and } B\right\} \geq \frac{\phi |E_G|}{2n} \cdot \min\{|A|, |B|\}
+\]
+\end{lem}
+\begin{proof}
+Let $m$ be the maximal number of edge-disjoint paths joining $A$ and $B$. 
+By Menger's theorem from classical graph theory, there exists a subset of edges $E^* \subseteq E_G$ with $|E^*| = m$ such that every path in $G$ joining $a \in A$ to $b \in B$ contains an edge from $E^*$.
+
+Now consider the graph $G^* = (V_G, E_G \setminus E^*)$. In this graph, there are no paths between $A$ and $B$. Now, if we let $C \subseteq V_G$ be the union of all connected components of $G^*$ containing an element of $A$, then $A \subseteq C$ and $B \cap C = \emptyset$. 
+Since we covered the maximal possible vertices reachable from $A$ with $C$, all edges between $C$ and $V_G \setminus C$ are in $E^*$.
+Therefore, $|E_G(C, V_G \setminus C)| \leq |E^*| = m$.
+By the definition of expansion,
+\[
+m \geq |E_G(C, V_G\setminus C)| \geq \phi\frac{\max\{|C|, n - |C|\} \cdot \min\{|C|, n - |C|\}}{n^2}|E_G| \geq \frac{\phi \min\{|A|, |B|\}\cdot |E_G|}{2n}
+\]
+since $\max\{|C|, n - |C|\} \geq n/2$ and since $A \subseteq C, B \subseteq V_G \setminus C$, we have $\min\{|C|, n - |C|\} \geq \min\{|A|, |B|\}$.
+
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Main Proof}
+
+We fix $d,n\in\mathbb{N},\phi\in(0,1)$ and let $G$ be a $d$-regular graph on $n$ vertices with $\phi(G)\ge\phi$. We also fix a nonempty subset $S\subset V_G$ and $r>0$ and define a mapping
+$$f:(S,d_{G_r(S)})\mapsto\left(\mathbb{R}_0^S,\|\cdot\|_{W_1(S,d_{G_r(S)})}\right)\quad\textrm{s.t.}\quad f(x)=e_x-\frac{1}{|S|}\sum\limits_{z\in S}e_z\enskip\forall\enskip x\in S$$
+Then suppose we have that some $F:V_G\mapsto\mathbb{R}_0^S$ extends $f$ and for some $L\in(0,\infty)$ we have
+$$\|F(x)-F(y)\|_{W_1(S,d_{G_r(S)})}\le Ld_{G_r(S)}(x,y)$$
+For $x\in V_G,s\in(0,\infty)$ define 
+$$B_S(x)=\{y\in V_G:\|F(x)-F(y)\|_{W_1(S,d_{G_r(S)})}\le s\}$$
+i.e.e $B_s$ is the inverse image of $F$ of the ball (in the Wasserstein 1-norm) of radius $s$ centered at $F(x)$. By the lemma consequence of Menger's Theorem, since $\phi\ge\phi(G)$ we have
+$$m\ge\frac{\phi d}{4}\min\{|S\backslash B_s(x)|,|B_s(x)|\}\qquad\circled{1}$$
+for $m$ edge-disjoint paths between $S\backslash B_s(x)$ and $B_s(x)$, i.e. we can find indices $k_1,\dots,k_m\in\mathbb{N}$ and vertex sets $\{z_{j,1},\dots,z_{j,k_j}\}_{j=1}^m\in V_G$ s.t. $\{z_{j,1}\}_{j=1}^m\subset S\backslash B_s(x)$, $\{z_{j,k_j}\}_{j=1}^m\subset B_s(x)$ (i.e. the beginnings and ends of paths are in different disjoint subsets) and such that $\{\{z_{j,1},z_{j,i+1}:j\in\{1,\dots,m\}\wedge i\in\{1,\dots,k_j-1\}\}$ are distinct edges in $E_G$ (i.e. edge-disjointedness). Now take an index subset $J\subset\{1,\dots,m\}$ s.t. $\{z_{j,1}\}_{j\in J}$ are distinct and $\{z_{j,1}\}_{j\in J}=\{z_{i,1}\}_{i=1}^m$. For $j\in J$ denote by $d_j$ the number of $i\in\{1,\dots,m\}$ for which $z_{j,1}=z_{i,1}$. Then since $G$ is $d$-regular and $\{\{z_{i,1},z_{i,2}\}\}_{i=1}^m$ are distinct, $\max\limits_{j\in J}d_j\le d$. Since $\sum\limits_{j\in J}d_j=m$, from \circled{1} we have that
+$$|J|\ge\frac{m}{d}\ge\frac{\phi}{4}\min\{|S\backslash B_s(x)|,|B_s(x)|\}\qquad\circled{2}$$
+\noindent The quantity $|J|$ can be upperbounded as follows:\\
+\begin{lem} Lemma $10$:
+$|J|\le\max\left\{d^{16(s-r)},\frac{16nLd\log d}{\log n}\left(1+\frac{2r|S|}{n}\right)\right\}$
+\end{lem}
+\begin{proof}
+Assume $|J|\le d^{16(s-r)}$ (otherwise we are done). This is equivalent to 
+$$s-r<\frac{\log|J|}{16\log d}$$
+Now since $\{z_{j,1}\}_{j\in J}\subset S$ and $F(x)=f(x)$ $\forall$ $x\in S$ and is an isometry on $(S,d_{G_r(S)})$, by the definition of the $r$-magnified metric
+$$\|F(z_{i,1})-F(z_{j,1})\|_{W_1(S,d_{G_r(S)})}=d_{G_r(S)}(z_{i,1},z_{j,1})=2r+d_G(z_{i,1},z_{j,1})$$
+This gives us
+\begin{align*}
+\sum\limits_{j\in J}\|F(z_{j,1})-F(z_{j,k_j})\|_{W_1(S,d_{G_r(S)})}&=\frac{1}{2|J|}\sum\limits_{i,j\in J}\left(\|F(z_{i,1})-F(z_{i,k_i})\|_{W_1(S,d_{G_r(S)})}+\|F(z_{j,1})-F(z_{j,k_j})\|_{W_1(S,d_{G_r(S)})}\right)\\
+&\ge\frac{1}{2|J|}\sum\limits_{i,j\in J}\left(\|F(z_{i,1})-F(z_{j,1})\|_{W_1(S,d_{G_r(S)})}+\|F(z_{z_i,k_i})-F(z_{j,k_j})\|_{W_1(S,d_{G_r(S)})}\right)
+\end{align*}
+Since $\{z_{j,k_j}\}_{j\in J}\subset B_s(x)$, by the definition of $B_s(x)$ we have 
+$$\|F(z_{i,k_i})-F(z_{j,k_j})\|_{W_1(S,d_{G_r(S)})}\le\|F(z_{i,k_i})-F(x)\|_{W_1(S,d_{G_r(S)})}+\|F(x)-F(z_{j,k_j})\|_{W_1(S,d_{G_r(S)})}\le 2s\enskip\forall\enskip i,j\in J$$
+so the previous inequality can be further continued as
+$$\sum\limits_{j\in J}\|F(z_{j,1})-F(z_{j,k_j})\|_{W_1(S,d_{G_r(S)})}\ge\frac{1}{2|J|}\sum\limits_{i,j\in J}d_G(z_{i,1},z_{j,1})-(s-r)|J|\ge\frac{|J|\log|J|}{8\log d}-(s-r)|J|>\frac{|J|\log|J|}{16\log d}$$
+where the second inequality above is a property of the expander graph. The same quantity can be bounded from above using the Lipschitz condition
+$$\sum\limits_{j\in J}\|F(z_{j,1})-F(z_{j,k_j})\|_{W_1(S,d_{G_r(S)})}\le L\sum\limits_{j\in J}d_{G_r(S)}(z_{j,1},z_{j,k_j})\le L\sum\limits_{j\in J}\sum\limits_{i=1}^{k_j-1}d_{G_r(S)}(z_{j,1},z_{j,i+1})$$
+By the edge-disjointedness of the paths (specifically since $\{\{z_{j,1},z_{j,i+1}\}:j\in J\wedge i\in\{1,\dots,k_j-1\}\}$) are distinct edges in $E_G$, we have that
+$$\sum\limits_{j\in J}\sum\limits_{i=1}^{k_j-1}d_{G_r(S)}(z_{j,1},z_{j,i+1})\le\sum\limits_{\{u,v\}\in E_G}d_{G_r(S)}(u,v)=\frac{nd}{2}\left(1+\frac{2r|S|}{n}\right)$$
+Everything together gives
+$$\frac{Lnd}{2}\left(1+\frac{2r|S|}{n}\right)\ge\frac{|J|\log|J|}{16\log d}$$
+By the simple fact that $a\log a\le b\implies a\le\frac{2b}{\log b}$ for $a\in[1,\infty),b\in(1,\infty)$, using $a=|J|$ and $b=8Lnd\log d\left(1+\frac{2r|S|}{n}\right)\ge n$ we have that
+$$|J|\le\frac{16nLd\log d}{\log n}\left(1+\frac{2r|S|}{n}\right)$$
+completing the proof.
+\end{proof}
+
+\noindent The lemma has two corollaries, both depending on the following condition:
+$$d^{16(s-r)}\le\frac{\phi|S|}{8}\qquad L\le\frac{\phi|S|\log n}{128\left(1+\frac{2r|S|}{n}\right)nd\log d}\qquad\circled{3}$$
+\begin{cor} Corollary $11$: $\max\limits_{x\in V_G}|B_s(x)|<\frac{|S|}{2}$
+\end{cor}
+\begin{proof}
+Pick an $x\in V_G$. If $B_s(x)\cap S$ is nonempty, then again using the standard estimate on expander graphs we have that $\exists$ $y,z\in B_s(x)\cap S$ s.t.
+$$d_G(y,z)\ge\frac{\log|B_s(x)\cap S|}{4\log d}$$
+Since $y,z\in S$ and $F(x)=f(x)$ $\forall$ $x\in S$ and furthermore $F$ is an isometry on $(S,d_{G_r(S)})$, we have similarly to before that
+$$d_G(y,z)+2r=d_{G_r(S)}(y,z)=\|F(y)-F(z)\|_{W_1(S,d_{G_r(S)})}\le\|F(y)-F(x)\|_{W_1(S,d_{G_r(S)})}+\|F(x)-F(z)\|_{W_1(S,d_{G_r(S)})}\le 2s$$
+where we have used first the triangle inequality and second the fact that $y,z\in B_s(x)$. Then using the first inequality in the proof we have
+$$|B_s(x)\cap S|\le d^{8(s-r)}\le\sqrt{\frac{\phi|S|}{8}}\le\frac{2|S|}{5}$$
+where the second inequality comes from the first assumption. Now the above inequality implies that $|S\backslash B_s(x)|\ge\frac{3|S|}{5}$, which combined with Lemma 10 yields
+$$\min\left\{\frac{3|S|}{5},|B_s(x)|\right\}<\max\left\{\frac{4d^{16(s-r)}}{\phi},\frac{64nLd\log d}{\phi\log n}\left(1+\frac{2r|S|}{n}\right)\right\}$$
+However, the two original assumptions together imply that $\frac{3|S|}{5}$ is in fact greater than either value in the maximum, so
+$$|B_s(x)|\le\max\left\{\frac{4d^{16(s-r)}}{\phi},\frac{64nLd\log d}{\phi\log n}\left(1+\frac{2r|S|}{n}\right)\right\}\le\frac{|S|}{2}$$
+\end{proof}
+\begin{cor} Corollary $12$: $L\ge\frac{\phi s}{2\left(1+\frac{\textrm{diam}(G,d_G)}{2r}\right)\left(1+\frac{2r|S|}{n}\right)}$
+\end{cor}
+\begin{proof}
+By the definition of $B_s(x)$ for $x\in V_G$ and $y\in V_G\backslash B_s(x)$ we have $\|F(x)-F(y)\|_{W_1(S,d_{G_r(S)})}>s$, so
+\begin{align*}
+\frac{1}{n^2}\sum\limits_{x,y\in V_G}\|F(x)-F(y)\|_{W_1(S,d_{G_r(S)})}&\ge\frac{1}{n^2}\sum\limits_{x\in V_G}\sum\limits_{y\in V_G\backslash B_s(x)}\|F(x)-F(y)\|_{W_1(S,d_{G_r(S)})}\\
+&\ge\frac{s}{n^2}\sum\limits_{x\in V_G}(n-|B_s(x)|)\ge s\left(1-\frac{\max\limits_{x\in V_G}|B_s(x)|}{n}\right)\ge\frac{s}{2}
+\end{align*}
+where the last inequality comes from Corollary 11. Then since Lemma 8 gives
+\begin{align*}
+\frac{1}{n^2}\sum\limits_{x,y\in V_G}\|F(x)-F(y)\|_{W_1(S,d_{G_r(S)})}&\le\frac{2r+\textrm{diam}(S,d_G)}{(2r+1)\phi|E_G|}\sum\limits_{x,y\in V_G}\|F(x)-F(y)\|_{W_1(S,d_{G_r(S)})}\\
+&\le\frac{L\left(1+\frac{\textrm{diam}(G,d_G)}{2r}\right)}{\phi|E_G|}\sum\limits_{\{x,y\}\in E_G}d_{G_r(S)}(x,y)\\
+&=\frac{L\left(1+\frac{\textrm{diam}(G,d_G)}{2r}\right)\left(1+\frac{2r|S|}{n}\right)}{\phi}
+\end{align*}
+where the ineqaulity on the second line is true since $F$ is an isometry on $(S,d_G)$ and from the Lipschitz constant of $f$ and the equality is average length of the $r$-magnification of the expander graph $G$. Combining these inequalities with the previous ones yields the corollary.
+\end{proof}
+\begin{thm} Theorem $13$: if $0<r\le\textrm{diam}(G,d_G)$ then 
+$$L\ge_C\frac{\phi}{1+\frac{r|S|}{n}}\min\left\{\frac{|S|\log n}{nd\log d},\frac{16r^2\log d+r\log\left(\frac{\phi|S|}{8}\right)}{\textrm{diam}(G,d_G)\log d}\right\}$$
+\end{thm}
+\begin{proof}
+Assume $16r\log d+\log\left(\frac{\phi|S|}{8}\right)>0$ (otherwise we are done) and choose $s=r+\frac{\log\left(\frac{\phi|S|}{8}\right)}{16\log d}$ s.t. $s>0$ and $d^{16(s-r)}=\frac{\phi|S|}{8}$. Then the first inequality in \circled{3} is satisfied, so either the second fails and $L$ thus has that expression as a lower bound, or both are satisfied and we have the lower bound in Corollary 12.
+\end{proof}
+\begin{thm} Theorem $1$: for every $n\in\mathbb{N}$ we have $\textbf{ae}(n)\ge_C\sqrt{\log n}$.
+\end{thm}
+\begin{proof}
+Substituting $\phi\asymp 1$ and $\textrm{diam}(G,d_G)\asymp\frac{\log n}{\log d}$ (the $\asymp$ indicates asymptotically for large $n$), and using the assumption $0<r\le\textrm{diam}(G,d_G)$, the lower bound given in Theorem 13 becomes
+$$L\ge_C\frac{1}{1+\frac{r|S|}{n}}\min\left\{\frac{|S|\log n}{nd\log d},\frac{r(r\log d+\log|S|)}{\log n}\right\}$$
+Taking $S\subset V_G$ s.t. $|S|=\left\lfloor\frac{n\sqrt{d\log d}}{\sqrt{\log n}}\right\rfloor$ (we must have $n\\ge d^d$ to ensure $|S|\le n$) and $r\asymp\frac{\log d}{\sqrt{d\log d}}$, which gives a lower bound of $L\ge_C\frac{\sqrt{\log n}}{\sqrt{d\log d}}$. Therefore
+$$e_{\left\lfloor\frac{n\sqrt{d\log d}}{\sqrt{\log n}}\right\rfloor}(G_r(S),W_1(S,d_{G_r(S)}))\ge_C\frac{\sqrt{\log n}}{\sqrt{d\log d}}$$
+which completes the proof for fixed $d$.
+\end{proof}

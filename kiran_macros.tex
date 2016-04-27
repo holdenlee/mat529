@@ -1,0 +1,93 @@
+%\documentclass[10pt]{article}
+%\usepackage{amsmath,amsfonts,amssymb,amsthm}
+\usepackage[section]{placeins}
+\usepackage[labelfont=bf]{caption}
+%\usepackage[usenames,dvipsnames]{color} % Required for specifying custom colors and referring to colors by name
+%\usepackage[pdftex]{hyperref} % For hyperlinks in the PDF
+%\hypersetup{
+%  colorlinks=true,
+%  linkcolor=MyBlue, 
+%  citecolor=MyRed,
+%  urlcolor= MyBlue
+%}
+\usepackage{aliascnt}
+%\usepackage[nameinlink, capitalize, noabbrev]{cleveref}   
+%\usepackage{graphicx}
+%\graphicspath{ {images/} }
+
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+
+%\usepackage{geometry}
+%\geometry{verbose,tmargin=2cm,bmargin=2.5cm,lmargin=2.5cm,rmargin=2.5cm}
+
+%\makeatletter
+
+%\newtheorem{theorem}{Theorem}[section]
+%
+%\newtheorem{lemma}[theorem]{Lemma}
+%\newtheorem{corollary}[theorem]{Corollary}
+%\newtheorem{claim}[theorem]{Claim}
+%
+%
+%\theoremstyle{definition}
+%\newtheorem{definition}[theorem]{Definition}
+%\theoremstyle{definition}
+%\newtheorem{example}[theorem]{Example}
+%\theoremstyle{definition}
+%\newtheorem{remark}[theorem]{Remark}
+%\theoremstyle{definition}
+%\newtheorem{conjecture}[theorem]{Conjecture}
+%
+%\makeatother
+
+
+%%% fill in details here
+%\def \lecturenum  {1}
+%\def \lecturedate {October 23; Nov 10, 2015}
+%\def \scribe      {Kiran Vodrahalli}
+%%%
+
+%\definecolor{MyRed}{rgb}{0.99, 0.0, 0.0} 
+%\definecolor{MyGreen}{rgb}{0.0,0.4,0.0} 
+%\definecolor{MyBlue}{rgb}{0.0, 0.0, 0.6}
+%
+%\newcommand{\mc}[1]
+%{\mathcal{#1}}
+
+%\newcommand{\txt}[1]
+%{\textnormal{#1}}
+
+\newcommand{\prob}[2]
+{\textbf{P}_{#1}\{{#2}\}}
+
+\newcommand{\Ek}[2]
+{\textbf{E}_{#1}[{#2}]}
+
+\newcommand{\mi}[1]
+{\txt{min}_{#1}}
+
+%\newcommand{\ma}[1]
+%{\txt{max}_{#1}}
+
+\newcommand{\errs}[1]
+{\txt{err}_{\mc{S}}(#1)}
+
+\newcommand{\errd}[1]
+{\txt{err}_{\mc{D}}(#1)}
+
+
+\newcommand{\vcdim}[1]
+{\textbf{VC-dim}\left(#1\right)}
+
+\newcommand{\nlg}[1]
+{\txt{ln}\left(#1\right)}
+
+\newcommand{\vv}[1]
+{\textbf{#1}}
+
+\newcommand{\circled}[1]{(#1)}
+
+%\usepackage{tikz}
+%\newcommand*\circled[1]{\tikz[baseline=(char.base)]{
+%		\node[shape=circle,draw,inner sep=2pt] (char) {#1};}}
